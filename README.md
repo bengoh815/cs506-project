@@ -100,25 +100,7 @@ You can make headings at different levels by writing `# Heading` with the number
 ```mermaid
 flowchart RL
 subgraph Front End
-	A(Javascript: React)
-end
-	
-subgraph Back End
-	B(Python: Django with \nDjango Rest Framework)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <-->|Django ORM| C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: Vue)
+	A(HTML \n CSS\n Javascript)
 end
 	
 subgraph Back End
@@ -133,149 +115,82 @@ A <-->|"REST API"| B
 B <-->|SQLAlchemy| C
 ```
 
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: Vue)
-end
-	
-subgraph Back End
-	B(Javascript: Express)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <--> C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Static JS, CSS, HTML)
-end
-	
-subgraph Back End
-	B(Java: SpringBoot)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|HTTP| B
-B <--> C
-```
-
-```mermaid
-flowchart RL
-subgraph Front End
-	A(Mobile App)
-end
-	
-subgraph Back End
-	B(Python: Django)
-end
-	
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|REST API| B
-B <-->|Django ORM| C
-```
-
-
-
 #### Database
 
 ```mermaid
 ---
-title: Sample Database ERD for an Order System
+title: Database ERD for MelodyMapper
 ---
 erDiagram
-    Customer ||--o{ Order : "placed by"
-    Order ||--o{ OrderItem : "contains"
-    Product ||--o{ OrderItem : "included in"
+    User ||--o{ Recording : "created by"
 
-    Customer {
-        int customer_id PK
+    User {
+        int user_id PK
         string name
         string email
-        string phone
     }
 
-    Order {
-        int order_id PK
-        int customer_id FK
-        string order_date
-        string status
-    }
-
-    Product {
-        int product_id PK
+    Recording {
+        int recording_id PK
         string name
-        string description
-        decimal price
+        int user_id FK
     }
 
-    OrderItem {
-        int order_item_id PK
-        int order_id FK
-        int product_id FK
-        int quantity
-    }
 ```
 
 #### Class Diagram
 
 ```mermaid
 ---
-title: Sample Class Diagram for Animal Program
+title: Class Diagram for MelodyMapper Program
 ---
 classDiagram
-    class Animal {
+    class User {
+        - int user_id
         - String name
-        + Animal(String name)
+        - String email
+        + User(int user_id, String name, String email)
+        + void setUserID(int user_id)
+        + String getUserID()
         + void setName(String name)
         + String getName()
-        + void makeSound()
+        + void setEmail(String email)
+        + String getEmail()
+        + void getRecordings()
     }
-    class Dog {
-        + Dog(String name)
-        + void makeSound()
+
+    class Recording {
+        - String name
+        + Recording(String name)
+        + void setName(String name)
+        + String getName()
+        + MIDI convert()
     }
-    class Cat {
-        + Cat(String name)
-        + void makeSound()
+
+    class MIDI {
+        + MIDI(Recording recording)
     }
-    class Bird {
-        + Bird(String name)
-        + void makeSound()
-    }
-    Animal <|-- Dog
-    Animal <|-- Cat
-    Animal <|-- Bird
 ```
 
 #### Flowchart
 
 ```mermaid
 ---
-title: Sample Program Flowchart
+title: Program Flowchart
 ---
 graph TD;
-    Start([Start]) --> Input_Data[/Input Data/];
-    Input_Data --> Process_Data[Process Data];
-    Process_Data --> Validate_Data{Validate Data};
-    Validate_Data -->|Valid| Process_Valid_Data[Process Valid Data];
-    Validate_Data -->|Invalid| Error_Message[/Error Message/];
-    Process_Valid_Data --> Analyze_Data[Analyze Data];
-    Analyze_Data --> Generate_Output[Generate Output];
-    Generate_Output --> Display_Output[/Display Output/];
-    Display_Output --> End([End]);
+    Start([Start]) --> Input_Recording[/Input Recording \n/];
+    Input_Recording --> Process_Recording[Process Recording];
+    Process_Recording --> Validate_Recording{Validate Recording};
+    Validate_Recording -->|Valid| Process_Valid_Recording[Process Valid Recording];
+    Validate_Recording -->|Invalid| Error_Message[/Error Message/];
+    Process_Valid_Recording --> Translate_Recording_to_MIDI[Translate Recording to MIDI];
+    Translate_Recording_to_MIDI  --> Store_MIDI_File{Store MIDI File};
+    Store_MIDI_File -->|Valid| Success_Message[/Success Message/];
+    Store_MIDI_File -->|Invalid| Error_Message[/Error Message/];
+    Translate_Recording_to_MIDI --> Display_MIDI[/Display MIDI to player/];
+    Display_MIDI --> End([End]);
+    Success_Message --> End;
     Error_Message --> End;
 ```
 
@@ -283,38 +198,47 @@ graph TD;
 
 ```mermaid
 ---
-title: Sample State Diagram For Coffee Application
+title: State Diagram For MelodyMapper Application
 ---
 stateDiagram
     [*] --> Ready
-    Ready --> Brewing : Start Brewing
-    Brewing --> Ready : Brew Complete
-    Brewing --> WaterLowError : Water Low
-    WaterLowError --> Ready : Refill Water
-    Brewing --> BeansLowError : Beans Low
-    BeansLowError --> Ready : Refill Beans
+    Ready --> Recording : Start Recording
+    Recording --> Validate : Validate Recording
+    Validate --> Conversion : Convert Recording
+    Validate --> ValidateError : Validation Error
+    ValidateError --> Ready : Restart
+    RecordingError --> Ready : Restart
+    Recording --> RecordingError : Recording Error
+    Conversion --> Ready : Display MIDI
+    Conversion --> Store : Save MIDI
+    Store --> Ready : Storing success
+    Store --> StoreError : Storing error
+    StoreError --> Ready : Display saving failed
 ```
 
 #### Sequence Diagram
 
 ```mermaid
 sequenceDiagram
-
-participant ReactFrontend
-participant DjangoBackend
+participant Frontend
+participant FlaskBackend
 participant MySQLDatabase
 
-ReactFrontend ->> DjangoBackend: HTTP Request (e.g., GET /api/data)
-activate DjangoBackend
+Frontend ->> FlaskBackend: HTTP Request (e.g., GET /api/recordings)
+activate FlaskBackend
+Frontend ->> FlaskBackend: HTTP Request (e.g., POST /api/recordings)
 
-DjangoBackend ->> MySQLDatabase: Query (e.g., SELECT * FROM data_table)
+FlaskBackend ->> MySQLDatabase: Query (SELECT * FROM Recording)
 activate MySQLDatabase
+FlaskBackend ->> MySQLDatabase: Query (SELECT * FROM User)
+FlaskBackend ->> MySQLDatabase: Query (INSERT INTO Recording)
+FlaskBackend ->> MySQLDatabase: Query (INSERT INTO User)
 
-MySQLDatabase -->> DjangoBackend: Result Set
+MySQLDatabase -->> FlaskBackend: Result Set
 deactivate MySQLDatabase
 
-DjangoBackend -->> ReactFrontend: JSON Response
-deactivate DjangoBackend
+FlaskBackend -->> Frontend: JSON Response
+deactivate FlaskBackend
 ```
 
 ### Standards & Conventions
