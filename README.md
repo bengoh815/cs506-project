@@ -88,7 +88,14 @@ You can make headings at different levels by writing `# Heading` with the number
 
 #### Technology Stack
 
-Here are some sample technology stacks that you can use for inspiration:
+1. HTML
+2. CSS
+3. Javascript
+4. REST API
+5. Flask (Python)
+6. SQLAlchemy
+7. MySQL
+8. Docker
 
 ```mermaid
 flowchart RL
