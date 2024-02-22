@@ -1,8 +1,6 @@
 # Requirements and Specification Document
 
-## TeamName
-
-<!--The name of your team.-->
+## Melody Mapper
 
 ### Project Abstract
 
@@ -243,4 +241,65 @@ deactivate FlaskBackend
 
 ### Standards & Conventions
 
-<!--Here you can document your coding standards and conventions. This includes decisions about naming, style guides, etc.-->
+This portion of the document outlines the coding standards and conventions that are used in this project.
+
+#### Coding Standards
+
+The team prioritized the following coding standards during development:
+
+1. **Simplicity:** Keep code simple which makes the code easier to understand, debug, and maintain.
+2. **Modularity:** Encourages breaking down code into small, cohesive modules or functions that perform specific tasks.
+3. **Scalability:** Write code that can scale to accommodate future growth in terms of efficiency and complexity.
+4. **Consistency:** Enforce consistent naming conventions, formatting styles, and coding practices across the codebase.
+
+#### Formatting Conventions
+
+For Front End software development we use the VSCode extension [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in its default configuration. 
+Back End development uses the VSCode extension [autopep8](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8) in its default configuration. 
+These extensions provide out of the box solutions that are lightweight and easy to use.
+
+You can also read more about the Python PEP 8 standard [here](https://peps.python.org/pep-0008/).
+
+#### Naming Conventions
+
+1. Compound names should use upper case letters to mark the beginning of the next word likeThis and LikeThisToo
+2. Names of user-defined types (files, classes, or enumerated types) should begin with upper case letters LikeThis or This
+3. Names of functions, including class methods, should begin with lower case letters likeThis or this
+4. Names of variables should begin with a lower case letter likeThis or this
+5. Names of types and functions should be chosen to be self-documenting
+6. Names of meaningful variables should be chosen to be self-documenting. Names of variables whose function is internally important only, such as loop counters, should be simple.
+
+#### Comment Conventions
+
+1. **JavaScript:** For JavaScript functions, use JSDoc-style comments to provide documentation for functions. This includes a description of what the function does, parameters it accepts, and the return value.
+```
+/**
+ * Calculate the sum of two numbers.
+ * 
+ * @param {number} num1 - The first number.
+ * @param {number} num2 - The second number.
+ * @returns {number} The sum of num1 and num2.
+ */
+function sum(num1, num2) {
+    return num1 + num2;
+}
+```
+
+2. **Python:** For Python functions, use docstrings to document the purpose, parameters, and return values of the function.
+```
+def calculate_sum(num1, num2):
+    """
+    Calculate the sum of two numbers.
+    
+    Args:
+        num1 (int): The first number.
+        num2 (int): The second number.
+    
+    Returns:
+        int: The sum of num1 and num2.
+    """
+    return num1 + num2
+
+```
+
+3. **TODO Comments:** Use TODO comments to mark areas of code that need improvement or additional work. Include a brief description of what needs to be done and any relevant context.
