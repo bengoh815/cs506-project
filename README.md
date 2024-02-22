@@ -4,39 +4,21 @@
 
 ### Project Abstract
 
-<!--A one paragraph summary of what the software will do.-->
-
-This is an example paragraph written in markdown. You can use *italics*, **bold**, and other formatting options. You can also <u>use inline html</u> to format your text. The example sections included in this document are not necessarily all the sections you will want, and it is possible that you won't use all the one's provided. It is your responsibility to create a document that adequately conveys all the information about your project specifications and requirements.
-
-Please view this file's source to see `<!--comments-->` with guidance on how you might use the different sections of this document. 
+Melody Mapper is an application designed to convert voiced melodies into MIDI format. Users can input melodies through voice, and the application will transform them into MIDI representation, allowing for storage and playback. This functionality enables users to easily capture and manipulate melodies for various purposes, such as music composition, analysis, or playback.
 
 ### Customer
 
-<!--A brief description of the customer for this software, both in general (the population who might eventually use such a system) and specifically for this document (the customer(s) who informed this document). Every project will have a customer from the CS506 instructional staff. Requirements should not be derived simply from discussion among team members. Ideally your customer should not only talk to you about requirements but also be excited later in the semester to use the system.-->
+The target customer for this software spans musicians, composers, music producers, and enthusiasts who engage in the creation and manipulation of melodies. Specifically, individuals who seek efficient methods to transcribe melodies from voice to MIDI format for further exploration, modification, or integration into their creative projects would find this application valuable. Moreover, educators and students in music-related fields could benefit from its functionality for educational purposes, facilitating learning and experimentation with musical concepts.
 
 ### User Requirements
 
-<!--This section lists the behavior that the users see. This information needs to be presented in a logical, organized fashion. It is most helpful if this section is organized in outline form: a bullet list of major topics (e.g., one for each kind of user, or each major piece of system functionality) each with some number of subtopics.-->
-
-Here is a user requirements sample from [Crookshanks](https://learning-oreilly-com.ezproxy.library.wisc.edu/library/view/practical-software-development/9781484206201/9781484206218_Ch02.xhtml):
-
 | ID   | Description                                                  | Priority | Status |
 | ---- | ------------------------------------------------------------ | -------- | ------ |
-| R11  | Users should not have to sign into the system; their current network login should be used for identification. | Med      | Done   |
-| R12  | The user should pick a project first; the tasks available are a derivative of the project. | High     | Open   |
-| R13  | A full-time employee should not be able to submit a time card with less than 40 hours per week recorded. | High     | Open   |
-| R14  | A contractor can submit any number of hours up to 60 without special approval. | Med      | Open   |
-| R15  | A team lead can see his/her team's time cards before they are submitted but cannot approve them until the user submits it. | High     | Open   |
-
-<div align="center"><small><i>Excerpt from Crookshanks Table 2-2 showing example user requirements for a timekeeping system</i></small></div>
-
-- You 
-  - Can
-    - Use
-- Bullet
-  - Points
-    - In
-    - Markdown
+| R01  | Users should be able to record audio to be converted into MIDI format. | High      | Open   |
+| R02  | Users should be able to name, date, and author audio recordings that are converted to MIDI format. | High     | Open   |
+| R03  | Users should be able to playback previously converted audio recordings in MIDI format. | High     | Open   |
+| R04  | Users should be able to see MIDI converted audio recordings as sheet music. | Medium      | Open   |
+| R05  | Users should be able to download the converted audio recording MIDI file. | Medium     | Open   |
 
 ### Use Cases & User Stories
 
