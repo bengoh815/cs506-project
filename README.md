@@ -19,52 +19,62 @@ The target customer for this software spans musicians, composers, music producer
 | R03  | Users should be able to playback previously converted audio recordings in MIDI format. | High     | Open   |
 | R04  | Users should be able to see MIDI converted audio recordings as sheet music. | Medium      | Open   |
 | R05  | Users should be able to download the converted audio recording MIDI file. | Medium     | Open   |
+| R06  | Users should be able to credit recordings to other users | Low | Open |
+| R07  | Users should be able to create accounts and see their history of recordings. | Low | Open |
 
 ### Use Cases & User Stories
 
-<!--Use cases and user stories that support the user requirements in the previous section. The use cases should be based off user stories. Every major scenario should be represented by a use case, and every use case should say something not already illustrated by the other use cases. Diagrams (such as sequence charts) are encouraged. Ask the customer what are the most important use cases to implement by the deadline. You can have a total ordering, or mark use cases with “must have,” “useful,” or “optional.” For each use case you may list one or more concrete acceptance tests (concrete scenarios that the customer will try to see if the use case is implemented).-->
+1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
+    - Once the user is satified with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+2. As the user of the website, the user will be able to see a list of converted recordings.
+    - The list contains all the converted recordings that all the users have created in the database.
+3. As the user of the website, the user will be able to create an account.
+4. As the user of the website, the user can see a history of the converted recordings they have done.
+5. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
 
-Here is a sample user story from [Clean Agile](https://learning-oreilly-com.ezproxy.library.wisc.edu/library/view/clean-agile-back/9780135782002/ch03.xhtml#ch03lev1sec1) using a markdown block quote:
-
-> As the driver of a car, in order to increase my velocity, I will press my foot harder on the accelerator pedal.
-
-1. You
-   1. Can
-      1. Also
-2. Use
-   1. Numbered
-      1. Lists
 
 ### User Interface Requirements
 
-<!--Describes any customer user interface requirements including graphical user interface requirements as well as data exchange format requirements. This also should include necessary reporting and other forms of human readable input and output. This should focus on how the feature or product and user interact to create the desired workflow. Describing your intended interface as “easy” or “intuitive” will get you nowhere unless it is accompanied by details.-->
+Website without user account
+1. A button with microphone icon for receiving live recording and convert into the format of .wav, .m4a, and .mp3
+2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
+3. History section to show the details of previous conversion with credited author and date
 
-<!--NOTE: Please include illustrations or screenshots of what your user interface would look like -- even if they’re rough -- and interleave it with your description.-->
+![User Interface Without User Account](Resources/User_Interface_Without_User_Account.png)
 
-Images can be included with `![alt_text](image_path)`
+Website with user account
+1. A button with microphone icon for receiving live recording and convert into the format of .wav, .m4a, and .mp3
+2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
+3. A button with user icon on the top right for user account
+Three lines to show the content of the user account page
+    a. Settings
+    b. Conversion history from this user
+4. History section to show the details of previous conversion with credited author and date
+
+![User Interface With User Account](Resources/User_Interface_With_User_Account.png)
+
+![User account](Resources/User_account.png)
 
 ### Security Requirements
 
-<!--Discuss what security requirements are necessary and why. Are there privacy or confidentiality issues? Is your system vulnerable to denial-of-service attacks?-->
+- Our system will only start recording audio when the user have clicked the start recording button.
+- Our system will only stop recording audio when the user have clicked the stop recording button.
+- Our system will only store the MIDI file converted from audio recordings.
+    - The system will state that the audio recordings will only be used for converting into the MIDI file.
+    - MIDI files will be stored in the database and open for all users to see.
+    - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+- Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
-<!--List here all of the external entities, other than users, on which your system will depend. For example, if your system inter-operates with sendmail, or if you will depend on Apache for the web server, or if you must target both Unix and Windows, list those requirements here. List also memory requirements, performance/speed requirements, data capacity requirements, if applicable.-->
-
-| You    |    can    |    also |
-| ------ | :-------: | ------: |
-| change |    how    | columns |
-| are    | justified |         |
+| Library |    Description    | Performance |
+| ------ | ------- | ------ |
+| Flask | A framework to work as a backend server | TBD |
+| Mido |    A library to work with MIDI format files    | TBD |
+| SQLAlchemy    |  A library for Python to work with SQL database | TBD |
 
 ### Specification
-
-<!--A detailed specification of the system. UML, or other diagrams, such as finite automata, or other appropriate specification formalisms, are encouraged over natural language.-->
-
-<!--Include sections, for example, illustrating the database architecture (with, for example, an ERD).-->
-
-<!--Included below are some sample diagrams, including some example tech stack diagrams.-->
-
-You can make headings at different levels by writing `# Heading` with the number of `#` corresponding to the heading level (e.g. `## h2`).
 
 #### Technology Stack
 
