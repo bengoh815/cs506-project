@@ -243,6 +243,8 @@ The team prioritized the following coding standards during development:
 2. **Modularity:** Encourages breaking down code into small, cohesive modules or functions that perform specific tasks.
 3. **Scalability:** Write code that can scale to accommodate future growth in terms of efficiency and complexity.
 4. **Consistency:** Enforce consistent naming conventions, formatting styles, and coding practices across the codebase.
+5. **Documentation:** Include meaningful comments and documentation to explain complex logic, algorithms, or non-obvious behavior. Document public APIs, parameters, return values, and important implementation details.
+6. **Version Control:** Utilize version control systems effectively to track changes, collaborate with team members, and manage codebase evolution. Follow branching and merging best practices to facilitate parallel development and code review processes.
 
 #### Formatting Conventions
 
@@ -254,12 +256,14 @@ You can also read more about the Python PEP 8 standard [here](https://peps.pytho
 
 #### Naming Conventions
 
-1. Compound names should use upper case letters to mark the beginning of the next word likeThis and LikeThisToo
-2. Names of user-defined types (files, classes, or enumerated types) should begin with upper case letters LikeThis or This
-3. Names of functions, including class methods, should begin with lower case letters likeThis or this
-4. Names of variables should begin with a lower case letter likeThis or this
-5. Names of types and functions should be chosen to be self-documenting
-6. Names of meaningful variables should be chosen to be self-documenting. Names of variables whose function is internally important only, such as loop counters, should be simple.
+1. **Compound Names:** Compound names should use upper case letters to mark the beginning of the next word "likeThis" and "LikeThisToo"
+2. **User-defined Types:** Names of user-defined types (files, classes, or enumerated types) should begin with upper case letters "LikeThis" or "This"
+3. **Functions:** Names of functions, including class methods, should begin with lower case letters "likeThis()" or "this()"
+4. **Variables:** Names of variables should begin with a lower case letter "likeThis" or "this"
+5. **Boolean Variables:** Boolean variables should be named as questions or states to reflect their meaning. For example: "isReady", "hasPermission"
+Constants: Names of constants should be written in uppercase letters with underscores separating words. For example: "MAX_SIZE", "PI_VALUE".
+6. **Self-documenting Types and Functions:** Names of types and functions should be chosen to be self-documenting
+7. **Meaningful Variables:** Names of meaningful variables should be chosen to be self-documenting. Names of variables whose function is internally important only, such as loop counters, should be simple.
 
 #### Comment Conventions
 
@@ -295,3 +299,48 @@ def calculate_sum(num1, num2):
 ```
 
 3. **TODO Comments:** Use TODO comments to mark areas of code that need improvement or additional work. Include a brief description of what needs to be done and any relevant context.
+
+#### File Headers Conventions
+
+1. **JavaScript:**
+```
+/******************************************************************************
+ * Filename: [File Name]
+ * Purpose:  [Brief description of the purpose or functionality of the file]
+ * Author:   [Author Name]
+ * 
+ * Description:
+ * [Detailed description of the contents and functionality of the file.]
+ * 
+ * Usage (Optional):
+ * [Instructions or examples demonstrating how to use the code in this file.
+ * Include any dependencies or prerequisites required for proper usage.]
+
+ * 
+ * Notes:
+ * [Any additional notes, considerations, or important information 
+ * about the file that may be relevant to developers or users.]
+ * 
+ ******************************************************************************/
+```
+
+2. **Python:**
+```
+################################################################################
+# Filename: [File Name]
+# Purpose:  [Brief description of the purpose or functionality of the file]
+# Author:   [Author Name]
+#
+# Description:
+# [Detailed description of the contents and functionality of the file.]
+#
+# Usage (Optional):
+# [Instructions or examples demonstrating how to use the code in this file.
+# Include any dependencies or prerequisites required for proper usage.]
+#
+# Notes:
+# [Any additional notes, considerations, or important information
+# about the file that may be relevant to developers or users.]
+#
+###############################################################################
+```
