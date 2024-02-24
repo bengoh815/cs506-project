@@ -315,7 +315,6 @@ def calculate_sum(num1, num2):
  * Usage (Optional):
  * [Instructions or examples demonstrating how to use the code in this file.
  * Include any dependencies or prerequisites required for proper usage.]
-
  * 
  * Notes:
  * [Any additional notes, considerations, or important information 
