@@ -289,3 +289,48 @@ def calculate_sum(num1, num2):
 ```
 
 3. **TODO Comments:** Use TODO comments to mark areas of code that need improvement or additional work. Include a brief description of what needs to be done and any relevant context.
+
+#### File Headers Conventions
+
+1. **JavaScript:**
+```
+/******************************************************************************
+ * Filename: [File Name]
+ * Purpose:  [Brief description of the purpose or functionality of the file]
+ * Author:   [Author Name]
+ * 
+ * Description:
+ * [Detailed description of the contents and functionality of the file.]
+ * 
+ * Usage (Optional):
+ * [Instructions or examples demonstrating how to use the code in this file.
+ * Include any dependencies or prerequisites required for proper usage.]
+
+ * 
+ * Notes:
+ * [Any additional notes, considerations, or important information 
+ * about the file that may be relevant to developers or users.]
+ * 
+ ******************************************************************************/
+```
+
+2. **Python:**
+```
+################################################################################
+# Filename: [File Name]
+# Purpose:  [Brief description of the purpose or functionality of the file]
+# Author:   [Author Name]
+#
+# Description:
+# [Detailed description of the contents and functionality of the file.]
+#
+# Usage (Optional):
+# [Instructions or examples demonstrating how to use the code in this file.
+# Include any dependencies or prerequisites required for proper usage.]
+#
+# Notes:
+# [Any additional notes, considerations, or important information
+# about the file that may be relevant to developers or users.]
+#
+###############################################################################
+```
