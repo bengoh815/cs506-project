@@ -57,8 +57,7 @@ Three lines to show the content of the user account page
 
 ### Security Requirements
 
-- Our system will only start recording audio when the user have clicked the start recording button.
-- Our system will only stop recording audio when the user have clicked the stop recording button.
+- Our system will only record audio in between when the user has clicked the start and stop recording button.
 - Our system will only store the MIDI file converted from audio recordings.
     - The system will state that the audio recordings will only be used for converting into the MIDI file.
     - MIDI files will be stored in the database and open for all users to see.
