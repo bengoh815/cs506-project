@@ -15,12 +15,11 @@ The target customer for this software spans musicians, composers, music producer
 | ID   | Description                                                  | Priority | Status |
 | ---- | ------------------------------------------------------------ | -------- | ------ |
 | R01  | Users should be able to record audio to be converted into MIDI format. | High      | Open   |
-| R02  | Users should be able to name, date, and author audio recordings that are converted to MIDI format. | High     | Open   |
+| R02  | Users should be able to name, date, and credit author(s) of audio recordings that are converted to MIDI format. | High     | Open   |
 | R03  | Users should be able to playback previously converted audio recordings in MIDI format. | High     | Open   |
 | R04  | Users should be able to see MIDI converted audio recordings as sheet music. | Medium      | Open   |
 | R05  | Users should be able to download the converted audio recording MIDI file. | Medium     | Open   |
-| R06  | Users should be able to credit recordings to other users | Low | Open |
-| R07  | Users should be able to create accounts and see their history of recordings. | Low | Open |
+| R06  | Users should be able to create accounts and see their history of recordings. | Low | Open |
 
 ### Use Cases & User Stories
 
