@@ -103,25 +103,26 @@ A <-->|"REST API"| B
 B <-->|SQLAlchemy| C
 ```
 
-#### Database
+#### Database Schema
 
 ```mermaid
----
-title: Database ERD for MelodyMapper
----
 erDiagram
-    User ||--o{ Recording : "created by"
-
-    User {
-        int user_id PK
-        string name
-        string email
+    Users {
+        user_id INT PK
+        name VARCHAR
+        email VARCHAR
     }
 
-    Recording {
-        int recording_id PK
-        string name
-        int user_id FK
+    Recordings {
+        recording_id INT PK
+        name VARCHAR
+        user_id INT FK
+    }
+
+    MIDIs {
+        midi_id INT PK
+        recording_id INT FK
+        midi_data LONGBLOB
     }
 
 ```
@@ -129,6 +130,7 @@ erDiagram
 #### Class Diagram
 
 ```mermaid
+---
 ---
 title: Class Diagram for MelodyMapper Program
 ---
@@ -139,24 +141,36 @@ classDiagram
         - String email
         + User(int user_id, String name, String email)
         + void setUserID(int user_id)
-        + String getUserID()
+        + int getUserID()
         + void setName(String name)
         + String getName()
         + void setEmail(String email)
         + String getEmail()
-        + void getRecordings()
+        + List<Recording> getRecordings()
     }
 
     class Recording {
+        - int recording_id
         - String name
-        + Recording(String name)
+        + Recording(int recording_id, String name)
+        + void setRecordingID(int recording_id)
+        + int getRecordingID()
         + void setName(String name)
         + String getName()
-        + MIDI convert()
+        + MIDI convertToMIDI()
     }
 
     class MIDI {
-        + MIDI(Recording recording)
+        - int midi_id
+        - int recording_id
+        - byte[] midi_data
+        + MIDI(int midi_id, int recording_id, byte[] midi_data)
+        + void setMidiID(int midi_id)
+        + int getMidiID()
+        + void setRecordingID(int recording_id)
+        + int getRecordingID()
+        + void setMidiData(byte[] midi_data)
+        + byte[] getMidiData()
     }
 ```
 
