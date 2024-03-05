@@ -10,16 +10,16 @@ Melody Mapper is an application designed to convert voiced melodies into MIDI fo
 
 The target customer for this software spans musicians, composers, music producers, and enthusiasts who engage in the creation and manipulation of melodies. Specifically, individuals who seek efficient methods to transcribe melodies from voice to MIDI format for further exploration, modification, or integration into their creative projects would find this application valuable. Moreover, educators and students in music-related fields could benefit from its functionality for educational purposes, facilitating learning and experimentation with musical concepts.
 
-### User Requirements
+### Requirements
 
-| ID   | Description                                                  | Priority | Status |
+| ID | Description | Priority | Status |
 | ---- | ------------------------------------------------------------ | -------- | ------ |
-| R01  | Users should be able to record audio to be converted into MIDI format. | High      | Open   |
-| R02  | Users should be able to name, date, and credit author(s) of audio recordings that are converted to MIDI format. | High     | Open   |
-| R03  | Users should be able to playback previously converted audio recordings in MIDI format. | High     | Open   |
-| R04  | Users should be able to see MIDI converted audio recordings as sheet music. | Medium      | Open   |
-| R05  | Users should be able to download the converted audio recording MIDI file. | Medium     | Open   |
-| R06  | Users should be able to create accounts and see their history of recordings. | Low | Open |
+| R001 | The system shall send an MP4 file and metadata from the UI to the backend to be processed | High | Open |
+| R002 | The system shall process the MP4 file sent to the backend into a MIDI file | High | Open |
+| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | Open |
+| R004 | The system shall recieve a request from a user to retrieve a MIDI file from the database | High | Open |
+| R005 | The system shall process a request for a MIDI file and query the database for results | High | Open |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | Open |
 
 ### Use Cases & User Stories
 
