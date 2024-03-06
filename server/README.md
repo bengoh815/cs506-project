@@ -23,7 +23,7 @@ To start the backend server, navigate to the project's server directory and run 
 python run.py
 ```
 
-## Runt Tests
+## Run Tests
 
 To run the automated tests for the backend server, navigate to the project's server directory and run the following command:
 
