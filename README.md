@@ -261,7 +261,7 @@ The team prioritized the following coding standards during development:
 #### Formatting Conventions
 
 For Front End software development we use the VSCode extension [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in its default configuration. 
-Back End development uses the VSCode extension [autopep8](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8) in its default configuration. 
+Back End development uses the VSCode extension [Black Formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter) in its default configuration. 
 These extensions provide out of the box solutions that are lightweight and easy to use.
 
 You can also read more about the Python PEP 8 standard [here](https://peps.python.org/pep-0008/).
