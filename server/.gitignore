@@ -6,3 +6,4 @@ htmlcov/
 docs/_build/
 dist/
 venv/
+connection_string.py
