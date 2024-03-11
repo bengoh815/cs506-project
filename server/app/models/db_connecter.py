@@ -7,6 +7,7 @@
 # Using SQLAlchemy, connect to the Database and be able to run queries against it
 #
 # Notes:
+# Must install sqlalchemy and mysql-connector-python
 #
 ###############################################################################
 
