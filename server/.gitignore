@@ -1,0 +1,15 @@
+*.code-workspace
+.idea/
+.venv/
+.vscode/
+.pytest_cache
+__pycache__/
+htmlcov/
+docs/_build/
+<<<<<<< HEAD
+dist/
+=======
+dist/
+venv/
+connection_string.py
+>>>>>>> develop
