@@ -41,7 +41,6 @@ class DB_Connecter:
         Returns:
             list: The results of the query.
         """
-
         with self.engine.connect() as conn:
             results = list(conn.execute(text(readString)))
 
