@@ -12,14 +12,14 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Requirements
 
-| ID   | Description                                                                                     | Priority | Status |
-| ---- | ----------------------------------------------------------------------------------------------- | -------- | ------ |
-| R001 | The system shall send an MP4 file and metadata from the UI to the backend to be processed       | High     | Open   |
-| R002 | The system shall process the MP4 file sent to the backend into a MIDI file                      | High     | Open   |
-| R003 | The system shall send the MIDI file and file metadata to the Database for Storage               | High     | Open   |
-| R004 | The system shall recieve a request from a user to retrieve a MIDI file from the database        | High     | Open   |
-| R005 | The system shall process a request for a MIDI file and query the database for results           | High     | Open   |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High     | Open   |
+| ID | Description | Priority | Status |
+| ---- | ------------------------------------------------------------ | -------- | ------ |
+| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed | High | Open |
+| R002 | The system shall process the MP3 file sent to the backend into a MIDI file | High | Open |
+| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | Open |
+| R004 | The system shall recieve a request from a user to retrieve a MIDI file from the database | High | Open |
+| R005 | The system shall process a request for a MIDI file and query the database for results | High | Open |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | Open |
 
 ### Use Cases & User Stories
 
