@@ -12,26 +12,37 @@
 ###############################################################################
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import text
 from app.connection_string import MYSQL_CONNECTION_STRING
 
 
-class DBConnecter:
+class DB_Connecter:
     def __init__(self):
         self.engine = create_engine(MYSQL_CONNECTION_STRING)
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
 
-    def get_session(self):
-        return self.session()
+    def modify_DB(self, modifyString):
+        """
+        Method to insert or delete from the database via a query string.
 
-    def close(self):
-        if self.session:
-            self.session.close()
-            self.engine.dispose()
-
-    def query(self, queryString):
+        Args:
+            modifyString (string): String of query to be run.
+        """
         with self.engine.connect() as conn:
-            results = conn.execute(queryString)
+            conn.execute(text(modifyString))
+            conn.commit()
+
+    def read_DB(self, readString):
+        """
+        Method to read from the database via a query string.
+
+        Args:
+            readString (string): String of query to be run.
+
+        Returns:
+            list: The results of the query.
+        """
+
+        with self.engine.connect() as conn:
+            results = list(conn.execute(text(readString)))
 
         return results
