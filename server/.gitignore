@@ -6,6 +6,10 @@
 __pycache__/
 htmlcov/
 docs/_build/
+<<<<<<< HEAD
+dist/
+=======
 dist/
 venv/
 connection_string.py
+>>>>>>> develop
