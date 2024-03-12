@@ -1,4 +1,6 @@
+*.code-workspace
 .idea/
+.venv/
 .vscode/
 .pytest_cache
 __pycache__/

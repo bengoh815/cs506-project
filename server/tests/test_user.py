@@ -1,13 +1,13 @@
 ################################################################################
-# Filename: test_midi.py
-# Purpose:  Test the MIDI-related API endpoints.
+# Filename: test_user.py
+# Purpose:  Test the user-related API endpoints.
 # Author:   Benjamin Goh
 #
 # Description:
-# This file contains pytest test cases for testing the CRUD operations on MIDI
+# This file contains pytest test cases for testing the CRUD operations on user
 # resources provided by the Flask application. It tests the endpoints for
-# retrieving all MIDIs, getting a single MIDI by ID, creating a new MIDI,
-# updating an existing MIDI, and deleting a MIDI.
+# retrieving all users, getting a single user by ID, creating a new user,
+# updating an existing user, and deleting a user.
 #
 # Usage (Optional):
 # Run the tests using the pytest command:
@@ -39,63 +39,66 @@ def client():
         yield client
 
 
-def test_get_all_midis(client):
+def test_get_all_users(client):
     """
-    Test retrieving a list of all MIDI files.
+    Test retrieving a list of all user.
 
     Args:
         client (FlaskClient): The test client for the application.
     """
-    response = client.get("api/v1/midis")
+    response = client.get("api/v1/users")
     assert response.status_code == OK
-    assert response.json == [{"id": 1, "name": "Midi1"}, {"id": 2, "name": "Midi2"}]
+    assert response.json == [
+        {"id": 1, "name": "User1"},
+        {"id": 2, "name": "User2"},
+    ]
 
 
 def test_get_midi(client):
     """
-    Test retrieving a single MIDI file by its ID.
+    Test retrieving a single user by its ID.
 
     Args:
         client (FlaskClient): The test client for the application.
     """
     example_id = 92384
-    response = client.get(f"api/v1/midis/{example_id}")
+    response = client.get(f"api/v1/users/{example_id}")
     assert response.status_code == OK
-    assert response.json == {"id": example_id, "name": "MidiName"}
+    assert response.json == {"id": example_id, "name": "UserName"}
 
 
 def test_create_midi(client):
     """
-    Test creating a new MIDI file.
+    Test creating a new user.
 
     Args:
         client (FlaskClient): The test client for the application.
     """
-    response = client.post("api/v1/midis")
+    response = client.post("api/v1/users")
     assert response.status_code == CREATED
-    assert response.json == {"id": 3, "name": "NewMidi"}
+    assert response.json == {"id": 3, "name": "NewUser"}
 
 
 def test_update_midi(client):
     """
-    Test updating an existing MIDI file.
+    Test updating an existing user.
 
     Args:
         client (FlaskClient): The test client for the application.
     """
     example_id = 92384
-    response = client.put(f"api/v1/midis/{example_id}")
+    response = client.put(f"api/v1/users/{example_id}")
     assert response.status_code == OK
-    assert response.json == {"id": example_id, "name": "UpdatedMidi"}
+    assert response.json == {"id": example_id, "name": "UpdatedUser"}
 
 
 def test_delete_midi(client):
     """
-    Test deleting a MIDI file.
+    Test deleting a user.
 
     Args:
         client (FlaskClient): The test client for the application.
     """
     example_id = 92384
-    response = client.delete(f"api/v1/midis/{example_id}")
+    response = client.delete(f"api/v1/users/{example_id}")
     assert response.status_code == NO_CONTENT
