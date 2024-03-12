@@ -12,14 +12,14 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Requirements
 
-| ID   | Description                                                                                     | Priority | Status |
-| ---- | ----------------------------------------------------------------------------------------------- | -------- | ------ |
-| R001 | The system shall send an MP4 file and metadata from the UI to the backend to be processed       | High     | Open   |
-| R002 | The system shall process the MP4 file sent to the backend into a MIDI file                      | High     | Open   |
-| R003 | The system shall send the MIDI file and file metadata to the Database for Storage               | High     | Open   |
-| R004 | The system shall recieve a request from a user to retrieve a MIDI file from the database        | High     | Open   |
-| R005 | The system shall process a request for a MIDI file and query the database for results           | High     | Open   |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High     | Open   |
+| ID | Description | Priority | Status |
+| ---- | ------------------------------------------------------------ | -------- | ------ |
+| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed | High | In Progress |
+| R002 | The system shall process the MP3 file sent to the backend into a MIDI file | High | In Progress |
+| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | In Progress |
+| R004 | The system shall recieve a request from a user to retrieve a MIDI file from the database | High | In Progress |
+| R005 | The system shall process a request for a MIDI file and query the database for results | High | In Progress |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | In Progress |
 
 ### Use Cases & User Stories
 
@@ -40,7 +40,7 @@ Website without user account
 2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
 3. History section to show the details of previous conversion with credited author and date
 
-![User Interface Without User Account](Resources/User_Interface_Without_User_Account.png)
+![User Interface Without User Account](resources/User_Interface_Without_User_Account.png)
 
 Website with user account
 
@@ -52,9 +52,9 @@ Website with user account
    b. Conversion history from this user
 4. History section to show the details of previous conversion with credited author and date
 
-![User Interface With User Account](Resources/User_Interface_With_User_Account.png)
+![User Interface With User Account](resources/User_Interface_With_User_Account.png)
 
-![User account](Resources/User_account.png)
+![User account](resources/User_account.png)
 
 ### Security Requirements
 

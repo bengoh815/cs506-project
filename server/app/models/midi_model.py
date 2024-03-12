@@ -19,8 +19,11 @@
 #
 ###############################################################################
 
+from app.database import db
 
-class Midi:
-    id = 5
-    name = "something"
-    # Other attributes...
+
+class MIDI(db.Model):
+    __tablename__ = "MIDIs"
+    midi_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    recording_id = db.Column(db.Integer, nullable=False)
+    midi_data = db.Column(db.LargeBinary, nullable=False)

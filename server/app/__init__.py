@@ -16,12 +16,14 @@
 #
 ###############################################################################
 
-
 from flask import Flask
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 from app.routes.midi_routes import midi_bp
 from app.routes.recording_routes import recording_bp
 from app.routes.user_routes import user_bp
+from app.connection_string import MYSQL_CONNECTION_STRING
+from app.database import db
 
 
 def create_app():
@@ -33,15 +35,20 @@ def create_app():
     """
     app = Flask(__name__)
     app.debug = True
+
+    # Configure CORS
     CORS(
         app,
         resources={r"/api/*": {"origins": "*"}},
         methods=["GET", "POST", "PUT", "DELETE"],
     )
 
-    # Configure your app, register blueprints, etc.
-    # app.config['SECRET_KEY'] = 'your_secret_key'
+    # Configure SQLAlchemy
+    app.config["SQLALCHEMY_DATABASE_URI"] = MYSQL_CONNECTION_STRING
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.init_app(app)
 
+    # Register blueprints
     app.register_blueprint(midi_bp)
     app.register_blueprint(recording_bp)
     app.register_blueprint(user_bp)

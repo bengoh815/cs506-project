@@ -1,3 +1,23 @@
+/******************************************************************************
+ * Filename: SecurityStatements.jsx
+ * Purpose:  An overlay component that displays security statement to user.
+ * Author:   Victor Nguyen & Don Ma
+ *
+ * Description:
+ * This file contains the SecurityStatement component that displays a security
+ * statement to the user. The component is designed to be displayed as an overlay
+ * on top of the main application content and is hidden by default. The user can
+ * click on the overlay to close it and return to the main application content.
+ *
+ * Usage:
+ * To use this component, simply import it into the desired file and render it.
+ *
+ * Notes:
+ * [Any additional notes, considerations, or important information
+ * about the file that may be relevant to developers or users.]
+ *
+ ******************************************************************************/
+
 import React, { useState, useEffect } from "react";
 
 const SecurityStatement = () => {
