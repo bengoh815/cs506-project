@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the client directory, you can run:
 
 ### `npm start`
 
@@ -13,6 +13,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+If you receive an error that npm is not able to find a file, ensure that you are in the client directory and then run:
+
+### `npm install`
+
+Once this completes, run the `npm start` again.
 
 ### `npm test`
 
