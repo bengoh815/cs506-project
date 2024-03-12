@@ -1,3 +1,18 @@
+/******************************************************************************
+ * Filename: index.jsx
+ * Purpose:  Main application file for the Melody Mapper application.
+ * Author:   Victor Nguyen & Don Ma
+ *
+ * Description:
+ * This file contains the main application component that renders the entire
+ * application. It imports and renders the following components:
+ *
+ * Notes:
+ * [Any additional notes, considerations, or important information
+ * about the file that may be relevant to developers or users.]
+ *
+ ******************************************************************************/
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";

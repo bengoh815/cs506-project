@@ -1,3 +1,24 @@
+/******************************************************************************
+ * Filename: ConversionHistory.jsx
+ * Purpose:  A component that displays the user's file conversion history.
+ * Author:   Victor Nguyen & Don Ma
+ *
+ * Description:
+ * This file contains the ConversionHistory component that displays the user's
+ * file conversion history. The component fetches the user's conversion history
+ * from the backend and displays it in a table. The table contains the file name,
+ * author, and date of each conversion. The component is designed to be displayed
+ * as part of the main application content.
+ *
+ * Usage:
+ * To use this component, simply import it into the desired file and render it.
+ *
+ * Notes:
+ * [Any additional notes, considerations, or important information
+ * about the file that may be relevant to developers or users.]
+ *
+ ******************************************************************************/
+
 import React from "react";
 import "./ConversionHistory.css";
 import { useEffect, useState } from "react";
