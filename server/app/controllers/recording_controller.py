@@ -23,6 +23,9 @@
 from app.utils.status_codes import OK, CREATED, NO_CONTENT, BAD_REQUEST
 from flask import jsonify, request, send_file
 import io
+from app.database import db
+from app.models.user_model import User
+from sqlalchemy.exc import SQLAlchemyError
 
 
 def get_all_recordings():
@@ -57,23 +60,42 @@ def create_recording():
     Returns:
         tuple: A JSON representation of the newly created recording file and the HTTP status code CREATED (201).
     """
-    print(request.files)
+    # print(request.files)
     audio_file = request.files["audio-file"]
     if audio_file:
         # Process the audio file, save it, etc.
-        # Process the audio file in memory
-        audio_data = io.BytesIO(audio_file.read())
-        # Perform any processing or conversion to MP3 on audio_data
+        # # Process the audio file in memory
+        # audio_data = io.BytesIO(audio_file.read())
+        # # Perform any processing or conversion to MP3 on audio_data
 
-        # Prepare the audio_data for sending back
-        audio_data.seek(0)  # Move to the beginning of the BytesIO buffer
+        # # Prepare the audio_data for sending back
+        # audio_data.seek(0)  # Move to the beginning of the BytesIO buffer
 
-        # Send the processed audio file back as an MP3 response
+        # # Send the processed audio file back as an MP3 response
+        # return send_file(
+        #     audio_data,
+        #     as_attachment=True,
+        #     download_name="processed_audio.mp3",
+        #     mimetype="audio/mpeg",
+        # )
+
+        midi_data = io.BytesIO(audio_file.read())
+
+        new_user = User(name="John Doe", email="johndoe@example.com")
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            print("Changes committed successfully.")
+        except SQLAlchemyError as e:
+            print(f"An error occurred: {e}")
+            db.session.rollback()
+        # midi_data.seek(0)  # Rewind the BytesIO object to the beginning
+
+        file_path = "../converted-example.midi"
         return send_file(
-            audio_data,
+            file_path,
             as_attachment=True,
-            download_name="processed_audio.mp3",
-            mimetype="audio/mpeg",
+            download_name="processed_audio.midi",
         )
 
         return jsonify({"message": "File uploaded successfully"}), CREATED
