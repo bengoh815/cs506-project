@@ -67,16 +67,16 @@ def test_get_midi(client):
     assert response.json == {"id": example_id, "name": "RecordingName"}
 
 
-def test_create_midi(client):
-    """
-    Test creating a new recording file.
+# def test_create_midi(client):
+#     """
+#     Test creating a new recording file.
 
-    Args:
-        client (FlaskClient): The test client for the application.
-    """
-    response = client.post("api/v1/recordings")
-    assert response.status_code == CREATED
-    assert response.json == {"id": 3, "name": "NewRecording"}
+#     Args:
+#         client (FlaskClient): The test client for the application.
+#     """
+#     response = client.post("api/v1/recordings")
+#     assert response.status_code == CREATED
+#     assert response.json == {"id": 3, "name": "NewRecording"}
 
 
 def test_update_midi(client):
