@@ -21,9 +21,6 @@ class MIDI:
         return self.recording_id
     
     def setMidiData(self, midi_data):
-
-        # TODO: Validate MIDI Data
-
         self.midi_data = bytearray(midi_data)
 
     def getMidiData(self):
