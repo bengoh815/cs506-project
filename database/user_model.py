@@ -34,7 +34,7 @@ class User:
     
     def setName(self, name):
         """
-        Function to set the name
+        Function to set the user name
 
         Args:
             user_name (String): the user name
@@ -47,7 +47,7 @@ class User:
     
     def getName(self):
         """
-        Function to set the name
+        Function to get the user name
 
         Args:
             user_name (String): the user name
