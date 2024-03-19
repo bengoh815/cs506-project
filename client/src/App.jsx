@@ -24,10 +24,10 @@
 
 import React from "react";
 import "./App.css";
-import SecurityStatement from "./basic_ui_component/SecurityStatements";
-import RecordButton from "./basic_ui_component/RecordButton";
-import FileUpload from "./basic_ui_component/FileUpload";
-import ConversionHistory from "./basic_ui_component/ConversionHistory";
+import SecurityStatement from "./components/security_statement/SecurityStatement";
+import RecordButton from "./components/record/RecordButton";
+import FileUpload from "./components/upload/FileUpload";
+import ConversionHistory from "./components/conversion_history/ConversionHistory";
 import logo from "./images/melody_logo.png";
 
 function App() {
