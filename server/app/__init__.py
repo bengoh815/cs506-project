@@ -16,13 +16,14 @@
 #
 ###############################################################################
 
+import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from app.routes.midi_routes import midi_bp
 from app.routes.recording_routes import recording_bp
 from app.routes.user_routes import user_bp
-from app.connection_string import MYSQL_CONNECTION_STRING
 from app.database import db
 
 
@@ -34,8 +35,8 @@ def create_app():
         Flask: A new Flask application instance.
     """
     app = Flask(__name__)
-    app.debug = True
-
+    # app.debug = True
+    load_dotenv()
     # Configure CORS
     CORS(
         app,
@@ -44,7 +45,7 @@ def create_app():
     )
 
     # Configure SQLAlchemy
-    app.config["SQLALCHEMY_DATABASE_URI"] = MYSQL_CONNECTION_STRING
+    app.config["SQLALCHEMY_DATABASE_URI"] = str(os.environ.get("DATABASE_URL"))
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
 

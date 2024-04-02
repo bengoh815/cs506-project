@@ -54,7 +54,7 @@ def test_get_all_users(client):
     ]
 
 
-def test_get_midi(client):
+def test_get_user(client):
     """
     Test retrieving a single user by its ID.
 
@@ -67,7 +67,7 @@ def test_get_midi(client):
     assert response.json == {"id": example_id, "name": "UserName"}
 
 
-def test_create_midi(client):
+def test_create_user(client):
     """
     Test creating a new user.
 
@@ -79,7 +79,7 @@ def test_create_midi(client):
     assert response.json == {"id": 3, "name": "NewUser"}
 
 
-def test_update_midi(client):
+def test_update_user(client):
     """
     Test updating an existing user.
 
@@ -92,7 +92,7 @@ def test_update_midi(client):
     assert response.json == {"id": example_id, "name": "UpdatedUser"}
 
 
-def test_delete_midi(client):
+def test_delete_user(client):
     """
     Test deleting a user.
 
