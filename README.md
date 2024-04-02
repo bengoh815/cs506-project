@@ -20,7 +20,7 @@ The target customer for this software spans musicians, composers, music producer
 | R004 | The system shall receive a request from a user to retrieve a MIDI file from the database | High | In Progress |
 | R005 | The system shall process a request for a MIDI file and query the database for results | High | In Progress |
 | R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | In Progress |
-| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | Open   |
+| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress   |
 | R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open   |
 | R009 | The system shall be able to credit other users for the recording                                       | Low      | Open   |
 
