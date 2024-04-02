@@ -1,0 +1,28 @@
+# Used to define development environment
+version: "3.8"
+services:
+  frontend:
+    build: ./client
+    volumes:
+      - ./client:/app
+    environment:
+      - NODE_ENV=development
+
+  backend:
+    build: ./server
+    volumes:
+      - ./server:/app
+    environment:
+      - DATABASE_URL=mysql+mysqlconnector://root:my_root_password@db/mp_database
+      - NODE_ENV=development
+
+  dbPhpMyAdmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: my_root_password
+    ports:
+      - "8080:80"
+    depends_on:
+      - db

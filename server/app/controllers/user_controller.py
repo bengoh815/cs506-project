@@ -20,8 +20,10 @@
 # libraries, are installed and properly configured in your environment.
 ################################################################################
 
-from app.utils.status_codes import OK, CREATED, NO_CONTENT
-from flask import jsonify
+from app.database import db
+from app.models.user_model import User
+from app.utils.status_codes import OK, CREATED, NO_CONTENT, NOT_FOUND
+from flask import jsonify, request
 
 
 def get_all_users():
@@ -31,8 +33,11 @@ def get_all_users():
     Returns:
         tuple: A JSON list of users and the HTTP status code OK (200).
     """
-    users = [{"id": 1, "name": "User1"}, {"id": 2, "name": "User2"}]
-    return jsonify(users), OK
+    users = User.query.all()
+    users_list = [
+        {"id": user.user_id, "name": user.name, "email": user.email} for user in users
+    ]
+    return jsonify(users_list), OK
 
 
 def get_user(user_id):
@@ -45,8 +50,12 @@ def get_user(user_id):
     Returns:
         tuple: A JSON representation of the user and the HTTP status code OK (200).
     """
-    user = {"id": user_id, "name": "UserName"}
-    return jsonify(user), OK
+    user = User.query.get(user_id)
+    if user:
+        user_data = {"id": user.user_id, "name": user.name, "email": user.email}
+        return jsonify(user_data), OK
+    else:
+        return jsonify({"message": "User not found"}), NOT_FOUND
 
 
 def create_user():
@@ -56,8 +65,16 @@ def create_user():
     Returns:
         tuple: A JSON representation of the newly created user and the HTTP status code CREATED (201).
     """
-    new_user = {"id": 3, "name": "NewUser"}
-    return jsonify(new_user), CREATED
+    data = request.get_json()
+    new_user = User(name=data["name"], email=data["email"])
+    db.session.add(new_user)
+    db.session.commit()
+    return (
+        jsonify(
+            {"id": new_user.user_id, "name": new_user.name, "email": new_user.email}
+        ),
+        CREATED,
+    )
 
 
 def update_user(user_id):
@@ -70,8 +87,15 @@ def update_user(user_id):
     Returns:
         tuple: A JSON representation of the updated user and the HTTP status code OK (200).
     """
-    updated_user = {"id": user_id, "name": "UpdatedUser"}
-    return jsonify(updated_user), OK
+    user = User.query.get(user_id)
+    if user:
+        data = request.get_json()
+        user.name = data.get("name", user.name)
+        user.email = data.get("email", user.email)
+        db.session.commit()
+        return jsonify({"id": user.user_id, "name": user.name, "email": user.email}), OK
+    else:
+        return jsonify({"message": "User not found"}), NOT_FOUND
 
 
 def delete_user(user_id):
@@ -84,7 +108,10 @@ def delete_user(user_id):
     Returns:
         tuple: A JSON message confirming the deletion of the user and the HTTP status code NO CONTENT (204).
     """
-    return (
-        jsonify({"message": f"User {user_id} deleted successfully"}),
-        NO_CONTENT,
-    )
+    user = User.query.get(user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": f"User {user_id} deleted successfully"}), NO_CONTENT
+    else:
+        return jsonify({"message": "User not found"}), NOT_FOUND

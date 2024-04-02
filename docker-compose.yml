@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql+mysqlconnector://root:my_root_password@db/mp_database
+
+  db:
+    build: ./database
+    environment:
+      MYSQL_ROOT_PASSWORD: my_root_password
+      MYSQL_DATABASE: mp_database
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
