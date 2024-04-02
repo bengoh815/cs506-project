@@ -17,8 +17,8 @@ from app.connection_string import MYSQL_CONNECTION_STRING
 
 
 class DB_Connecter:
-    def __init__(self):
-        self.engine = create_engine(MYSQL_CONNECTION_STRING)
+    def __init__(self, connection_stream):
+        self.engine = create_engine(connection_stream)
 
     def modify_DB(self, modifyString):
         """
