@@ -1,36 +1,37 @@
-from sqlalchemy import create_engine, Column, Integer, String, LargeBinary
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from app.connection_string import MYSQL_CONNECTION_STRING
-
-Base = declarative_base()
+from sqlalchemy import LargeBinary
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
-class User(Base):
+# declarative base class
+class Base(DeclarativeBase):
+    pass
+
+
+class User(DeclarativeBase):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    email: Mapped[str]
 
     def __repr__(self):
-        return f"<User(name='{self.name}', fullname='{self.fullname}', password='{self.password}'>"
+        return f"<User(id='{self.id}', name='{self.name}', email='{self.email}'>"
 
 
 class Recordings(Base):
     __tablename__ = "recordings"
-    recording_id = Column(Integer, primary_key=True)
-    name = Column(String)
-    user_id = Column(Integer)
+    recording_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    user_id: Mapped[int]
 
     def __repr__(self):
-        return f"<User(name='{self.name}', fullname='{self.fullname}', password='{self.password}'>"
+        return f"<Recording(recording_id='{self.recording_id}', name='{self.name}', user_id='{self.user_id}'>"
 
 
 class MIDIs(Base):
     __tablename__ = "midis"
-    midi_id = Column(Integer, primary_key=True)
-    recording_id = Column(Integer)
-    midi_data = Column(LargeBinary)
+    midi_id: Mapped[int] = mapped_column(primary_key=True)
+    recording_id: Mapped[int]
+    midi_data: Mapped[LargeBinary]
 
     def __repr__(self):
-        return f"<User(name='{self.name}', fullname='{self.fullname}', password='{self.password}'>"
+        return f"<MIDI(midi_id='{self.midi_id}', recording_id='{self.recording_id}', midi_data='{self.midi_data}'>"
