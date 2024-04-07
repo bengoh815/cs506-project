@@ -1,37 +1,74 @@
-from sqlalchemy import create_engine, Column, Integer, String 
-from sqlalchemy.ext.declarative import declarative_base 
-from sqlalchemy.orm import sessionmaker 
-from app.connection_string import MYSQL_CONNECTION_STRING
+from sqlalchemy import LargeBinary
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-# create an in-memory SQLite database 
-engine = create_engine(MYSQL_CONNECTION_STRING, echo=True) 
 
-Base = declarative_base() 
+class Base(DeclarativeBase):
+    """
+    Base class for declarative models.
+    """
 
-class User(Base): 
-	__tablename__ = 'users'
-	id = Column(Integer, primary_key=True) 
-	name = Column(String) 
-	fullname = Column(String) 
-	password = Column(String) 
 
-	def __repr__(self): 
-		return f"<User(name='{self.name}', 
-	fullname='{self.fullname}', password='{self.password}'>" 
+class User(Base):
+    """
+    User class representing users in the database.
 
-# create the users table 
-Base.metadata.create_all(engine) 
+    Attributes:
+        id (int): The unique identifier for the user.
+        name (str): The name of the user.
+        email (str): The email address of the user.
+    """
 
-# create a session to manage the connection to the database 
-Session = sessionmaker(bind=engine) 
-session = Session() 
+    __tablename__ = "users"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    email: Mapped[str]
 
-# add a new user to the database 
-user = User(name='john', fullname='John Doe', password='password') 
-session.add(user) 
-session.commit() 
+    def __repr__(self):
+        """
+        Return a string representation of the User object.
+        """
+        return f"<User(id='{self.id}', name='{self.name}', email='{self.email}'>"
 
-# query the users table 
-users = session.query(User).all() 
-print(users) 
-# Output: [<User(name='john', fullname='John Doe', password='password')>] 
+
+class Recordings(Base):
+    """
+    Recordings class representing audio recordings in the database.
+
+    Attributes:
+        recording_id (int): The unique identifier for the recording.
+        name (str): The name of the recording.
+        user_id (int): The user ID associated with the recording.
+    """
+
+    __tablename__ = "recordings"
+    recording_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    user_id: Mapped[int]
+
+    def __repr__(self):
+        """
+        Return a string representation of the Recording object.
+        """
+        return f"<Recording(recording_id='{self.recording_id}', name='{self.name}', user_id='{self.user_id}'>"
+
+
+class MIDIs(Base):
+    """
+    MIDIs class representing MIDI data in the database.
+
+    Attributes:
+        midi_id (int): The unique identifier for the MIDI data.
+        recording_id (int): The recording ID associated with the MIDI data.
+        midi_data (LargeBinary): The MIDI data.
+    """
+
+    __tablename__ = "midis"
+    midi_id: Mapped[int] = mapped_column(primary_key=True)
+    recording_id: Mapped[int]
+    midi_data: Mapped[LargeBinary]
+
+    def __repr__(self):
+        """
+        Return a string representation of the MIDI object.
+        """
+        return f"<MIDI(midi_id='{self.midi_id}', recording_id='{self.recording_id}', midi_data='{self.midi_data}'>"
