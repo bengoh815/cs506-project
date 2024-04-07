@@ -8,7 +8,7 @@ class Base(DeclarativeBase):
     """
 
 
-class User(DeclarativeBase):
+class User(Base):
     """
     User class representing users in the database.
 
