@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="record"
+  id="record"
+>
+  <h2
+    data-testid="record-heading"
+    id="record-heading"
+  >
+    Record
+  </h2>
+  <div
+    style={
+      Object {
+        "display": "inline",
+      }
+    }
+  >
+    <input
+      data-testid="record-file-input"
+      id="record-file-input"
+      onClick={[Function]}
+      type="button"
+      value="Start Recording"
+    />
+  </div>
+</div>
+`;

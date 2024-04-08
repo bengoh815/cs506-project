@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="security-statement-overlay"
+  id="security-statement-overlay"
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "rgba(0,0,0,0.5)",
+      "bottom": 0,
+      "display": "flex",
+      "justifyContent": "center",
+      "left": 0,
+      "position": "fixed",
+      "right": 0,
+      "top": 0,
+      "zIndex": 1000,
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "background": "white",
+        "borderRadius": "5px",
+        "boxShadow": "0 4px 8px rgba(0, 0, 0, 0.1)",
+        "display": "flex",
+        "flexDirection": "column",
+        "paddingBottom": "2rem",
+        "paddingLeft": "2rem",
+        "paddingRight": "2rem",
+        "paddingTop": "1rem",
+      }
+    }
+  >
+    <h1
+      data-testid="security-statement-heading"
+      id="security-statement-heading"
+    >
+      Security Statement
+    </h1>
+    <p
+      data-testid="security-statement-body"
+      id="security-statement-body"
+    >
+      • Our system will only record audio in between when the user has clicked the start and stop recording button. 
+      <br />
+      <br />
+      • Our system will only store the MIDI file converted from audio recordings. 
+      <br />
+      <br />
+      • The system will state that the audio recordings will only be used for converting into the MIDI file. 
+      <br />
+      <br />
+      • MIDI files will be stored in the database and open for all users to see. 
+      <br />
+      <br />
+      • The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+      <br />
+      <br />
+      • Our system will be vulnerable to denial-of-service attacks.
+    </p>
+  </div>
+</div>
+`;

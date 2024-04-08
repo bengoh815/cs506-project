@@ -113,10 +113,12 @@ const FileUpload = () => {
   };
 
   return (
-    <div id="upload">
-      <h2 id="upload-heading">Upload</h2>
+    <div id="upload" data-testid="upload">
+      <h2 id="upload-heading" data-testid="upload-heading">
+        Upload
+      </h2>
 
-      <p id="file-name">
+      <p id="file-name" data-testid="file-name">
         <em>{fileStatus}</em>
       </p>
 
@@ -125,11 +127,16 @@ const FileUpload = () => {
       ) : (
         <>
           <div>
-            <label htmlFor="file-input" id="file-input-label">
+            <label
+              htmlFor="choose-file-button"
+              id="file-input-label"
+              data-testid="choose-file-button-label"
+            >
               {chooseFileLabel}
             </label>
             <input
-              id="file-input"
+              id="choose-file-button"
+              data-testid="choose-file-button"
               type="file"
               onChange={handleFileChange}
               accept=".mp3, .m4a, .wav"
@@ -138,6 +145,7 @@ const FileUpload = () => {
             <input
               type="button"
               id="upload-file-button"
+              data-testid="upload-file-button"
               onClick={handleUpload}
               value="Upload"
               disabled={!fileSelected}
@@ -146,8 +154,13 @@ const FileUpload = () => {
         </>
       )}
 
-      <p id="file-format-label">Accepted file upload formats:</p>
-      <ul>
+      <p id="file-format-label" data-testid="file-format-label">
+        Accepted file upload formats:
+      </p>
+      <ul
+        id="accepted-file-formats-list"
+        data-testid="accepted-file-formats-list"
+      >
         <li>.mp3</li>
         <li>.m4a</li>
         <li>.wav</li>

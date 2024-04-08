@@ -12,24 +12,21 @@
  * Usage:
  * To use this component, simply import it into the desired file and render it.
  *
- * Notes:
- * [Any additional notes, considerations, or important information
- * about the file that may be relevant to developers or users.]
- *
  ******************************************************************************/
 
 import React, { useState, useEffect } from "react";
 
 const SecurityStatement = () => {
+  // State to store the visibility of the security statement
   const [isVisible, setIsVisible] = useState(true);
 
+  // Add an event listener to close the popup when the user clicks outside of it
   useEffect(() => {
     const closePopup = () => setIsVisible(false);
 
     if (isVisible) {
       window.addEventListener("click", closePopup);
     }
-    // console.log(isVisible);
 
     return () => window.removeEventListener("click", closePopup);
   }, [isVisible]);
@@ -39,6 +36,7 @@ const SecurityStatement = () => {
   return (
     <div
       id="security-statement-overlay"
+      data-testid="security-statement-overlay" // Test id for testing
       style={{
         position: "fixed",
         top: 0,
@@ -66,8 +64,13 @@ const SecurityStatement = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h1 id="security-statement-heading">Security Statement</h1>
-        <p id="security-statement-body">
+        <h1
+          id="security-statement-heading"
+          data-testid="security-statement-heading"
+        >
+          Security Statement
+        </h1>
+        <p id="security-statement-body" data-testid="security-statement-body">
           • Our system will only record audio in between when the user has
           clicked the start and stop recording button. <br />
           <br />
