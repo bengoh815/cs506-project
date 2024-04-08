@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="upload"
+  id="upload"
+>
+  <h2
+    data-testid="upload-heading"
+    id="upload-heading"
+  >
+    Upload
+  </h2>
+  <p
+    data-testid="file-name"
+    id="file-name"
+  >
+    <em>
+      No file chosen
+    </em>
+  </p>
+  <div>
+    <label
+      data-testid="choose-file-button-label"
+      htmlFor="choose-file-button"
+      id="file-input-label"
+    >
+      Choose a file
+    </label>
+    <input
+      accept=".mp3, .m4a, .wav"
+      data-testid="choose-file-button"
+      hidden={true}
+      id="choose-file-button"
+      onChange={[Function]}
+      type="file"
+    />
+    <input
+      data-testid="upload-file-button"
+      disabled={true}
+      id="upload-file-button"
+      onClick={[Function]}
+      type="button"
+      value="Upload"
+    />
+  </div>
+  <p
+    data-testid="file-format-label"
+    id="file-format-label"
+  >
+    Accepted file upload formats:
+  </p>
+  <ul
+    data-testid="accepted-file-formats-list"
+    id="accepted-file-formats-list"
+  >
+    <li>
+      .mp3
+    </li>
+    <li>
+      .m4a
+    </li>
+    <li>
+      .wav
+    </li>
+  </ul>
+</div>
+`;

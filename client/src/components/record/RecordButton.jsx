@@ -12,13 +12,9 @@
  * Usage:
  * To use this component, import it into the desired file and render it.
  *
- * Notes:
- * [Any additional notes, considerations, or important information
- * about the file that may be relevant to developers or users.]
- *
  ******************************************************************************/
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const RecordButton = () => {
   // State to store the MediaRecorder object
@@ -29,6 +25,9 @@ const RecordButton = () => {
 
   // State to store the recorded audio
   const [recordedAudio, setRecordedAudio] = useState(null);
+
+  // Add a useRef hook to keep a reference to the stream
+  const streamRef = useRef(null);
 
   /**
    * Requests access to the user's microphone. If access is granted, the MediaRecorder object is created and the recording starts.
@@ -45,6 +44,7 @@ const RecordButton = () => {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
+        streamRef.current = stream; // Assign the stream to the ref
         const recorder = new MediaRecorder(stream);
         setMediaRecorder(recorder);
 
@@ -81,16 +81,20 @@ const RecordButton = () => {
     if (mediaRecorder) {
       mediaRecorder.stop();
       setIsRecording(false);
+      streamRef.current.getTracks().forEach((track) => track.stop());
     }
   };
 
   return (
-    <div id="record">
-      <h2 id="record-heading">Record</h2>
+    <div id="record" data-testid="record">
+      <h2 id="record-heading" data-testid="record-heading">
+        Record
+      </h2>
       <div style={{ display: "inline" }}>
         <input
           type="button"
           id="record-file-input"
+          data-testid="record-file-input"
           value={isRecording ? "Stop Recording" : "Start Recording"}
           onClick={isRecording ? stopRecording : startRecording}
         />
