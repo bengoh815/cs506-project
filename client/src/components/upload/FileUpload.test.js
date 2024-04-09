@@ -86,7 +86,7 @@ test("correct choose file button label when NO file is selected", () => {
   const chooseFileButton = screen.getByTestId("choose-file-button");
 
   // Assert
-  expect(chooseFileButton).toHaveTextContent("Choose a file");
+  expect(chooseFileButton).toHaveTextContent("Choose File");
 });
 
 test.skip("correct choose file button label when file is selected", () => {

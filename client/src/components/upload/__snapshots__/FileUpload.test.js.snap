@@ -31,7 +31,7 @@ exports[`matches snapshot 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Choose a file
+      Choose File
     </button>
   </div>
   <p

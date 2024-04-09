@@ -1,11 +1,11 @@
 /******************************************************************************
- * Filename: RecordButton.test.js
- * Purpose:  Tests the RecordButton component.
+ * Filename: RecordAudio.test.js
+ * Purpose:  Tests the RecordAudio component.
  * Author:   Victor Nguyen
  *
  * Description:
- * This file contains tests for the RecordButton component. The tests ensure that
- * the component and its elements render correctly. A snapshot tests is included
+ * This file contains tests for the RecordAudio component. The tests ensure that
+ * the component and its elements render correctly. A snapshot test is included
  * to catch unintended changes to the component's structure or behavior.
  *
  * Usage:
@@ -19,9 +19,14 @@
  *
  ******************************************************************************/
 
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import RecordAudio from "./RecordAudio";
+
+// Cleans up the DOM after each test to ensure a clean environment.
+afterEach(() => {
+  cleanup();
+});
 
 test("whole record button component renders", () => {
   // Arrange

@@ -33,7 +33,7 @@ const FileUpload = () => {
   const [fileStatus, setFileStatus] = useState("No file chosen");
 
   // Label for the file input
-  const [chooseFileLabel, setChooseFileLabel] = useState("Choose a file");
+  const [chooseFileLabel, setChooseFileLabel] = useState("Choose File");
 
   // Whether a file is being uploaded
   const [isUploading, setIsUploading] = useState(false);
@@ -58,13 +58,13 @@ const FileUpload = () => {
 
     if (input === undefined) {
       setFileSelected(false);
-      setChooseFileLabel("Choose a file");
+      setChooseFileLabel("Choose File");
       setFileStatus("No file chosen");
       return;
     }
 
     setFileSelected(true);
-    setChooseFileLabel("Change file");
+    setChooseFileLabel("Change File");
     setFile(input);
     setFileStatus(input.name);
   };
@@ -160,7 +160,7 @@ const FileUpload = () => {
                 variant="primary"
                 disabled={!fileSelected}
               >
-                Upload
+                Upload File
               </Button>
             )}
           </div>
