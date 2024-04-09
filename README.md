@@ -16,9 +16,9 @@ The target customer for this software spans musicians, composers, music producer
 | ---- | ------------------------------------------------------------ | -------- | ------ |
 | R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed | High | In Progress |
 | R002 | The system shall process the MP3 file sent to the backend into a MIDI file | High | In Progress |
-| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | In Progress |
+| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | Complete |
 | R004 | The system shall receive a request from a user to retrieve a MIDI file from the database | High | In Progress |
-| R005 | The system shall process a request for a MIDI file and query the database for results | High | In Progress |
+| R005 | The system shall process a request for a MIDI file and query the database for results | High | Complete |
 | R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | In Progress |
 | R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress   |
 | R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open   |
@@ -27,7 +27,7 @@ The target customer for this software spans musicians, composers, music producer
 ### Use Cases & User Stories
 
 1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-    - Once the user is satified with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+    - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
     - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
     - The list contains all the converted recordings that all the users have created in the database.
@@ -138,41 +138,16 @@ title: Class Diagram for MelodyMapper Program
 ---
 classDiagram
     class User {
-        - int user_id
-        - String name
-        - String email
-        + User(int user_id, String name, String email)
-        + void setUserID(int user_id)
-        + int getUserID()
-        + void setName(String name)
-        + String getName()
-        + void setEmail(String email)
-        + String getEmail()
-        + List<Recording> getRecordings()
-    }
-
-    class Recording {
-        - int recording_id
-        - String name
-        + Recording(int recording_id, String name)
-        + void setRecordingID(int recording_id)
-        + int getRecordingID()
-        + void setName(String name)
-        + String getName()
-        + MIDI convertToMIDI()
+        - id: Mapped[int]
+        - name: Mapped[str]
+        - email: Mapped[str]
     }
 
     class MIDI {
-        - int midi_id
-        - int recording_id
-        - byte[] midi_data
-        + MIDI(int midi_id, int recording_id, byte[] midi_data)
-        + void setMidiID(int midi_id)
-        + int getMidiID()
-        + void setRecordingID(int recording_id)
-        + int getRecordingID()
-        + void setMidiData(byte[] midi_data)
-        + byte[] getMidiData()
+        - midi_id: Mapped[int]
+        - title: Mapped[str]
+        - date: Mapped[DateTime]
+        - midi_data: Mapped[LargeBinary]
     }
 ```
 
