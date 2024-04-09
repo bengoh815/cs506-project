@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="record-group"
+  id="record-group"
+>
+  <h3
+    data-testid="record-heading"
+    id="record-heading"
+  >
+    Record
+  </h3>
+  <button
+    className="btn btn-success"
+    data-testid="record-button"
+    disabled={false}
+    id="record-button"
+    onClick={[Function]}
+    type="button"
+  >
+    Start Recording
+  </button>
+</div>
+`;

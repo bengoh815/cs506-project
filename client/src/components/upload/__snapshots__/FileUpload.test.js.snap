@@ -4,13 +4,36 @@ exports[`matches snapshot 1`] = `
 <div
   data-testid="upload"
   id="upload"
+  style={
+    Object {
+      "padding": "1rem",
+    }
+  }
 >
-  <h2
+  <h3
     data-testid="upload-heading"
     id="upload-heading"
   >
     Upload
-  </h2>
+  </h3>
+  <div>
+    <input
+      accept=".mp3, .m4a, .wav"
+      hidden={true}
+      onChange={[Function]}
+      type="file"
+    />
+    <button
+      className="btn btn-secondary"
+      data-testid="choose-file-button"
+      disabled={false}
+      id="choose-file-button"
+      onClick={[Function]}
+      type="button"
+    >
+      Choose a file
+    </button>
+  </div>
   <p
     data-testid="file-name"
     id="file-name"
@@ -19,31 +42,6 @@ exports[`matches snapshot 1`] = `
       No file chosen
     </em>
   </p>
-  <div>
-    <label
-      data-testid="choose-file-button-label"
-      htmlFor="choose-file-button"
-      id="file-input-label"
-    >
-      Choose a file
-    </label>
-    <input
-      accept=".mp3, .m4a, .wav"
-      data-testid="choose-file-button"
-      hidden={true}
-      id="choose-file-button"
-      onChange={[Function]}
-      type="file"
-    />
-    <input
-      data-testid="upload-file-button"
-      disabled={true}
-      id="upload-file-button"
-      onClick={[Function]}
-      type="button"
-      value="Upload"
-    />
-  </div>
   <p
     data-testid="file-format-label"
     id="file-format-label"

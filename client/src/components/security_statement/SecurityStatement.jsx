@@ -15,6 +15,7 @@
  ******************************************************************************/
 
 import React, { useState, useEffect } from "react";
+import "./SecurityStatement.css";
 
 const SecurityStatement = () => {
   // State to store the visibility of the security statement
@@ -37,33 +38,8 @@ const SecurityStatement = () => {
     <div
       id="security-statement-overlay"
       data-testid="security-statement-overlay" // Test id for testing
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.5)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1000,
-      }}
     >
-      <div
-        style={{
-          paddingLeft: "2rem",
-          paddingRight: "2rem",
-          paddingBottom: "2rem",
-          paddingTop: "1rem",
-          background: "white",
-          borderRadius: "5px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <div>
         <h1
           id="security-statement-heading"
           data-testid="security-statement-heading"

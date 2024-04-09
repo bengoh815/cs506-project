@@ -12,19 +12,21 @@
  * Run the tests using the command `npm test`.
  *
  * Note:
- * More tests to be added/implemented to test actual functionality of the component
- * (e.g. recording audio).
+ * More tests to be added/implemented for:
+ * - Testing the recording functionality
+ * - Testing the playback functionality
+ * - Testing uploading the recorded audio
  *
  ******************************************************************************/
 
 import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
-import RecordButton from "./RecordButton";
+import RecordAudio from "./RecordAudio";
 
 test("whole record button component renders", () => {
   // Arrange
-  render(<RecordButton />);
-  const recordButtonElement = screen.getByTestId("record");
+  render(<RecordAudio />);
+  const recordButtonElement = screen.getByTestId("record-group");
 
   // Assert
   expect(recordButtonElement).toBeInTheDocument();
@@ -32,7 +34,7 @@ test("whole record button component renders", () => {
 
 test("record heading component renders", () => {
   // Arrange
-  render(<RecordButton />);
+  render(<RecordAudio />);
   const recordHeadingElement = screen.getByTestId("record-heading");
 
   // Assert
@@ -41,7 +43,7 @@ test("record heading component renders", () => {
 
 test("correct record heading content", () => {
   // Arrange
-  render(<RecordButton />);
+  render(<RecordAudio />);
   const recordHeadingElement = screen.getByTestId("record-heading");
 
   // Assert
@@ -50,20 +52,20 @@ test("correct record heading content", () => {
 
 test("record button component renders", () => {
   // Arrange
-  render(<RecordButton />);
-  const recordButtonElement = screen.getByTestId("record-file-input");
+  render(<RecordAudio />);
+  const recordButton = screen.getByTestId("record-button");
 
   // Assert
-  expect(recordButtonElement).toBeInTheDocument();
+  expect(recordButton).toBeInTheDocument();
 });
 
 test("correct record button content - start recording", () => {
   // Arrange
-  render(<RecordButton />);
-  const recordButtonElement = screen.getByTestId("record-file-input");
+  render(<RecordAudio />);
+  const recordButton = screen.getByTestId("record-button");
 
   // Assert
-  expect(recordButtonElement).toHaveValue("Start Recording");
+  expect(recordButton).toHaveTextContent("Start Recording");
 });
 
 test.skip("correct record button content - stop recording", () => {
@@ -73,7 +75,7 @@ test.skip("correct record button content - stop recording", () => {
 // Snapshot test
 test("matches snapshot", () => {
   // Arrange
-  const tree = renderer.create(<RecordButton />).toJSON();
+  const tree = renderer.create(<RecordAudio />).toJSON();
 
   // Assert
   expect(tree).toMatchSnapshot();
