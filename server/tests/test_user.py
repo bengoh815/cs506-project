@@ -22,21 +22,32 @@
 import pytest
 from app import create_app
 from app.utils.status_codes import OK, CREATED, NO_CONTENT
+from app.database import db
+from app.test_config import TestingConfig
+from app.models.user_model import User
 
 
 @pytest.fixture
-def client():
-    """
-    Create a test client for the Flask application.
+def app():
+    app = create_app(TestingConfig)
+    with app.app_context():
+        db.create_all()
 
-    Yields:
-        FlaskClient: A test client for the application.
-    """
-    app = create_app()
+        # Pre-populate the database with test data
+        user1 = User(name="User1", email="user1@example.com")
+        user2 = User(name="User2", email="user2@example.com")
+        db.session.add(user1)
+        db.session.add(user2)
+        db.session.commit()
 
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
+        yield app
+        db.session.remove()
+        db.drop_all()
+
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
 
 
 def test_get_all_users(client):
@@ -46,11 +57,12 @@ def test_get_all_users(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
-    response = client.get("api/v1/users")
+    USERS_API_URL = "api/v1/users"
+    response = client.get(USERS_API_URL)
     assert response.status_code == OK
     assert response.json == [
-        {"id": 1, "name": "User1"},
-        {"id": 2, "name": "User2"},
+        {"id": 1, "name": "User1", "email": "user1@example.com"},
+        {"id": 2, "name": "User2", "email": "user2@example.com"},
     ]
 
 
@@ -61,10 +73,10 @@ def test_get_user(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
-    example_id = 92384
-    response = client.get(f"api/v1/users/{example_id}")
+    USERS_API_URL = "api/v1/users/1"
+    response = client.get(USERS_API_URL)
     assert response.status_code == OK
-    assert response.json == {"id": example_id, "name": "UserName"}
+    assert response.json == {"id": 1, "name": "User1", "email": "user1@example.com"}
 
 
 def test_create_user(client):
@@ -74,9 +86,11 @@ def test_create_user(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
-    response = client.post("api/v1/users")
+    USERS_API_URL = "api/v1/users"
+    new_user_data = {"name": "User3", "email": "user3@example.com"}
+    response = client.post(USERS_API_URL, json=new_user_data)
     assert response.status_code == CREATED
-    assert response.json == {"id": 3, "name": "NewUser"}
+    assert response.json == {"id": 3, "name": "User3", "email": "user3@example.com"}
 
 
 def test_update_user(client):
@@ -86,10 +100,15 @@ def test_update_user(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
-    example_id = 92384
-    response = client.put(f"api/v1/users/{example_id}")
+    USERS_API_URL = "api/v1/users/1"
+    update_user_data = {"name": "User1Modified", "email": "user1newemail@example.com"}
+    response = client.put(USERS_API_URL, json=update_user_data)
     assert response.status_code == OK
-    assert response.json == {"id": example_id, "name": "UpdatedUser"}
+    assert response.json == {
+        "id": 1,
+        "name": "User1Modified",
+        "email": "user1newemail@example.com",
+    }
 
 
 def test_delete_user(client):
@@ -99,6 +118,6 @@ def test_delete_user(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
-    example_id = 92384
-    response = client.delete(f"api/v1/users/{example_id}")
+    USERS_API_URL = "api/v1/users/1"
+    response = client.delete(USERS_API_URL)
     assert response.status_code == NO_CONTENT

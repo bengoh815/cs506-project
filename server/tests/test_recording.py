@@ -22,21 +22,24 @@
 import pytest
 from app import create_app
 from app.utils.status_codes import OK, CREATED, NO_CONTENT
+from app.database import db
+from app.test_config import TestingConfig
 
 
 @pytest.fixture
-def client():
-    """
-    Create a test client for the Flask application.
+def app():
+    app = create_app(TestingConfig)
+    with app.app_context():
+        db.create_all()
+        db.session.commit()
+        yield app
+        db.session.remove()
+        db.drop_all()
 
-    Yields:
-        FlaskClient: A test client for the application.
-    """
-    app = create_app()
 
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
+@pytest.fixture
+def client(app):
+    return app.test_client()
 
 
 def test_get_all_recordings(client):
