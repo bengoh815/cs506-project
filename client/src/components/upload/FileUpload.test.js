@@ -62,7 +62,7 @@ test("selected file name element renders", () => {
   expect(fileNameElement).toBeInTheDocument();
 });
 
-test("correct file name content when no file chosen", () => {
+test("correct selected file name content when no file chosen", () => {
   // Arrange
   render(<FileUpload />);
   const fileNameElement = screen.getByTestId("file-name");
@@ -83,10 +83,10 @@ test("choose file button renders", () => {
 test("correct choose file button label when NO file is selected", () => {
   // Arrange
   render(<FileUpload />);
-  const chooseFileButtonLabel = screen.getByTestId("choose-file-button-label");
+  const chooseFileButton = screen.getByTestId("choose-file-button");
 
   // Assert
-  expect(chooseFileButtonLabel).toHaveTextContent("Choose a file");
+  expect(chooseFileButton).toHaveTextContent("Choose a file");
 });
 
 test.skip("correct choose file button label when file is selected", () => {
@@ -94,41 +94,27 @@ test.skip("correct choose file button label when file is selected", () => {
 });
 
 test.skip("choose file button is NOT shown when file is uploading", () => {
-  // TODO: Implement test to that the choose/change file button is not shown when a file is uploading
+  // TODO: Implement test to check that the choose/change file button is not shown when a file is uploading
 });
 
-test("upload file button renders", () => {
+test.skip("upload file button renders when a file is selected", () => {
+  // TODO: Implement test to check that the upload file button renders when a valid file is selected.
+});
+
+test.skip("correct upload file button label", () => {
+  // TODO: Implement test to check that when rendered, the upload file button label is correct ("Upload")
+});
+
+test("upload file button is hidden on load", () => {
   // Arrange
   render(<FileUpload />);
-  const fileUploadButton = screen.getByTestId("upload-file-button");
+  const fileUploadButton = screen.queryByTestId("upload-file-button");
 
   // Assert
-  expect(fileUploadButton).toBeInTheDocument();
+  expect(fileUploadButton).not.toBeInTheDocument();
 });
 
-test("correct upload file button label", () => {
-  // Arrange
-  render(<FileUpload />);
-  const fileUploadButton = screen.getByTestId("upload-file-button");
-
-  // Assert
-  expect(fileUploadButton).toHaveValue("Upload");
-});
-
-test("upload file button is disabled on component load", () => {
-  // Arrange
-  render(<FileUpload />);
-  const fileUploadButton = screen.getByTestId("upload-file-button");
-
-  // Assert
-  expect(fileUploadButton).toBeDisabled();
-});
-
-test.skip("upload file button is enabled when a file is selected", () => {
-  // TODO: Implement test to check if the button is enabled when a file is selected
-});
-
-test.skip("upload file button is disabled file when file is uploading", () => {
+test.skip("upload file button is hidden when file is uploading", () => {
   // TODO: Implement test to check if the button is disabled when a file is uploading
 });
 

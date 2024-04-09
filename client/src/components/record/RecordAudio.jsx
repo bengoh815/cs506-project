@@ -15,19 +15,24 @@
  ******************************************************************************/
 
 import React, { useState, useRef } from "react";
+import { Button } from "react-bootstrap";
+import "./RecordAudio.css";
 
 const RecordButton = () => {
+  // State to store whether the user is currently recording or not
+  const [isRecording, setIsRecording] = useState(false);
+
   // State to store the MediaRecorder object
   const [mediaRecorder, setMediaRecorder] = useState(null);
 
   // State to store the recorded audio
-  const [isRecording, setIsRecording] = useState(false);
-
-  // State to store the recorded audio
   const [recordedAudio, setRecordedAudio] = useState(null);
 
-  // Add a useRef hook to keep a reference to the stream
+  // State to store the stream
   const streamRef = useRef(null);
+
+  // State to store the label of the record button
+  const [recordButtonLabel, setRecordButtonLabel] = useState("Start Recording");
 
   /**
    * Requests access to the user's microphone. If access is granted, the MediaRecorder object is created and the recording starts.
@@ -40,6 +45,7 @@ const RecordButton = () => {
 
     // Reset the recorded audio
     setRecordedAudio(null);
+    setRecordButtonLabel("Stop Recording");
 
     navigator.mediaDevices
       .getUserMedia({ audio: true })
@@ -53,11 +59,12 @@ const RecordButton = () => {
 
         recorder.ondataavailable = (e) => {
           // e.data contains the audio data
-          // You can create a new Blob object and create an object URL for it
-          const url = URL.createObjectURL(e.data);
-          console.log(url);
 
-          setRecordedAudio(e.data);
+          // Create a new Blob object and create an object URL for it
+          const blob = new Blob([e.data], { type: "audio/webm" });
+          const url = URL.createObjectURL(blob);
+
+          setRecordedAudio(url);
         };
 
         recorder.onerror = (e) => console.error(e.error);
@@ -80,32 +87,46 @@ const RecordButton = () => {
   const stopRecording = () => {
     if (mediaRecorder) {
       mediaRecorder.stop();
-      setIsRecording(false);
       streamRef.current.getTracks().forEach((track) => track.stop());
+      setIsRecording(false);
+      setRecordButtonLabel("Start Another Recording");
     }
   };
 
-  return (
-    <div id="record" data-testid="record">
-      <h2 id="record-heading" data-testid="record-heading">
-        Record
-      </h2>
-      <div style={{ display: "inline" }}>
-        <input
-          type="button"
-          id="record-file-input"
-          data-testid="record-file-input"
-          value={isRecording ? "Stop Recording" : "Start Recording"}
-          onClick={isRecording ? stopRecording : startRecording}
-        />
-      </div>
+  /**
+   * Uploads the recording webm file to the server to be processed.
+   */
+  const handleUpload = () => {
+    // TODO: Implement
+  };
 
-      {recordedAudio && !isRecording && (
-        <>
-          <br />
-          <br />
-          <audio src={URL.createObjectURL(recordedAudio)} controls />
-        </>
+  return (
+    <div id="record-group" data-testid="record-group">
+      {/* Heading */}
+      <h3 id="record-heading" data-testid="record-heading">
+        Record
+      </h3>
+
+      {/* Record Button */}
+      <Button
+        id="record-button"
+        data-testid="record-button"
+        onClick={isRecording ? stopRecording : startRecording}
+        variant={isRecording ? "danger" : "success"}
+      >
+        {recordButtonLabel}
+      </Button>
+
+      {/* Upload Recorded Audio Button */}
+      {recordedAudio && (
+        <Button
+          id="upload-button"
+          data-testid="upload-button"
+          onClick={handleUpload}
+          variant="primary"
+        >
+          Upload Recording
+        </Button>
       )}
     </div>
   );
