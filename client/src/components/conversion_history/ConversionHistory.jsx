@@ -57,7 +57,7 @@ const ConversionHistory = () => {
   return (
     <div className="conversion-history-container">
       <div id="conversion-history">
-        <h2 id="conversion-history-heading">Conversion History</h2>
+        <h3 id="conversion-history-heading">Conversion History</h3>
         <table id="conversion-history-table">
           <thead>
             <tr>

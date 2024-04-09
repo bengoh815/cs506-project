@@ -4,37 +4,8 @@ exports[`matches snapshot 1`] = `
 <div
   data-testid="security-statement-overlay"
   id="security-statement-overlay"
-  style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "rgba(0,0,0,0.5)",
-      "bottom": 0,
-      "display": "flex",
-      "justifyContent": "center",
-      "left": 0,
-      "position": "fixed",
-      "right": 0,
-      "top": 0,
-      "zIndex": 1000,
-    }
-  }
 >
-  <div
-    style={
-      Object {
-        "alignItems": "center",
-        "background": "white",
-        "borderRadius": "5px",
-        "boxShadow": "0 4px 8px rgba(0, 0, 0, 0.1)",
-        "display": "flex",
-        "flexDirection": "column",
-        "paddingBottom": "2rem",
-        "paddingLeft": "2rem",
-        "paddingRight": "2rem",
-        "paddingTop": "1rem",
-      }
-    }
-  >
+  <div>
     <h1
       data-testid="security-statement-heading"
       id="security-statement-heading"

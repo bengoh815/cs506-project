@@ -18,7 +18,8 @@
  *
  ******************************************************************************/
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { Button } from "react-bootstrap";
 import "./FileUpload.css";
 
 const FileUpload = () => {
@@ -36,6 +37,16 @@ const FileUpload = () => {
 
   // Whether a file is being uploaded
   const [isUploading, setIsUploading] = useState(false);
+
+  // Reference to the file input
+  const fileInputRef = useRef();
+
+  /**
+   * Opens the file input dialog when the button is clicked.
+   */
+  const handleFileInputClick = () => {
+    fileInputRef.current.click();
+  };
 
   /**
    * Update the file name when a new file is selected and enables the upload button.
@@ -113,46 +124,52 @@ const FileUpload = () => {
   };
 
   return (
-    <div id="upload" data-testid="upload">
-      <h2 id="upload-heading" data-testid="upload-heading">
+    <div id="upload" data-testid="upload" style={{ padding: "1rem" }}>
+      <h3 id="upload-heading" data-testid="upload-heading">
         Upload
-      </h2>
+      </h3>
 
-      <p id="file-name" data-testid="file-name">
-        <em>{fileStatus}</em>
-      </p>
-
-      {isUploading ? (
-        <></>
-      ) : (
+      {!isUploading && (
         <>
           <div>
-            <label
-              htmlFor="choose-file-button"
-              id="file-input-label"
-              data-testid="choose-file-button-label"
-            >
-              {chooseFileLabel}
-            </label>
+            {/* File Input - hidden */}
             <input
-              id="choose-file-button"
-              data-testid="choose-file-button"
+              ref={fileInputRef}
               type="file"
               onChange={handleFileChange}
               accept=".mp3, .m4a, .wav"
               hidden
             />
-            <input
-              type="button"
-              id="upload-file-button"
-              data-testid="upload-file-button"
-              onClick={handleUpload}
-              value="Upload"
-              disabled={!fileSelected}
-            />
+
+            {/* Choose File Button */}
+            <Button
+              id="choose-file-button"
+              data-testid="choose-file-button"
+              onClick={handleFileInputClick}
+              variant="secondary"
+            >
+              {chooseFileLabel}
+            </Button>
+
+            {fileSelected && (
+              /* Upload Button */
+              <Button
+                id="upload-file-button"
+                data-testid="upload-file-button"
+                onClick={handleUpload}
+                variant="primary"
+                disabled={!fileSelected}
+              >
+                Upload
+              </Button>
+            )}
           </div>
         </>
       )}
+
+      <p id="file-name" data-testid="file-name">
+        <em>{fileStatus}</em>
+      </p>
 
       <p id="file-format-label" data-testid="file-format-label">
         Accepted file upload formats:
