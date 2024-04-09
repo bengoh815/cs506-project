@@ -11,15 +11,25 @@ exports[`matches snapshot 1`] = `
   >
     Record
   </h3>
-  <button
-    className="btn btn-success"
-    data-testid="record-button"
-    disabled={false}
-    id="record-button"
-    onClick={[Function]}
-    type="button"
+  <div
+    id="button-group"
+    style={
+      Object {
+        "display": "flex",
+        "style": Object {},
+      }
+    }
   >
-    Start Recording
-  </button>
+    <button
+      className="button btn btn-success"
+      data-testid="record-button"
+      disabled={false}
+      id="record-button"
+      onClick={[Function]}
+      type="button"
+    >
+      Start Recording
+    </button>
+  </div>
 </div>
 `;

@@ -16,6 +16,7 @@
 
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
+import Playback from "./PlaybackAudio";
 import "./RecordAudio.css";
 
 const RecordButton = () => {
@@ -44,8 +45,8 @@ const RecordButton = () => {
     }
 
     // Reset the recorded audio
-    setRecordedAudio(null);
     setRecordButtonLabel("Stop Recording");
+    setRecordedAudio(null);
 
     navigator.mediaDevices
       .getUserMedia({ audio: true })
@@ -86,18 +87,21 @@ const RecordButton = () => {
    */
   const stopRecording = () => {
     if (mediaRecorder) {
-      mediaRecorder.stop();
-      streamRef.current.getTracks().forEach((track) => track.stop());
       setIsRecording(false);
       setRecordButtonLabel("Start Another Recording");
+      mediaRecorder.stop();
+      streamRef.current.getTracks().forEach((track) => track.stop());
     }
   };
 
   /**
-   * Uploads the recording webm file to the server to be processed.
+   * Downloads the recording webm file to the user's device.
    */
-  const handleUpload = () => {
-    // TODO: Implement
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = recordedAudio;
+    link.download = "melody-mapper-recording.webm";
+    link.click();
   };
 
   return (
@@ -108,26 +112,36 @@ const RecordButton = () => {
       </h3>
 
       {/* Record Button */}
-      <Button
-        id="record-button"
-        data-testid="record-button"
-        onClick={isRecording ? stopRecording : startRecording}
-        variant={isRecording ? "danger" : "success"}
-      >
-        {recordButtonLabel}
-      </Button>
-
-      {/* Upload Recorded Audio Button */}
-      {recordedAudio && (
+      <div id="button-group" style={{ display: "flex", style: {} }}>
         <Button
-          id="upload-button"
-          data-testid="upload-button"
-          onClick={handleUpload}
-          variant="primary"
+          id="record-button"
+          className="button"
+          data-testid="record-button"
+          onClick={isRecording ? stopRecording : startRecording}
+          variant={isRecording ? "danger" : "success"}
         >
-          Upload Recording
+          {recordButtonLabel}
         </Button>
-      )}
+
+        {/* Currently Recording Indicator */}
+        {isRecording && <div className="recording-indicator"></div>}
+
+        {/* Download Recorded Audio Button */}
+        {recordedAudio && (
+          <Button
+            id="download-button"
+            className="button"
+            data-testid="download-button"
+            onClick={handleDownload}
+            variant="dark"
+          >
+            Download Recording
+          </Button>
+        )}
+      </div>
+
+      {/* Recorded Audio */}
+      {recordedAudio && <Playback audioSrc={recordedAudio} />}
     </div>
   );
 };
