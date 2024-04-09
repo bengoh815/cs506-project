@@ -20,20 +20,24 @@ import numpy as np
 import scipy.io.wavfile as wav
 import matplotlib.pyplot as plt
 
+
 def wav_to_frequency(wav_file):
     # read the WAV file
-    rate, data = wav.read(wav_file)    
+    rate, data = wav.read(wav_file)
+
     # compute the Fourier Transform
     frequencies = np.fft.fftfreq(len(data)) * rate
-    spectrum = np.fft.fft(data)  
+    spectrum = np.fft.fft(data)
+
     # plot the frequencies
     plt.figure(figsize=(10, 4))
     plt.plot(frequencies, np.abs(spectrum))
-    plt.title('Frequency Spectrum')
-    plt.xlabel('Frequency (Hz)')
-    plt.ylabel('Magnitude')
+    plt.title("Frequency Spectrum")
+    plt.xlabel("Frequency (Hz)")
+    plt.ylabel("Magnitude")
     plt.grid(True)
     plt.show()
+
 
 if __name__ == "__main__":
     wav_file = "sample1.wav"
