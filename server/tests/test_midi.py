@@ -51,8 +51,8 @@ def app():
         db.create_all()
 
         # Pre-populate the database with test data
-        midi1_data = read_midi_file("tests/resources/midi1.mid")
-        midi2_data = read_midi_file("tests/resources/midi2.mid")
+        midi1_data = read_midi_file("server/tests/resources/midi1.mid")
+        midi2_data = read_midi_file("server/tests/resources/midi2.mid")
         midi1 = MIDI(recording_id=1, midi_data=b"midi1_data")
         midi2 = MIDI(recording_id=2, midi_data=b"midi2_data")
         db.session.add(midi1)
