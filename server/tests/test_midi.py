@@ -68,7 +68,7 @@ def test_get_all_midis(client):
     MIDIS_API_URL = "api/v1/midis"
     response = client.get(MIDIS_API_URL)
     assert response.status_code == OK
-    assert response.json == [{"id": 1, "recording_id": 1}, {"id": 2, "recording_id": 2}]
+    assert response.json == [{"id": 1, "name": "Midi1"}, {"id": 2, "name": "Midi2"}]
 
 
 def test_get_midi(client):
