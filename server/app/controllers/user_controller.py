@@ -50,7 +50,7 @@ def get_user(user_id):
     Returns:
         tuple: A JSON representation of the user and the HTTP status code OK (200).
     """
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if user:
         user_data = {"id": user.user_id, "name": user.name, "email": user.email}
         return jsonify(user_data), OK
@@ -87,7 +87,7 @@ def update_user(user_id):
     Returns:
         tuple: A JSON representation of the updated user and the HTTP status code OK (200).
     """
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if user:
         data = request.get_json()
         user.name = data.get("name", user.name)
@@ -108,7 +108,7 @@ def delete_user(user_id):
     Returns:
         tuple: A JSON message confirming the deletion of the user and the HTTP status code NO CONTENT (204).
     """
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if user:
         db.session.delete(user)
         db.session.commit()

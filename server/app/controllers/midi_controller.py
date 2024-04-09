@@ -21,6 +21,8 @@
 # libraries, are installed and properly configured in your environment.
 ################################################################################
 
+from app.database import db
+from app.models.midi_model import MIDI
 from app.utils.status_codes import OK, CREATED, NO_CONTENT
 from flask import jsonify
 
@@ -32,8 +34,15 @@ def get_all_midis():
     Returns:
         tuple: A JSON list of MIDI files and the HTTP status code OK (200).
     """
-    midis = [{"id": 1, "name": "Midi1"}, {"id": 2, "name": "Midi2"}]
-    return jsonify(midis), OK
+    midis = MIDI.query.all()
+    midis_list = [
+        {
+            "id": midi.midi_id,
+            "recording_id": midi.recording_id,
+        }
+        for midi in midis
+    ]
+    return jsonify(midis_list), OK
 
 
 def get_midi(midi_id):
