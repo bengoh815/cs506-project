@@ -110,7 +110,7 @@ B <-->|SQLAlchemy| C
 ```mermaid
 erDiagram
     Users {
-        user_id INT PK
+        id INT PK
         name VARCHAR
         email VARCHAR
     }

@@ -18,7 +18,7 @@
 
 from sqlalchemy import LargeBinary, DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import ForeignKey, PrimaryKeyConstraint
+from sqlalchemy import ForeignKey
 from datetime import datetime
 
 
