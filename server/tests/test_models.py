@@ -63,13 +63,21 @@ def test_user_model(session):
 
 
 def test_midis_model(session):
+    # Create a user
+    user = User(name="John Doe", email="john@example.com")
+
+    # Add the user to the session
+    session.add(user)
+    session.commit()
+
     # Create a MIDI entry
     date_str = "2024-04-10"
-    date_obj = datetime.strptime(
-        date_str, "%Y-%m-%d"
-    )  # Convert string to datetime object
+    date_obj = datetime.strptime(date_str, "%Y-%m-%d")
     midi_entry = MIDIs(
-        title="Sample MIDI", date=date_obj, midi_data=b"Some binary data"
+        author_id=user.id,  # Assign the user's id as the author_id
+        title="Sample MIDI",
+        date=date_obj,
+        midi_data=b"Some binary data",
     )
 
     # Add the MIDI entry to the session
@@ -80,5 +88,5 @@ def test_midis_model(session):
     retrieved_midi_entry = session.query(MIDIs).filter_by(title="Sample MIDI").first()
 
     assert retrieved_midi_entry.title == "Sample MIDI"
-    assert retrieved_midi_entry.date == date_obj  # No need to convert to string here
+    assert retrieved_midi_entry.date == date_obj
     assert retrieved_midi_entry.midi_data == b"Some binary data"
