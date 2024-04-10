@@ -33,6 +33,7 @@ def read_midi_file(file_path):
         return file.read()
 
 
+@pytest.fixture
 def app():
     app = create_app(TestingConfig)
     with app.app_context():
@@ -64,8 +65,6 @@ def test_get_all_midis(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
-    MIDIS_API_URL = "api/v1/midis"
-    response = client.get(MIDIS_API_URL)
     MIDIS_API_URL = "api/v1/midis"
     response = client.get(MIDIS_API_URL)
     assert response.status_code == OK
