@@ -1,6 +1,6 @@
 # ################################################################################
 # # Filename: test_db.py
-# # Purpose:  file to test whether the database initilization script is working
+# # Purpose:  file to test whether the database initialization script is working
 # #           as expected
 # # Author:   Roshni Venkat
 # #
@@ -21,12 +21,14 @@
 # # imports
 # import pytest
 # import sys
+
 # # update the Path to allow the app directory to be accessed
 # from pathlib import Path
+
 # current_dir = Path(__file__).parent
 # parent_dir = current_dir.parent
 # sys.path.append(str(parent_dir))
-# from app.models.db_connecter import DB_Connecter
+
 
 # @pytest.fixture
 # def conn():
@@ -41,6 +43,7 @@
 #     """
 #     return DB_Connecter()
 
+
 # def test_users_setup(conn):
 #     """
 #     Function to test whether the users table is successfully created
@@ -54,6 +57,7 @@
 #     result = conn.read_DB("SHOW TABLES LIKE 'Users'")
 #     assert result is not None
 
+
 # def test_recordings_setup(conn):
 #     """
 #     Function to test whether the recordings table is successfully created
@@ -66,6 +70,7 @@
 #     """
 #     result = conn.read_DB("SHOW TABLES LIKE 'Recordings'")
 #     assert result is not None
+
 
 # def test_midis_setup(conn):
 #     """
