@@ -18,6 +18,7 @@
 
 from sqlalchemy import LargeBinary, DateTime
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import ForeignKey, PrimaryKeyConstraint
 from datetime import datetime
 
 
@@ -62,6 +63,7 @@ class MIDIs(Base):
 
     __tablename__ = "midis"
     midi_id: Mapped[int] = mapped_column(primary_key=True)
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     title: Mapped[str]
     date: Mapped[datetime]
     midi_data: Mapped[bytes]

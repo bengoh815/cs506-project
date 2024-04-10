@@ -115,15 +115,11 @@ erDiagram
         email VARCHAR
     }
 
-    Recordings {
-        recording_id INT PK
-        name VARCHAR
-        user_id INT FK
-    }
-
     MIDIs {
         midi_id INT PK
-        recording_id INT FK
+        author_id INT FK
+        title VARCHAR
+        date TIMEDATE
         midi_data LONGBLOB
     }
 
@@ -145,9 +141,10 @@ classDiagram
 
     class MIDI {
         - midi_id: Mapped[int]
+        - author_id: Mapped[int]
         - title: Mapped[str]
-        - date: Mapped[DateTime]
-        - midi_data: Mapped[LargeBinary]
+        - date: Mapped[datetime]
+        - midi_data: Mapped[bytes]
     }
 ```
 
