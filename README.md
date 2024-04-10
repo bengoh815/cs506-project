@@ -117,7 +117,7 @@ erDiagram
 
     MIDIs {
         midi_id INT PK
-        author_id INT FK
+        user_id INT FK
         title VARCHAR
         date TIMEDATE
         midi_data LONGBLOB
@@ -141,7 +141,7 @@ classDiagram
 
     class MIDI {
         - midi_id: Mapped[int]
-        - author_id: Mapped[int]
+        - user_id: Mapped[int]
         - title: Mapped[str]
         - date: Mapped[datetime]
         - midi_data: Mapped[bytes]

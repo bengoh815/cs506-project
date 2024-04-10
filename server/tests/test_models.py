@@ -74,7 +74,7 @@ def test_midis_model(session):
     date_str = "2024-04-10"
     date_obj = datetime.strptime(date_str, "%Y-%m-%d")
     midi_entry = MIDIs(
-        author_id=user.id,  # Assign the user's id as the author_id
+        user_id=user.id,  # Assign the user's id as the author_id
         title="Sample MIDI",
         date=date_obj,
         midi_data=b"Some binary data",

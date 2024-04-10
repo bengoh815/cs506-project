@@ -63,7 +63,7 @@ class MIDIs(Base):
 
     __tablename__ = "midis"
     midi_id: Mapped[int] = mapped_column(primary_key=True)
-    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     title: Mapped[str]
     date: Mapped[datetime]
     midi_data: Mapped[bytes]
@@ -72,4 +72,4 @@ class MIDIs(Base):
         """
         Return a string representation of the MIDI object.
         """
-        return f"<MIDI(midi_id='{self.midi_id}', title='{self.title}', date='{self.date}', midi_data='{self.midi_data}'>"
+        return f"<MIDI(midi_id='{self.midi_id}', user_id='{self.user_id}' title='{self.title}', date='{self.date}', midi_data='{self.midi_data}'>"
