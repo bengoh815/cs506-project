@@ -37,6 +37,7 @@ class MIDIs(Base):
     Attributes:
         midi_id (int): The unique identifier for the MIDI data.
         recording_id (int): The recording ID associated with the MIDI data.
+        date (DateTime): The MIDI file generation date.
         midi_data (LargeBinary): The MIDI data.
     """
 
@@ -50,4 +51,4 @@ class MIDIs(Base):
         """
         Return a string representation of the MIDI object.
         """
-        return f"<MIDI(midi_id='{self.midi_id}', recording_id='{self.recording_id}', midi_data='{self.midi_data}'>"
+        return f"<MIDI(midi_id='{self.midi_id}', title='{self.title}', date='{self.date}', midi_data='{self.midi_data}'>"

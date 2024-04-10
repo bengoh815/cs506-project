@@ -51,8 +51,8 @@ def app():
         db.create_all()
 
         # Pre-populate the database with test data
-        midi1_data = read_midi_file("server/tests/resources/midi1.mid")
-        midi2_data = read_midi_file("server/tests/resources/midi2.mid")
+        midi1_data = read_midi_file("tests/resources/midi1.mid")
+        midi2_data = read_midi_file("tests/resources/midi2.mid")
         midi1 = MIDI(recording_id=1, midi_data=b"midi1_data")
         midi2 = MIDI(recording_id=2, midi_data=b"midi2_data")
         db.session.add(midi1)
@@ -79,7 +79,7 @@ def test_get_all_midis(client):
     MIDIS_API_URL = "api/v1/midis"
     response = client.get(MIDIS_API_URL)
     assert response.status_code == OK
-    assert response.json == [{"id": 1, "name": "Midi1"}, {"id": 2, "name": "Midi2"}]
+    assert response.json == [{"id": 1, "recording_id": 1}, {"id": 2, "recording_id": 2}]
 
 
 def test_get_midi(client):
