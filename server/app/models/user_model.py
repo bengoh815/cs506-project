@@ -21,10 +21,17 @@
 
 
 from app.database import db
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class User(db.Model):
     __tablename__ = "Users"
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), nullable=False)
+    user_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str]
+    email: Mapped[str]
+
+    def __repr__(self):
+        """
+        Return a string representation of the User object.
+        """
+        return f"<User(id='{self.id}', name='{self.name}', email='{self.email}'>"

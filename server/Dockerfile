@@ -1,3 +1,29 @@
+################################################################################
+# Filename: Dockerfile
+# Purpose:  File to test whether the backend initialization script is working
+#           as expected
+# Author:   Benjamin Goh
+#
+# Description:
+# This Dockerfile is used to build a Docker image for a Python application
+# that tests the initialization of a database. It sets up the environment,
+# installs dependencies, and runs the application.
+#
+# Usage:
+# To build the Docker image, run the following command in the directory
+# containing this Dockerfile:
+#   docker build -t <image-name> .
+#
+# To run the Docker container, use:
+#   docker run -p 5000:5000 <image-name>
+#
+# Notes:
+# Ensure that the 'requirements.txt' file is present in the same directory
+# as this Dockerfile and contains all the necessary Python packages.
+# The application is expected to be exposed on port 5000.
+#
+###############################################################################
+
 # Use an official Python runtime as a parent image
 FROM python:3.8-slim
 
