@@ -12,25 +12,28 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Requirements
 
-| ID | Description | Priority | Status |
-| ---- | ------------------------------------------------------------ | -------- | ------ |
-| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed | High | In Progress |
-| R002 | The system shall process the MP3 file sent to the backend into a MIDI file | High | In Progress |
-| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | Complete |
-| R004 | The system shall receive a request from a user to retrieve a MIDI file from the database | High | In Progress |
-| R005 | The system shall process a request for a MIDI file and query the database for results | High | Complete |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | Complete |
-| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress   |
-| R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open   |
-| R009 | The system shall be able to credit other users for the recording                                       | Low      | Open   |
+| ID   | Description                                                                                            | Priority | Status      |
+| ---- | ------------------------------------------------------------------------------------------------------ | -------- | ----------- |
+| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed              | High     | In Progress |
+| R002 | The system shall process the MP3 file sent to the backend into a MIDI file                             | High     | In Progress |
+| R003 | The system shall send the MIDI file and file metadata to the database for storage                      | High     | Complete    |
+| R004 | The system shall receive a request from a user to retrieve a MIDI file from the database               | High     | In Progress |
+| R005 | The system shall process a request for a MIDI file and query the database for results                  | High     | Complete    |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | In Progress |
+| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress |
+| R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
+| R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
+| R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
+| R011 | The system shall will use Fast Fourier Transform algorithm to analyze the different frequencies        | High     | In Progress |
+| R012 | The system shall select bass line frequencies to transcribe into MIDI notes                            | High     | In Progress |
 
 ### Use Cases & User Stories
 
 1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-    - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
-    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+   - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+   - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
-    - The list contains all the converted recordings that all the users have created in the database.
+   - The list contains all the converted recordings that all the users have created in the database.
 3. As the user of the website, the user will be able to create an account.
 4. As the user of the website, the user can see a history of the converted recordings they have done.
 5. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
@@ -61,12 +64,12 @@ Website with user account
 
 ### Security Requirements
 
--   Our system will only record audio in between when the user has clicked the start and stop recording button.
--   Our system will only store the MIDI file converted from audio recordings.
-    -   The system will state that the audio recordings will only be used for converting into the MIDI file.
-    -   MIDI files will be stored in the database and open for all users to see.
-    -   The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
--   Our system will be vulnerable to denial-of-service attacks.
+- Our system will only record audio in between when the user has clicked the start and stop recording button.
+- Our system will only store the MIDI file converted from audio recordings.
+  - The system will state that the audio recordings will only be used for converting into the MIDI file.
+  - MIDI files will be stored in the database and open for all users to see.
+  - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+- Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
@@ -313,6 +316,28 @@ def calculate_sum(num1, num2):
 ```
 
 2. **Python:**
+
+```
+################################################################################
+# Filename: [File Name]
+# Purpose:  [Brief description of the purpose or functionality of the file]
+# Author:   [Author Name]
+#
+# Description:
+# [Detailed description of the contents and functionality of the file.]
+#
+# Usage (Optional):
+# [Instructions or examples demonstrating how to use the code in this file.
+# Include any dependencies or prerequisites required for proper usage.]
+#
+# Notes:
+# [Any additional notes, considerations, or important information
+# about the file that may be relevant to developers or users.]
+#
+###############################################################################
+```
+
+3. **Docker**
 
 ```
 ################################################################################

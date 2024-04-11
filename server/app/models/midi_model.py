@@ -20,10 +20,18 @@
 ###############################################################################
 
 from app.database import db
+from sqlalchemy import LargeBinary
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class MIDI(db.Model):
     __tablename__ = "MIDIs"
-    midi_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    recording_id = db.Column(db.Integer, nullable=False)
-    midi_data = db.Column(db.LargeBinary, nullable=False)
+    midi_id: Mapped[int] = mapped_column(primary_key=True)
+    recording_id: Mapped[int]
+    midi_data = db.Column(LargeBinary, nullable=False)
+
+    def __repr__(self):
+        """
+        Return a string representation of the MIDI object.
+        """
+        return f"<MIDI(midi_id='{self.midi_id}', recording_id='{self.recording_id}', midi_data='{self.midi_data}'>"
