@@ -151,6 +151,8 @@ const ConversionHistory = () => {
           containerClassName={"pagination"}
           previousLinkClassName={"pagination__link"}
           nextLinkClassName={"pagination__link"}
+          activeClassName={"pagination__link--active"}
+          disabledClassName={"pagination__link--disabled"}
         />
       </div>
     </div>
