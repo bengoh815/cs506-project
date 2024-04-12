@@ -20,9 +20,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from app.routes.midi_routes import midi_bp
-from app.routes.recording_routes import recording_bp
 from app.routes.user_routes import user_bp
 from app.database import db
 
@@ -57,7 +55,6 @@ def create_app(config_object=None):
 
     # Register blueprints
     app.register_blueprint(midi_bp)
-    app.register_blueprint(recording_bp)
     app.register_blueprint(user_bp)
 
     return app
