@@ -113,7 +113,7 @@ B <-->|SQLAlchemy| C
 ```mermaid
 erDiagram
     Users {
-        id INT PK
+        user_id INT PK
         name VARCHAR
         email VARCHAR
     }
@@ -122,7 +122,7 @@ erDiagram
         midi_id INT PK
         user_id INT FK
         title VARCHAR
-        date TIMEDATE
+        date DATETIME
         midi_data LONGBLOB
     }
 
@@ -137,7 +137,7 @@ title: Class Diagram for MelodyMapper Program
 ---
 classDiagram
     class User {
-        - id: Mapped[int]
+        - user_id: Mapped[int]
         - name: Mapped[str]
         - email: Mapped[str]
     }
@@ -203,9 +203,18 @@ participant Frontend
 participant FlaskBackend
 participant MySQLDatabase
 
-Frontend ->> FlaskBackend: HTTP Request (e.g., GET /api/recordings)
 activate FlaskBackend
-Frontend ->> FlaskBackend: HTTP Request (e.g., POST /api/recordings)
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/users)
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/users/<user_id>)
+Frontend ->> FlaskBackend: HTTP Request (POST /api/v1/users)
+Frontend ->> FlaskBackend: HTTP Request (PUT /api/v1/users/<user_id>)
+Frontend ->> FlaskBackend: HTTP Request (DELETE /api/v1/users/<user_id>)
+
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/midis)
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/midis/<midi_id>)
+Frontend ->> FlaskBackend: HTTP Request (POST /api/v1/midis)
+Frontend ->> FlaskBackend: HTTP Request (PUT /api/v1/midis/<midi_id>)
+Frontend ->> FlaskBackend: HTTP Request (DELETE /api/v1/midis/<midi_id>)
 
 FlaskBackend ->> MySQLDatabase: Query (SELECT * FROM Recording)
 activate MySQLDatabase

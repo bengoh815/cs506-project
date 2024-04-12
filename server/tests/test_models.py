@@ -16,7 +16,7 @@
 #   the test database is properly set up.
 # - The test fixtures are provided for creating an in-memory SQLite database
 #   engine and a session for database interactions.
-# - The test cases include tests for the User and MIDIs models,
+# - The test cases include tests for the User and MIDI models,
 #   including creation, insertion, and retrieval from the database.
 #
 ################################################################################
@@ -24,7 +24,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import pytest
-from app.models.db_orm import Base, User, MIDIs
+from app.models.user_model import User
+from app.models.midi_model import MIDI
 from datetime import datetime
 
 
@@ -42,7 +43,8 @@ def session(engine):
     session = Session()
 
     # Create all tables
-    Base.metadata.create_all(engine)
+    User.metadata.create_all(engine)
+    MIDI.metadata.create_all(engine)
 
     return session
 
@@ -62,7 +64,7 @@ def test_user_model(session):
     assert retrieved_user.email == "john@example.com"
 
 
-def test_midis_model(session):
+def test_midi_model(session):
     # Create a user
     user = User(name="John Doe", email="john@example.com")
 
@@ -73,8 +75,8 @@ def test_midis_model(session):
     # Create a MIDI entry
     date_str = "2024-04-10"
     date_obj = datetime.strptime(date_str, "%Y-%m-%d")
-    midi_entry = MIDIs(
-        user_id=user.id,  # Assign the user's id as the author_id
+    midi_entry = MIDI(
+        user_id=user.user_id,  # Assign the user's id as the author_id
         title="Sample MIDI",
         date=date_obj,
         midi_data=b"Some binary data",
@@ -85,7 +87,7 @@ def test_midis_model(session):
     session.commit()
 
     # Retrieve the MIDI entry from the session
-    retrieved_midi_entry = session.query(MIDIs).filter_by(title="Sample MIDI").first()
+    retrieved_midi_entry = session.query(MIDI).filter_by(title="Sample MIDI").first()
 
     assert retrieved_midi_entry.title == "Sample MIDI"
     assert retrieved_midi_entry.date == date_obj
