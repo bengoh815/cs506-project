@@ -23,8 +23,11 @@
 
 from app.database import db
 from app.models.midi_model import MIDI
-from app.utils.status_codes import OK, CREATED, NO_CONTENT
-from flask import jsonify
+from app.models.user_model import User
+from app.utils.status_codes import OK, CREATED, NO_CONTENT, NOT_FOUND
+from app.utils.base64_converter import BinaryConverter
+from app.utils.isodate_converter import DateConverter
+from flask import jsonify, request
 
 
 def get_all_midis():
@@ -35,13 +38,23 @@ def get_all_midis():
         tuple: A JSON list of MIDI files and the HTTP status code OK (200).
     """
     midis = MIDI.query.all()
-    midis_list = [
-        {
-            "id": midi.midi_id,
-            "recording_id": midi.recording_id,
-        }
-        for midi in midis
-    ]
+    midis_list = []
+    for midi in midis:
+        # Parse date
+        midi_date = midi.date.isoformat()
+
+        # Parse binary data
+        midi_encode = BinaryConverter.encode_binary(midi.midi_data)
+
+        # Create midi json
+        midis_list.append({
+            "midi_id": midi.midi_id,
+            "user_id": midi.user_id,
+            "title": midi.title,
+            "date": midi_date,
+            "midi_data": midi_encode
+        })
+
     return jsonify(midis_list), OK
 
 
@@ -55,20 +68,63 @@ def get_midi(midi_id):
     Returns:
         tuple: A JSON representation of the MIDI file and the HTTP status code OK (200).
     """
-    midi = {"id": midi_id, "name": "MidiName"}
-    return jsonify(midi), OK
+    midi = db.session.get(MIDI, midi_id)
 
+    # Parse date
+    midi_date = midi.date.isoformat()
+
+    # Parse binary data
+    midi_encode = BinaryConverter.encode_binary(midi.midi_data)
+
+    if midi:
+        midi_data = {
+            "midi_id": midi.midi_id,
+            "user_id": midi.user_id,
+            "title": midi.title,
+            "date": midi_date,
+            "midi_data": midi_encode
+        }
+        return jsonify(midi_data), OK
+    else:
+        return jsonify({"message": "MIDI not found"}), NOT_FOUND
 
 def create_midi():
     """
-    Create a new MIDI file.
+    Create a new MIDI entry in the database.
 
     Returns:
-        tuple: A JSON representation of the newly created MIDI file and the HTTP status code CREATED (201).
+        tuple: A JSON representation of the newly created MIDI entry and the HTTP status code CREATED (201).
     """
-    new_midi = {"id": 3, "name": "NewMidi"}
-    return jsonify(new_midi), CREATED
+    data = request.get_json()
 
+    # Create User
+    name = data.get('name')
+    email = data.get('email')
+    new_user = User(name=name, email=email)
+    db.session.add(new_user)
+    db.session.commit()
+
+    # Create MIDI
+    user_id = new_user.user_id
+    title = data.get('title')
+    midi_data_encoded = data.get('midi_data')
+    date = DateConverter.current_time()
+
+    # Decode the base64-encoded MIDI data
+    midi_data = BinaryConverter.decode_binary(midi_data_encoded)
+
+    new_midi = MIDI(user_id=user_id, title=title, midi_data=midi_data, date=date)
+
+    db.session.add(new_midi)
+    db.session.commit()
+
+    return jsonify({
+        'midi_id': new_midi.midi_id,
+        'user_id': new_midi.user_id,
+        'title': new_midi.title,
+        'date': new_midi.date.isoformat(),
+        'midi_data': midi_data_encoded  # Return the base64-encoded MIDI data
+    }), CREATED
 
 def update_midi(midi_id):
     """

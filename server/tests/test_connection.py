@@ -23,6 +23,7 @@ from app.database import db
 from app.test_config import TestingConfig
 from app.models.user_model import User
 from app.models.midi_model import MIDI
+from datetime import datetime
 
 
 @pytest.fixture
@@ -37,8 +38,12 @@ def app():
         db.session.add(user1)
         db.session.add(user2)
 
-        midi1 = MIDI(recording_id=1, midi_data=b"midi1_data")
-        midi2 = MIDI(recording_id=2, midi_data=b"midi2_data")
+        midi1 = MIDI(
+            user_id=1, title="MIDI 1", date=datetime.now(), midi_data=b"midi1_data"
+        )
+        midi2 = MIDI(
+            user_id=2, title="MIDI 2", date=datetime.now(), midi_data=b"midi2_data"
+        )
         db.session.add(midi1)
         db.session.add(midi2)
 

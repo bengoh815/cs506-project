@@ -61,8 +61,8 @@ def test_get_all_users(client):
     response = client.get(USERS_API_URL)
     assert response.status_code == OK
     assert response.json == [
-        {"id": 1, "name": "User1", "email": "user1@example.com"},
-        {"id": 2, "name": "User2", "email": "user2@example.com"},
+        {"user_id": 1, "name": "User1", "email": "user1@example.com"},
+        {"user_id": 2, "name": "User2", "email": "user2@example.com"},
     ]
 
 
@@ -76,7 +76,7 @@ def test_get_user(client):
     USERS_API_URL = "api/v1/users/1"
     response = client.get(USERS_API_URL)
     assert response.status_code == OK
-    assert response.json == {"id": 1, "name": "User1", "email": "user1@example.com"}
+    assert response.json == {"user_id": 1, "name": "User1", "email": "user1@example.com"}
 
 
 def test_create_user(client):
@@ -87,10 +87,10 @@ def test_create_user(client):
         client (FlaskClient): The test client for the application.
     """
     USERS_API_URL = "api/v1/users"
-    new_user_data = {"name": "User3", "email": "user3@example.com"}
-    response = client.post(USERS_API_URL, json=new_user_data)
+    NEW_USER_DATA = {"name": "User3", "email": "user3@example.com"}
+    response = client.post(USERS_API_URL, json=NEW_USER_DATA)
     assert response.status_code == CREATED
-    assert response.json == {"id": 3, "name": "User3", "email": "user3@example.com"}
+    assert response.json == {"user_id": 3, "name": "User3", "email": "user3@example.com"}
 
 
 def test_update_user(client):
@@ -101,11 +101,11 @@ def test_update_user(client):
         client (FlaskClient): The test client for the application.
     """
     USERS_API_URL = "api/v1/users/1"
-    update_user_data = {"name": "User1Modified", "email": "user1newemail@example.com"}
-    response = client.put(USERS_API_URL, json=update_user_data)
+    UPDATE_USER_DATA = {"name": "User1Modified", "email": "user1newemail@example.com"}
+    response = client.put(USERS_API_URL, json=UPDATE_USER_DATA)
     assert response.status_code == OK
     assert response.json == {
-        "id": 1,
+        "user_id": 1,
         "name": "User1Modified",
         "email": "user1newemail@example.com",
     }
