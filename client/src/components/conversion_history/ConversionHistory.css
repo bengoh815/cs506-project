@@ -4,10 +4,6 @@
   align-items: center;
 }
 
-#conversion-history {
-  /* Add styles here for the inner div if needed */
-}
-
 #conversion-history-table {
   border-collapse: collapse;
   width: 100%;
@@ -26,5 +22,4 @@
 
 #conversion-history-table th {
   height: 50px;
-  /* Adjust height as needed */
 }
