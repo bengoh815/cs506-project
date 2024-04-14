@@ -1,6 +1,6 @@
 /*
 # Filename: init.sql
-# Purpose: create and initialize the database
+# Purpose: Create and initialize the MelodyMapper database
 # Author: Roshni Venkat
 #
 # Description:
@@ -26,36 +26,26 @@ Attributes:
     name(string): the user name
     email(string): the user email
 */
-CREATE TABLE IF NOT EXISTS Users (
+CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     email VARCHAR(255)
 );
 
 /*
-Creates the Recordings table in the database
+Creates the MIDIs table in the database
 Attributes:
-    recording_id(integer): the recording id
+    midi_id(integer): the midi id
     user_id(integer): the user id
-    name(String): the user name
+    title: the title of the MIDI file
+    date: the date it was recorded
+    midi_data (bytes): the midi data
 */
-CREATE TABLE IF NOT EXISTS Recordings (
-    recording_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    name VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
-);
-
-/*
-Creates the Users table in the database
-Attributes:
-    midi_id(integer): the user id
-    recording_id(integer): the recording id
-    midi_data (bytearray): the midi data
-*/
-CREATE TABLE IF NOT EXISTS MIDIs (
+CREATE TABLE IF NOT EXISTS midis (
     midi_id INT AUTO_INCREMENT PRIMARY KEY,
-    recording_id INT,
+    user_id INT,
+    title VARCHAR(255)
+    date DATETIME
     midi_data LONGBLOB,
-    FOREIGN KEY (recording_id) REFERENCES Recordings(recording_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );

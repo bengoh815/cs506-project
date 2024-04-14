@@ -37,10 +37,10 @@ class MIDI(db.Model):
     """
     __tablename__ = "midis"
     midi_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.user_id"))
-    title: Mapped[str] = mapped_column(String)
-    date: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
-    midi_data: Mapped[bytes] = mapped_column(LargeBinary)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.user_id"), nullable=False)
+    title: Mapped[str] = mapped_column(String, nullable=False)
+    date: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    midi_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
 
     def __repr__(self):
         """
