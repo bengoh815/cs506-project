@@ -1,0 +1,57 @@
+################################################################################
+# Filename: docker-compose.override.yml
+# Purpose:  Define the development environment for the application
+# Author:   Benjamin Goh
+#
+# Description:
+# This Docker Compose file is used to set up the development environment for the
+# application. It includes services for the frontend, backend, and a PhpMyAdmin
+# interface for the database.
+#
+# Usage:
+# To start the development environment, run the following command in the directory
+# containing this file:
+#   docker-compose -f docker-compose.dev.yml up --build
+#
+# This will build and start the services defined in the file. The frontend will be
+# accessible at http://localhost:3000, and the PhpMyAdmin interface will be accessible
+# at http://localhost:8080.
+#
+# Notes:
+# - The frontend service uses a volume to mount the client code into the container,
+#   allowing for live reloading during development.
+# - The backend service connects to the database using the provided DATABASE_URL
+#   environment variable.
+# - The dbPhpMyAdmin service provides a PhpMyAdmin interface for managing the
+#   database, accessible at http://localhost:8080.
+#
+###############################################################################
+
+# Used to define development environment
+version: "3.8"
+services:
+  frontend:
+    build: ./client
+    volumes:
+      - ./client:/app
+    environment:
+      - NODE_ENV=development
+
+  backend:
+    build: ./server
+    volumes:
+      - ./server:/app
+    environment:
+      - DATABASE_URL=mysql+mysqlconnector://root:my_root_password@db/mp_database
+      - NODE_ENV=development
+
+  dbPhpMyAdmin:
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: my_root_password
+    ports:
+      - "8080:80"
+    depends_on:
+      - db

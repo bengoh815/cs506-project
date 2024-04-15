@@ -24,24 +24,18 @@
 
 import React from "react";
 import "./App.css";
-import SecurityStatement from "./basic_ui_component/SecurityStatements";
-import RecordButton from "./basic_ui_component/RecordButton";
-import FileUpload from "./basic_ui_component/FileUpload";
-import ConversionHistory from "./basic_ui_component/ConversionHistory";
-import logo from "./images/melody_logo.png";
+import SecurityStatement from "./components/security_statement/SecurityStatement";
+import AppLogo from "./components/logo/AppLogo";
+import RecordAudio from "./components/record/RecordAudio";
+import FileUpload from "./components/upload/FileUpload";
+import ConversionHistory from "./components/conversion_history/ConversionHistory";
 
 function App() {
   return (
     <div className="App">
       <SecurityStatement />
-      <img
-        id="logo"
-        className="melody_logo"
-        src={logo}
-        alt="Melody Mapper Logo"
-        height="64"
-      />
-      <RecordButton />
+      <AppLogo />
+      <RecordAudio />
       <FileUpload />
       <ConversionHistory />
     </div>

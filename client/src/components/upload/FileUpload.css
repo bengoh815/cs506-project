@@ -1,0 +1,30 @@
+/* FileUpload.css */
+#upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#upload p {
+  text-align: center;
+  padding: 0;
+}
+
+#upload ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#upload ul li {
+  margin: 5px 0;
+}
+
+#choose-file-button {
+  margin: 0.5rem;
+}
+
+#upload-file-button {
+  margin: 0.5rem;
+}

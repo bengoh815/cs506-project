@@ -12,22 +12,26 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Requirements
 
-| ID | Description | Priority | Status |
-| ---- | ------------------------------------------------------------ | -------- | ------ |
-| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed | High | In Progress |
-| R002 | The system shall process the MP3 file sent to the backend into a MIDI file | High | In Progress |
-| R003 | The system shall send the MIDI file and file metadata to the Database for Storage | High | In Progress |
-| R004 | The system shall recieve a request from a user to retrieve a MIDI file from the database | High | In Progress |
-| R005 | The system shall process a request for a MIDI file and query the database for results | High | In Progress |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user | High | In Progress |
+| ID   | Description                                                                                            | Priority | Status      |
+| ---- | ------------------------------------------------------------------------------------------------------ | -------- | ----------- |
+| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed              | High     | In Progress |
+| R002 | The system shall process the MP3 file sent to the backend into a MIDI file                             | High     | In Progress |
+| R003 | The system shall send the MIDI file and file metadata to the database for storage                      | High     | Complete    |
+| R004 | The system shall receive a request from a user to retrieve a MIDI file from the database               | High     | In Progress |
+| R005 | The system shall process a request for a MIDI file and query the database for results                  | High     | Complete    |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | In Progress |
+| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress |
+| R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
+| R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
+| R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
 
 ### Use Cases & User Stories
 
 1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-    - Once the user is satified with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
-    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+   - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+   - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
-    - The list contains all the converted recordings that all the users have created in the database.
+   - The list contains all the converted recordings that all the users have created in the database.
 3. As the user of the website, the user will be able to create an account.
 4. As the user of the website, the user can see a history of the converted recordings they have done.
 5. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
@@ -58,12 +62,12 @@ Website with user account
 
 ### Security Requirements
 
--   Our system will only record audio in between when the user has clicked the start and stop recording button.
--   Our system will only store the MIDI file converted from audio recordings.
-    -   The system will state that the audio recordings will only be used for converting into the MIDI file.
-    -   MIDI files will be stored in the database and open for all users to see.
-    -   The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
--   Our system will be vulnerable to denial-of-service attacks.
+- Our system will only record audio in between when the user has clicked the start and stop recording button.
+- Our system will only store the MIDI file converted from audio recordings.
+  - The system will state that the audio recordings will only be used for converting into the MIDI file.
+  - MIDI files will be stored in the database and open for all users to see.
+  - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+- Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
@@ -106,21 +110,17 @@ B <-->|SQLAlchemy| C
 
 ```mermaid
 erDiagram
-    Users {
+    users {
         user_id INT PK
         name VARCHAR
         email VARCHAR
     }
 
-    Recordings {
-        recording_id INT PK
-        name VARCHAR
-        user_id INT FK
-    }
-
-    MIDIs {
+    midis {
         midi_id INT PK
-        recording_id INT FK
+        user_id INT FK
+        title VARCHAR
+        date DATETIME
         midi_data LONGBLOB
     }
 
@@ -135,41 +135,17 @@ title: Class Diagram for MelodyMapper Program
 ---
 classDiagram
     class User {
-        - int user_id
-        - String name
-        - String email
-        + User(int user_id, String name, String email)
-        + void setUserID(int user_id)
-        + int getUserID()
-        + void setName(String name)
-        + String getName()
-        + void setEmail(String email)
-        + String getEmail()
-        + List<Recording> getRecordings()
-    }
-
-    class Recording {
-        - int recording_id
-        - String name
-        + Recording(int recording_id, String name)
-        + void setRecordingID(int recording_id)
-        + int getRecordingID()
-        + void setName(String name)
-        + String getName()
-        + MIDI convertToMIDI()
+        - user_id: Mapped[int]
+        - name: Mapped[str]
+        - email: Mapped[str]
     }
 
     class MIDI {
-        - int midi_id
-        - int recording_id
-        - byte[] midi_data
-        + MIDI(int midi_id, int recording_id, byte[] midi_data)
-        + void setMidiID(int midi_id)
-        + int getMidiID()
-        + void setRecordingID(int recording_id)
-        + int getRecordingID()
-        + void setMidiData(byte[] midi_data)
-        + byte[] getMidiData()
+        - midi_id: Mapped[int]
+        - user_id: Mapped[int]
+        - title: Mapped[str]
+        - date: Mapped[datetime]
+        - midi_data: Mapped[bytes]
     }
 ```
 
@@ -225,9 +201,18 @@ participant Frontend
 participant FlaskBackend
 participant MySQLDatabase
 
-Frontend ->> FlaskBackend: HTTP Request (e.g., GET /api/recordings)
 activate FlaskBackend
-Frontend ->> FlaskBackend: HTTP Request (e.g., POST /api/recordings)
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/users)
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/users/<user_id>)
+Frontend ->> FlaskBackend: HTTP Request (POST /api/v1/users)
+Frontend ->> FlaskBackend: HTTP Request (PUT /api/v1/users/<user_id>)
+Frontend ->> FlaskBackend: HTTP Request (DELETE /api/v1/users/<user_id>)
+
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/midis)
+Frontend ->> FlaskBackend: HTTP Request (GET /api/v1/midis/<midi_id>)
+Frontend ->> FlaskBackend: HTTP Request (POST /api/v1/midis)
+Frontend ->> FlaskBackend: HTTP Request (PUT /api/v1/midis/<midi_id>)
+Frontend ->> FlaskBackend: HTTP Request (DELETE /api/v1/midis/<midi_id>)
 
 FlaskBackend ->> MySQLDatabase: Query (SELECT * FROM Recording)
 activate MySQLDatabase
@@ -338,6 +323,28 @@ def calculate_sum(num1, num2):
 ```
 
 2. **Python:**
+
+```
+################################################################################
+# Filename: [File Name]
+# Purpose:  [Brief description of the purpose or functionality of the file]
+# Author:   [Author Name]
+#
+# Description:
+# [Detailed description of the contents and functionality of the file.]
+#
+# Usage (Optional):
+# [Instructions or examples demonstrating how to use the code in this file.
+# Include any dependencies or prerequisites required for proper usage.]
+#
+# Notes:
+# [Any additional notes, considerations, or important information
+# about the file that may be relevant to developers or users.]
+#
+###############################################################################
+```
+
+3. **Docker**
 
 ```
 ################################################################################
