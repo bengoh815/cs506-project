@@ -1,0 +1,55 @@
+################################################################################
+# Filename: docker-compose.yml
+# Purpose:  Define the production environment for the application
+# Author:   Benjamin Goh
+#
+# Description:
+# This Docker Compose file is used to set up the production environment for the
+# application. It includes services for the frontend, backend, and the database.
+#
+# Usage:
+# To start the production environment, run the following command in the directory
+# containing this file:
+#   docker-compose up --build
+#
+# This will build and start the services defined in the file. The frontend will be
+# accessible at http://localhost:3000, and the backend will be accessible at
+# http://localhost:5000.
+#
+# Notes:
+# - The frontend service serves the client-side application and depends on the backend service.
+# - The backend service provides the server-side functionality and connects to the
+#   database using the DATABASE_URL environment variable.
+# - The db service is a MySQL database with the specified root password and database name.
+# - The db_data volume is used to persist the database data.
+#
+###############################################################################
+
+version: "3.8"
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql+mysqlconnector://root:my_root_password@db/mp_database
+
+  db:
+    build: ./database
+    environment:
+      MYSQL_ROOT_PASSWORD: my_root_password
+      MYSQL_DATABASE: mp_database
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

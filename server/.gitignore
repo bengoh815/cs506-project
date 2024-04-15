@@ -1,4 +1,4 @@
-*.code-workspace
+*.env
 .idea/
 .venv/
 .vscode/
