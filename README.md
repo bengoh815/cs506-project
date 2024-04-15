@@ -24,8 +24,6 @@ The target customer for this software spans musicians, composers, music producer
 | R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
 | R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
 | R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
-| R011 | The system shall will use Fast Fourier Transform algorithm to analyze the different frequencies        | High     | In Progress |
-| R012 | The system shall select bass line frequencies to transcribe into MIDI notes                            | High     | In Progress |
 
 ### Use Cases & User Stories
 
