@@ -8,7 +8,7 @@ CI/CD Pipeline: [![pipeline status](https://git.doit.wisc.edu/cdis/cs/courses/cs
 
 Backend Coverage: [![backend coverage](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/coverage.svg)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/main)
 
-Frontend Coverage: to be implemented
+Frontend Coverage: [![to be implemented](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/TO-BE-IMPLEMENTED)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/main)
 
 ### Project Abstract
 
