@@ -112,13 +112,13 @@ B <-->|SQLAlchemy| C
 
 ```mermaid
 erDiagram
-    Users {
+    users {
         user_id INT PK
         name VARCHAR
         email VARCHAR
     }
 
-    MIDIs {
+    midis {
         midi_id INT PK
         user_id INT FK
         title VARCHAR

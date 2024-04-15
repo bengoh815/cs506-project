@@ -36,8 +36,8 @@ class User(db.Model):
 
     __tablename__ = "users"
     user_id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
-    email: Mapped[str]
+    name: Mapped[str] = mapped_column(nullable=False)
+    email: Mapped[str] = mapped_column(nullable=False)
 
     def __repr__(self):
         """
