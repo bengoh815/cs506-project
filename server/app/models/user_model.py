@@ -43,4 +43,6 @@ class User(db.Model):
         """
         Return a string representation of the User object.
         """
-        return f"<User(user_id='{self.user_id}', name='{self.name}', email='{self.email}'>"
+        return (
+            f"<User(user_id='{self.user_id}', name='{self.name}', email='{self.email}'>"
+        )

@@ -35,7 +35,8 @@ def get_all_users():
     """
     users = User.query.all()
     users_list = [
-        {"user_id": user.user_id, "name": user.name, "email": user.email} for user in users
+        {"user_id": user.user_id, "name": user.name, "email": user.email}
+        for user in users
     ]
     return jsonify(users_list), OK
 
@@ -71,7 +72,11 @@ def create_user():
     db.session.commit()
     return (
         jsonify(
-            {"user_id": new_user.user_id, "name": new_user.name, "email": new_user.email}
+            {
+                "user_id": new_user.user_id,
+                "name": new_user.name,
+                "email": new_user.email,
+            }
         ),
         CREATED,
     )
@@ -93,7 +98,10 @@ def update_user(user_id):
         user.name = data.get("name", user.name)
         user.email = data.get("email", user.email)
         db.session.commit()
-        return jsonify({"user_id": user.user_id, "name": user.name, "email": user.email}), OK
+        return (
+            jsonify({"user_id": user.user_id, "name": user.name, "email": user.email}),
+            OK,
+        )
     else:
         return jsonify({"message": "User not found"}), NOT_FOUND
 

@@ -42,6 +42,7 @@ MIDI2_ENCODED = BinaryConverter.encode_binary(b"MidiData2")
 MIDI1_DATA = BinaryConverter.decode_binary(MIDI1_ENCODED)
 MIDI2_DATA = BinaryConverter.decode_binary(MIDI2_ENCODED)
 
+
 def read_midi_file(file_path):
     """Read a MIDI file and return its binary data."""
     with open(file_path, "rb") as file:
@@ -82,8 +83,20 @@ def test_get_all_midis(client):
     response = client.get(MIDIS_API_URL)
     assert response.status_code == OK
     assert response.json == [
-        {"midi_id": 1,"user_id": 1, "title": "Midi1", "date": ISODATE, "midi_data": MIDI1_ENCODED}, 
-        {"midi_id": 2,"user_id": 2, "title": "Midi2", "date": ISODATE, "midi_data": MIDI2_ENCODED}
+        {
+            "midi_id": 1,
+            "user_id": 1,
+            "title": "Midi1",
+            "date": ISODATE,
+            "midi_data": MIDI1_ENCODED,
+        },
+        {
+            "midi_id": 2,
+            "user_id": 2,
+            "title": "Midi2",
+            "date": ISODATE,
+            "midi_data": MIDI2_ENCODED,
+        },
     ]
 
 
@@ -97,7 +110,13 @@ def test_get_midi(client):
     MIDIS_API_URL = "api/v1/midis/1"
     response = client.get(MIDIS_API_URL)
     assert response.status_code == OK
-    assert response.json == {"midi_id": 1, "user_id": 1, "title": "Midi1", "date": ISODATE, "midi_data": MIDI1_ENCODED}
+    assert response.json == {
+        "midi_id": 1,
+        "user_id": 1,
+        "title": "Midi1",
+        "date": ISODATE,
+        "midi_data": MIDI1_ENCODED,
+    }
 
 
 def test_create_midi(client):
@@ -110,18 +129,23 @@ def test_create_midi(client):
     MIDIS_API_URL = "api/v1/midis"
     FILEDATA = BinaryConverter.encode_binary(b"MidiData")
     NEW_MIDI = {
-        "name": "John", 
+        "name": "John",
         "email": "john@gmail.com",
         "title": "A Random Song",
-        "midi_data": FILEDATA
+        "midi_data": FILEDATA,
     }
     response = client.post(MIDIS_API_URL, json=NEW_MIDI)
     assert response.status_code == CREATED
 
     # Check response except date
     response_json = response.json
-    del response_json['date']
-    assert response_json == {"midi_id": 3, "user_id": 1, "title": "A Random Song", "midi_data": FILEDATA}
+    del response_json["date"]
+    assert response_json == {
+        "midi_id": 3,
+        "user_id": 1,
+        "title": "A Random Song",
+        "midi_data": FILEDATA,
+    }
 
 
 def test_update_midi(client):

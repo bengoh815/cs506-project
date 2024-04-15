@@ -24,6 +24,7 @@ from sqlalchemy import Integer, String, LargeBinary, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
 
+
 class MIDI(db.Model):
     """
     MIDIs class representing MIDI data in the database.
@@ -35,11 +36,16 @@ class MIDI(db.Model):
         date (DateTime): The MIDI file generation date.
         midi_data (LargeBinary): The raw MIDI data.
     """
+
     __tablename__ = "midis"
     midi_id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(
+        Integer, ForeignKey("users.user_id"), nullable=False
+    )
     title: Mapped[str] = mapped_column(String, nullable=False)
-    date: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
+    date: Mapped[datetime] = mapped_column(
+        DateTime, default=datetime.utcnow, nullable=False
+    )
     midi_data: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
 
     def __repr__(self):

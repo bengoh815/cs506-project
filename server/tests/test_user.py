@@ -76,7 +76,11 @@ def test_get_user(client):
     USERS_API_URL = "api/v1/users/1"
     response = client.get(USERS_API_URL)
     assert response.status_code == OK
-    assert response.json == {"user_id": 1, "name": "User1", "email": "user1@example.com"}
+    assert response.json == {
+        "user_id": 1,
+        "name": "User1",
+        "email": "user1@example.com",
+    }
 
 
 def test_create_user(client):
@@ -90,7 +94,11 @@ def test_create_user(client):
     NEW_USER_DATA = {"name": "User3", "email": "user3@example.com"}
     response = client.post(USERS_API_URL, json=NEW_USER_DATA)
     assert response.status_code == CREATED
-    assert response.json == {"user_id": 3, "name": "User3", "email": "user3@example.com"}
+    assert response.json == {
+        "user_id": 3,
+        "name": "User3",
+        "email": "user3@example.com",
+    }
 
 
 def test_update_user(client):

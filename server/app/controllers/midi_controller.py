@@ -47,13 +47,15 @@ def get_all_midis():
         midi_encode = BinaryConverter.encode_binary(midi.midi_data)
 
         # Create midi json
-        midis_list.append({
-            "midi_id": midi.midi_id,
-            "user_id": midi.user_id,
-            "title": midi.title,
-            "date": midi_date,
-            "midi_data": midi_encode
-        })
+        midis_list.append(
+            {
+                "midi_id": midi.midi_id,
+                "user_id": midi.user_id,
+                "title": midi.title,
+                "date": midi_date,
+                "midi_data": midi_encode,
+            }
+        )
 
     return jsonify(midis_list), OK
 
@@ -82,11 +84,12 @@ def get_midi(midi_id):
             "user_id": midi.user_id,
             "title": midi.title,
             "date": midi_date,
-            "midi_data": midi_encode
+            "midi_data": midi_encode,
         }
         return jsonify(midi_data), OK
     else:
         return jsonify({"message": "MIDI not found"}), NOT_FOUND
+
 
 def create_midi():
     """
@@ -98,16 +101,16 @@ def create_midi():
     data = request.get_json()
 
     # Create User
-    name = data.get('name')
-    email = data.get('email')
+    name = data.get("name")
+    email = data.get("email")
     new_user = User(name=name, email=email)
     db.session.add(new_user)
     db.session.commit()
 
     # Create MIDI
     user_id = new_user.user_id
-    title = data.get('title')
-    midi_data_encoded = data.get('midi_data')
+    title = data.get("title")
+    midi_data_encoded = data.get("midi_data")
     date = DateConverter.current_time()
 
     # Decode the base64-encoded MIDI data
@@ -118,13 +121,19 @@ def create_midi():
     db.session.add(new_midi)
     db.session.commit()
 
-    return jsonify({
-        'midi_id': new_midi.midi_id,
-        'user_id': new_midi.user_id,
-        'title': new_midi.title,
-        'date': new_midi.date.isoformat(),
-        'midi_data': midi_data_encoded  # Return the base64-encoded MIDI data
-    }), CREATED
+    return (
+        jsonify(
+            {
+                "midi_id": new_midi.midi_id,
+                "user_id": new_midi.user_id,
+                "title": new_midi.title,
+                "date": new_midi.date.isoformat(),
+                "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data
+            }
+        ),
+        CREATED,
+    )
+
 
 def update_midi(midi_id):
     """
