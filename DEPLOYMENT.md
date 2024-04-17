@@ -14,12 +14,14 @@ cd MelodyMapper
 Use Docker Compose to build and run the containers defined in your docker-compose.yml file:
 
 ```bash
-docker-compose -f docker-compose.yml up --build -d
+docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
 This command will build the images for your services and start them in detached mode.
 
 ## Verifying Deployment
+
+## TO BE UPDATED for CSL Deployment 04/17/2024
 
 Once the containers are up and running, you can verify the deployment by accessing your application at the specified host and port.
 
