@@ -44,8 +44,8 @@ Attributes:
 CREATE TABLE IF NOT EXISTS midis (
     midi_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    title VARCHAR(255)
-    date DATETIME
+    title VARCHAR(255),
+    date DATETIME,
     midi_data LONGBLOB,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
