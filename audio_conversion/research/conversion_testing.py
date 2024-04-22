@@ -9,7 +9,7 @@ y, sr= librosa.load("guitar.wav")
 
 print(y)
 
-# Sources: https://dev.to/highcenburg/getting-the-tempo-of-a-song-using-librosa-4e5b
+
 
 # obtain bpm
 tempo, beat_frames = librosa.beat.beat_track(y = y, sr = sr)
@@ -19,7 +19,7 @@ print(tempo)
 beat_times = librosa.frames_to_time(beat_frames, sr=sr)
 print(beat_times)
 
-#https://stackoverflow.com/questions/54834469/python-calculating-frequency-over-time-from-a-wav-file-in-python
+
 
 def divide_y(array, desired_len): 
       
@@ -64,7 +64,7 @@ midi.tracks.append(track)
 # Define velocity and time values for MIDI messages
 velocity = 100
 
-# https://stackoverflow.com/questions/2038313/converting-midi-ticks-to-actual-playback-seconds
+
 for time in beat_times:
     times = (60000 / (tempo * 192))
 
