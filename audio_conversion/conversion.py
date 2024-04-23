@@ -148,8 +148,8 @@ def wav_to_midi(audio_file):
     trimmed_frequency = list(divide_audio_data(audio_data, sample_rate, tempo))
 
     # STFT Parameters
-    window_size = 2048  # Window size
-    hop_length = 512  # Hop length
+    window_size = 256  # Window size
+    hop_length = 64  # Hop length
 
     # Analyze frequency for each time frame
     frequency_list = []
@@ -170,21 +170,19 @@ def wav_to_midi(audio_file):
         # Convert to frequency domain
         frequency_bins = np.fft.fftfreq(len(magnitude_spectrum)) * sample_rate
 
-        # Weighted mean frequency
-        mean_freq = np.sum(frequency_bins * magnitude_spectrum) / np.sum(
-            magnitude_spectrum
+        # Weighted median frequency
+        median_freq_index = np.argmax(
+            np.cumsum(magnitude_spectrum) >= np.sum(magnitude_spectrum) / 2
         )
-        frequency_list.append(mean_freq)
+        median_freq = frequency_bins[median_freq_index]
+
+        frequency_list.append(median_freq)
 
     # Filter out invalid frequencies
     filtered_frequency_list = [freq for freq in frequency_list if freq > 0]
 
-    # Calculate velocity based on the magnitude of the audio signal
-    max_magnitude = np.max(np.abs(audio_data))
-    if max_magnitude == 0:
-        velocity = 0
-    else:
-        velocity = int(127 * max_magnitude)
+    # Set the velocity to determine the volume of output midi file
+    velocity = 127
 
     # Calculate MIDI notes
     midi_note = [
@@ -200,9 +198,6 @@ def wav_to_midi(audio_file):
     # Set the key signature meta message
     key_sig_message = mido.MetaMessage("key_signature", key=key_signature, time=0)
     track.append(key_sig_message)
-
-    # Define velocity for MIDI messages
-    velocity = 100
 
     # Calculate MIDI time based on tempo
     midi_time = [
@@ -237,7 +232,7 @@ def wav_to_midi(audio_file):
 if __name__ == "__main__":
 
     # Sample audio file
-    audio_file = "audio_sample/guitar.wav"
+    audio_file = "audio_sample/sample2.m4a"
 
     # Audio file to MIDI Conversion
     if wav_to_midi(audio_file) is None:
