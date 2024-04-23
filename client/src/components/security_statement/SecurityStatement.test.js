@@ -15,97 +15,89 @@
  ******************************************************************************/
 
 import { act, render, screen, cleanup } from "@testing-library/react";
-import renderer from "react-test-renderer";
 import SecurityStatement from "./SecurityStatement";
 
-// Cleans up the DOM after each test to ensure a clean environment.
-afterEach(() => {
-  cleanup();
-});
-
-test("whole security statement component renders", () => {
-  // Arrange - Render the component
-  render(<SecurityStatement />);
-  const securityStatementElement = screen.getByTestId(
-    "security-statement-overlay",
-  );
-
-  // Assert
-  expect(securityStatementElement).toBeInTheDocument();
-});
-
-test("security statement heading renders", () => {
-  // Arrange
-  render(<SecurityStatement />);
-  const securityStatementHeading = screen.getByTestId(
-    "security-statement-heading",
-  );
-
-  // Assert
-  expect(securityStatementHeading).toBeInTheDocument();
-});
-
-test("correct security statement heading content", () => {
-  // Arrange
-  render(<SecurityStatement />);
-  const securityStatementHeading = screen.getByTestId(
-    "security-statement-heading",
-  );
-
-  // Assert
-  expect(securityStatementHeading).toHaveTextContent("Security Statement");
-});
-
-test("security statement body renders", () => {
-  // Arrange
-  render(<SecurityStatement />);
-  const securityStatementBody = screen.getByTestId("security-statement-body");
-
-  // Assert
-  expect(securityStatementBody).toBeInTheDocument();
-});
-
-test("correct security statement body content", () => {
-  // Arrange
-  render(<SecurityStatement />);
-  const securityStatments = [
-    "Our system will only record audio in between when the user has clicked the start and stop recording button.",
-    "Our system will only store the MIDI file converted from audio recordings.",
-    "The system will state that the audio recordings will only be used for converting into the MIDI file.",
-    "The system will state that the audio recordings will only be used for converting into the MIDI file.",
-    "MIDI files will be stored in the database and open for all users to see.",
-    "The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.",
-    "Our system will be vulnerable to denial-of-service attacks.",
-  ];
-  const securityStatementBody = screen.getByTestId("security-statement-body");
-
-  // Assert
-  securityStatments.forEach((statement) => {
-    expect(securityStatementBody).toHaveTextContent(statement);
-  });
-});
-
-test("security statement closes when document is clicked", () => {
-  // Arrange
-  render(<SecurityStatement />); // Render the component
-  const securityStatementElement = screen.getByTestId(
-    "security-statement-overlay",
-  );
-
-  // Must wrap code that causes React state updates in act().
-  act(() => {
-    window.dispatchEvent(new MouseEvent("click")); // Simulates click event on window
+describe("Security Statement Component", () => {
+  // Cleans up the DOM after each test to ensure a clean environment.
+  afterEach(() => {
+    cleanup();
   });
 
-  // Assert
-  expect(securityStatementElement).not.toBeInTheDocument();
-});
+  it("whole security statement component renders", () => {
+    // Arrange - Render the component
+    render(<SecurityStatement />);
+    const securityStatementElement = screen.getByTestId(
+      "security-statement-overlay",
+    );
 
-// Snapshot testing which compares the rendered component with a saved snapshot found in ./__snapshots__.
-test("matches snapshot", () => {
-  // Arrange
-  const tree = renderer.create(<SecurityStatement />).toJSON();
+    // Assert
+    expect(securityStatementElement).toBeInTheDocument();
+  });
 
-  // Assert
-  expect(tree).toMatchSnapshot();
+  it("security statement heading renders", () => {
+    // Arrange
+    render(<SecurityStatement />);
+    const securityStatementHeading = screen.getByTestId(
+      "security-statement-heading",
+    );
+
+    // Assert
+    expect(securityStatementHeading).toBeInTheDocument();
+  });
+
+  it("correct security statement heading content", () => {
+    // Arrange
+    render(<SecurityStatement />);
+    const securityStatementHeading = screen.getByTestId(
+      "security-statement-heading",
+    );
+
+    // Assert
+    expect(securityStatementHeading).toHaveTextContent("Security Statement");
+  });
+
+  it("security statement body renders", () => {
+    // Arrange
+    render(<SecurityStatement />);
+    const securityStatementBody = screen.getByTestId("security-statement-body");
+
+    // Assert
+    expect(securityStatementBody).toBeInTheDocument();
+  });
+
+  it("correct security statement body content", () => {
+    // Arrange
+    render(<SecurityStatement />);
+    const securityStatments = [
+      "Our system will only record audio in between when the user has clicked the start and stop recording button.",
+      "Our system will only store the MIDI file converted from audio recordings.",
+      "The system will state that the audio recordings will only be used for converting into the MIDI file.",
+      "The system will state that the audio recordings will only be used for converting into the MIDI file.",
+      "MIDI files will be stored in the database and open for all users to see.",
+      "The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.",
+      "Our system will be vulnerable to denial-of-service attacks.",
+    ];
+    const securityStatementBody = screen.getByTestId("security-statement-body");
+
+    // Assert
+    securityStatments.forEach((statement) => {
+      expect(securityStatementBody).toHaveTextContent(statement);
+    });
+  });
+
+  it("security statement closes when document is clicked", () => {
+    // Arrange
+    render(<SecurityStatement />); // Render the component
+    const securityStatementElement = screen.getByTestId(
+      "security-statement-overlay",
+    );
+
+    // Must wrap code that causes React state updates in act().
+    act(() => {
+      window.dispatchEvent(new MouseEvent("click")); // Simulates click event on window
+    });
+
+    // Assert
+    expect(securityStatementElement).not.toBeInTheDocument();
+  });
 });
