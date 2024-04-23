@@ -25,26 +25,20 @@ import ReactPaginate from "react-paginate";
 
 // Mock data for conversion history
 const mockConversionHistoryData = [
-  { 'fileName': 'song1.mid', 'author': 'Fiona', 'date': '2024-03-10' },
-  { 'fileName': 'song2.mid', 'author': 'George', 'date': '2024-03-11' },
-  { 'fileName': 'song3.mid', 'author': 'George', 'date': '2024-03-12' },
-  { 'fileName': 'song4.mid', 'author': 'Hannah', 'date': '2024-03-13' },
-  { 'fileName': 'song5.mid', 'author': 'Julia', 'date': '2024-03-14' },
-  { 'fileName': 'song6.mid', 'author': 'Ethan', 'date': '2024-03-15' },
-  { 'fileName': 'song7.mid', 'author': 'George', 'date': '2024-03-16' },
-  { 'fileName': 'song8.mid', 'author': 'George', 'date': '2024-03-17' },
-  { 'fileName': 'song9.mid', 'author': 'Fiona', 'date': '2024-03-18' },
-  { 'fileName': 'song10.mid', 'author': 'George', 'date': '2024-03-19' },
-  { 'fileName': 'song11.mid', 'author': 'Diana', 'date': '2024-03-20' },
-  { 'fileName': 'song12.mid', 'author': 'Alice', 'date': '2024-03-21' },
-  { 'fileName': 'song13.mid', 'author': 'Bob', 'date': '2024-03-22' },
-  { 'fileName': 'song14.mid', 'author': 'George', 'date': '2024-03-23' },
-  { 'fileName': 'song15.mid', 'author': 'Hannah', 'date': '2024-03-24' },
-  { 'fileName': 'song16.mid', 'author': 'Ethan', 'date': '2024-03-25' },
-  { 'fileName': 'song17.mid', 'author': 'Julia', 'date': '2024-03-26' },
-  { 'fileName': 'song18.mid', 'author': 'Bob', 'date': '2024-03-27' },
-  { 'fileName': 'song19.mid', 'author': 'Ethan', 'date': '2024-03-28' },
-  { 'fileName': 'song20.mid', 'author': 'George', 'date': '2024-03-29' }];
+  { 'fileName': 'song1.mid', 'author': 'Fiona', 'date': '2024-03-10', 'size': '3.4 MB' },
+  { 'fileName': 'song2.mid', 'author': 'George', 'date': '2024-03-11', 'size': '3.5 MB' },
+  { 'fileName': 'song3.mid', 'author': 'George', 'date': '2024-03-12', 'size': '5.4 MB' },
+  { 'fileName': 'song4.mid', 'author': 'Hannah', 'date': '2024-03-13', 'size': '35.41 MB' },
+  { 'fileName': 'song5.mid', 'author': 'Julia', 'date': '2024-03-14', 'size': '9.4 MB' },
+  { 'fileName': 'song6.mid', 'author': 'Ethan', 'date': '2024-03-15', 'size': '13.0 MB' },
+  { 'fileName': 'song7.mid', 'author': 'George', 'date': '2024-03-16', 'size': '31.5 MB' },
+  { 'fileName': 'song8.mid', 'author': 'George', 'date': '2024-03-17', 'size': '3.4 MB' },
+  { 'fileName': 'song9.mid', 'author': 'Fiona', 'date': '2024-03-18', 'size': '3.9 MB' },
+  { 'fileName': 'song10.mid', 'author': 'George', 'date': '2024-03-19', 'size': '1.4 MB' },
+  { 'fileName': 'song11.mid', 'author': 'Diana', 'date': '2024-03-20', 'size': '254 MB' },
+  { 'fileName': 'song12.mid', 'author': 'Alice', 'date': '2024-03-21', 'size': '3.0 MB' },
+  { 'fileName': 'song13.mid', 'author': 'Bob', 'date': '2024-03-22', 'size': '0.9 MB' },
+];
 
 const ConversionHistory = () => {
   const [convertedFiles, setConvertedFiles] = useState([]);
@@ -54,16 +48,14 @@ const ConversionHistory = () => {
   const [isAscending, setIsAscending] = useState(true);
 
   useEffect(() => {
-    // Fetch the conversion history from the backend
-    fetch("some/url", {
+    fetch("http://localhost:8765/api/v1/midis", {
       method: "GET",
       headers: {
-        // TODO: Add headers
+
       },
     })
       .then((response) => {
         console.log("Fetching conversion history from the backend...");
-        // return response.json();
       })
       .then((data) => {
         setConvertedFiles(data);
@@ -82,6 +74,10 @@ const ConversionHistory = () => {
       return isAscending ? a.author.localeCompare(b.author) : b.author.localeCompare(a.author);
     } else if (sortingCriteria === 'date') {
       return isAscending ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+    } else if (sortingCriteria === 'size') {
+      const sizeA = parseFloat(a.size);
+      const sizeB = parseFloat(b.size);
+      return isAscending ? sizeA - sizeB : sizeB - sizeA;
     }
   };
 
@@ -101,10 +97,10 @@ const ConversionHistory = () => {
   // Handler to update sorting criteria and direction
   const handleSort = (newCriteria) => {
     if (sortingCriteria === newCriteria) {
-      setIsAscending(!isAscending); // Toggle sorting direction if the same criteria is clicked
+      setIsAscending(!isAscending);
     } else {
       setSortingCriteria(newCriteria);
-      setIsAscending(true); // Default to ascending when criteria changes
+      setIsAscending(true);
     }
   };
 
@@ -131,6 +127,9 @@ const ConversionHistory = () => {
               <th onClick={() => handleSort('date')} className="sortable">
                 Date{getSortingIndicator('date')}
               </th>
+              <th onClick={() => handleSort('size')} className="sortable">
+                Size{getSortingIndicator('size')}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -139,6 +138,7 @@ const ConversionHistory = () => {
                 <td>{entry.fileName}</td>
                 <td>{entry.author}</td>
                 <td>{entry.date}</td>
+                <td>{entry.size}</td>
               </tr>
             ))}
           </tbody>
