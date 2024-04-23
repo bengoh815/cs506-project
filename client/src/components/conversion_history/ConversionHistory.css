@@ -71,3 +71,17 @@
 .sortable:hover {
   cursor: pointer;
 }
+
+#conversion-history-table td button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 10px;
+}
+
+#conversion-history-table td button:hover {
+  background-color: #0056b3;
+}

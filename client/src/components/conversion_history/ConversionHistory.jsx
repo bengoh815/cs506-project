@@ -25,19 +25,19 @@ import ReactPaginate from "react-paginate";
 
 // Mock data for conversion history
 const mockConversionHistoryData = [
-  { 'fileName': 'song1.mid', 'author': 'Fiona', 'date': '2024-03-10', 'size': '3.4 MB' },
-  { 'fileName': 'song2.mid', 'author': 'George', 'date': '2024-03-11', 'size': '3.5 MB' },
-  { 'fileName': 'song3.mid', 'author': 'George', 'date': '2024-03-12', 'size': '5.4 MB' },
-  { 'fileName': 'song4.mid', 'author': 'Hannah', 'date': '2024-03-13', 'size': '35.41 MB' },
-  { 'fileName': 'song5.mid', 'author': 'Julia', 'date': '2024-03-14', 'size': '9.4 MB' },
-  { 'fileName': 'song6.mid', 'author': 'Ethan', 'date': '2024-03-15', 'size': '13.0 MB' },
-  { 'fileName': 'song7.mid', 'author': 'George', 'date': '2024-03-16', 'size': '31.5 MB' },
-  { 'fileName': 'song8.mid', 'author': 'George', 'date': '2024-03-17', 'size': '3.4 MB' },
-  { 'fileName': 'song9.mid', 'author': 'Fiona', 'date': '2024-03-18', 'size': '3.9 MB' },
-  { 'fileName': 'song10.mid', 'author': 'George', 'date': '2024-03-19', 'size': '1.4 MB' },
-  { 'fileName': 'song11.mid', 'author': 'Diana', 'date': '2024-03-20', 'size': '254 MB' },
-  { 'fileName': 'song12.mid', 'author': 'Alice', 'date': '2024-03-21', 'size': '3.0 MB' },
-  { 'fileName': 'song13.mid', 'author': 'Bob', 'date': '2024-03-22', 'size': '0.9 MB' },
+  { 'fileName': 'song1.midi', 'author': 'Fiona', 'date': '2024-03-10', 'size': '3.4 MB' },
+  { 'fileName': 'song2.midi', 'author': 'George', 'date': '2024-03-11', 'size': '3.5 MB' },
+  { 'fileName': 'song3.midi', 'author': 'George', 'date': '2024-03-12', 'size': '5.4 MB' },
+  { 'fileName': 'song4.midi', 'author': 'Hannah', 'date': '2024-03-13', 'size': '35.41 MB' },
+  { 'fileName': 'song5.midi', 'author': 'Julia', 'date': '2024-03-14', 'size': '9.4 MB' },
+  { 'fileName': 'song6.midi', 'author': 'Ethan', 'date': '2024-03-15', 'size': '13.0 MB' },
+  { 'fileName': 'song7.midi', 'author': 'George', 'date': '2024-03-16', 'size': '31.5 MB' },
+  { 'fileName': 'song8.midi', 'author': 'George', 'date': '2024-03-17', 'size': '3.4 MB' },
+  { 'fileName': 'song9.midi', 'author': 'Fiona', 'date': '2024-03-18', 'size': '3.9 MB' },
+  { 'fileName': 'song10.midi', 'author': 'George', 'date': '2024-03-19', 'size': '1.4 MB' },
+  { 'fileName': 'song11.midi', 'author': 'Diana', 'date': '2024-03-20', 'size': '254 MB' },
+  { 'fileName': 'song12.midi', 'author': 'Alice', 'date': '2024-03-21', 'size': '3.0 MB' },
+  { 'fileName': 'song13.midi', 'author': 'Bob', 'date': '2024-03-22', 'size': '0.9 MB' },
 ];
 
 const ConversionHistory = () => {
@@ -65,6 +65,42 @@ const ConversionHistory = () => {
         console.error("Error:", error);
       });
   }, []);
+
+  // Function to handle downloading pdf file
+  const handleDownload = (fileName) => {
+    // Make a request to download the original file using the fileName
+    // Example:
+    // fetch(`http://localhost:8765/api/v1/download/original/${fileName}`, {
+    //   method: "GET",
+    //   headers: {
+    //     // Add any required headers
+    //   },
+    // })
+    // .then((response) => {
+    //   // Handle the response, e.g., trigger the download
+    // })
+    // .catch((error) => {
+    //   // Handle errors
+    // });
+  };
+
+  // Function to handle downloading midi file
+  const handleDownloadConverted = (fileName) => {
+    // Make a request to download the converted file using the fileName
+    // Example:
+    // fetch(`http://localhost:8765/api/v1/download/converted/${fileName}`, {
+    //   method: "GET",
+    //   headers: {
+    //     // Add any required headers
+    //   },
+    // })
+    // .then((response) => {
+    //   // Handle the response, e.g., trigger the download
+    // })
+    // .catch((error) => {
+    //   // Handle errors
+    // });
+  };
 
   // Sorting function
   const sortItems = (a, b) => {
@@ -130,6 +166,7 @@ const ConversionHistory = () => {
               <th onClick={() => handleSort('size')} className="sortable">
                 Size{getSortingIndicator('size')}
               </th>
+              <th>Downlaod</th>
             </tr>
           </thead>
           <tbody>
@@ -139,6 +176,10 @@ const ConversionHistory = () => {
                 <td>{entry.author}</td>
                 <td>{entry.date}</td>
                 <td>{entry.size}</td>
+                <td>
+                  <button onClick={() => handleDownload(entry.fileName)}>Download PDF</button>
+                  <button onClick={() => handleDownloadConverted(entry.fileName)}>Download MIDI</button>
+                </td>
               </tr>
             ))}
           </tbody>
