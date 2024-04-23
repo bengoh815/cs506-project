@@ -203,7 +203,12 @@ export default function ConvertFileModal(props) {
       </Modal.Body>
       {!isConverting && (
         <Modal.Footer style={{ justifyContent: "center" }}>
-          <Button variant="secondary" onClick={handleUploadAnotherFile}>
+          <Button
+            id="select-file-button"
+            data-testid="select-file-button"
+            variant="secondary"
+            onClick={handleUploadAnotherFile}
+          >
             {conversionComplete
               ? "Upload Another File"
               : props.file
@@ -212,8 +217,8 @@ export default function ConvertFileModal(props) {
           </Button>
           {props.file && !conversionComplete && (
             <Button
-              id="upload-file-button"
-              data-testid="upload-file-button"
+              id="convert-file-button"
+              data-testid="convert-file-button"
               onClick={handleConvert}
               variant="success"
               disabled={!name || !email || !recordingTitle}
