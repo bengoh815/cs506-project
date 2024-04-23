@@ -50,25 +50,7 @@ test("correct heading content", () => {
   const headingElement = screen.getByTestId("upload-heading");
 
   // Assert
-  expect(headingElement.textContent).toBe("Upload");
-});
-
-test("selected file name element renders", () => {
-  // Arrange
-  render(<FileUpload />);
-  const fileNameElement = screen.getByTestId("file-name");
-
-  // Assert
-  expect(fileNameElement).toBeInTheDocument();
-});
-
-test("correct selected file name content when no file chosen", () => {
-  // Arrange
-  render(<FileUpload />);
-  const fileNameElement = screen.getByTestId("file-name");
-
-  // Assert
-  expect(fileNameElement.textContent).toBe("No file chosen");
+  expect(headingElement.textContent).toBe("Upload & Convert");
 });
 
 test("choose file button renders", () => {
@@ -155,7 +137,7 @@ test("correct accepted file formats list content", () => {
   const acceptedFileFormatsList = screen.getByTestId(
     "accepted-file-formats-list",
   );
-  const fileFormats = [".mp3", ".m4a", ".wav"];
+  const fileFormats = [".mp3", ".m4a", ".wav", ".webm"];
 
   // Assert
   fileFormats.forEach((format) => {
