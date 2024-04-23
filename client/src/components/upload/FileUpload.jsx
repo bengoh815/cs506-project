@@ -21,6 +21,7 @@
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import "./FileUpload.css";
+import ConvertFileModal from "./ConvertFileModal";
 
 const FileUpload = () => {
   // File to be uploaded
@@ -29,17 +30,32 @@ const FileUpload = () => {
   // Whether a file has been selected
   const [fileSelected, setFileSelected] = useState(false);
 
-  // Name of the file to be uploaded
-  const [fileStatus, setFileStatus] = useState("No file chosen");
-
   // Label for the file input
   const [chooseFileLabel, setChooseFileLabel] = useState("Choose File");
 
-  // Whether a file is being uploaded
-  const [isUploading, setIsUploading] = useState(false);
-
   // Reference to the file input
   const fileInputRef = useRef();
+
+  // State for the file details modal
+  const [showFileDetailsModal, setShowFileDetailsModal] = useState(false);
+
+  /**
+   * Closes the file details modal.
+   */
+  const handleClose = () => {
+    setShowFileDetailsModal(false);
+    setFileSelected(false);
+    setChooseFileLabel("Choose File");
+    setFile(null);
+    fileInputRef.current.value = null;
+  };
+
+  /**
+   * Opens the file details modal.
+   */
+  const handleShow = () => {
+    setShowFileDetailsModal(true);
+  };
 
   /**
    * Opens the file input dialog when the button is clicked.
@@ -59,118 +75,85 @@ const FileUpload = () => {
     if (input === undefined) {
       setFileSelected(false);
       setChooseFileLabel("Choose File");
-      setFileStatus("No file chosen");
       return;
+    } else {
+      setFileSelected(true);
+      setChooseFileLabel("Change File");
+      setFile(input);
     }
-
-    setFileSelected(true);
-    setChooseFileLabel("Change File");
-    setFile(input);
-    setFileStatus(input.name);
   };
 
+  // MARK: Helper Functions
+
   /**
-   * Sends file to backend for conversion and updates the UI to reflect the upload progress.
+   * Get the abbreviated file name.
+   * @param {*} fileName - Name of the file
+   * @returns {string} Abbreviated file name
    */
-  const handleUpload = () => {
-    setIsUploading(true);
-    setFileStatus(`Uploading ${file.name}...`);
+  const getAbbreviatedFileName = (fileName, length) => {
+    let fileExtension = fileName.split(".").pop();
+    let baseName = fileName.replace(`.${fileExtension}`, "");
 
-    // Create a new FormData object with the selecteed file
-    const formData = new FormData();
-    formData.append("audio-file", file);
-
-    // Fetch request to backend
-    fetch("http://127.0.0.1:5000/api/v1/recordings", {
-      method: "POST",
-      headers: {},
-      body: formData,
-    })
-      .then((response) => {
-        console.log("Posting file to backend...");
-        console.log(response);
-
-        // TODO: Change check to 200 when no data is returned from this call
-        const expectedStatus = 200;
-
-        if (response.status === expectedStatus) {
-          setIsUploading(false);
-          setFileSelected(false);
-          setChooseFileLabel("Choose a file");
-          setFile(null); // Reset file input
-          setFileStatus(
-            "Upload success! Please select another file to upload.",
-          );
-        } else {
-          throw new Error(
-            `Expected status ${expectedStatus} but received ${response.status}`,
-          );
-        }
-
-        /**TODO: This is a temporary response to demonstrate response from backend.The actual implemenation will not return any data. Remove when implemented.
-         */
-        return response.blob();
-      })
-      .then((data) => {
-        console.log("Temporary data response:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setIsUploading(false);
-        setFileSelected(false);
-        setFile(null); // Reset file input
-        setFileStatus("Upload failed. Please select a file and try again.");
-      });
+    return baseName.length > length
+      ? `${baseName.substring(0, length)}... .${fileExtension}`
+      : fileName;
   };
 
   return (
     <div id="upload" data-testid="upload" style={{ padding: "1rem" }}>
+      {/* File Details Modal */}
+      <ConvertFileModal
+        file={file}
+        setFile={setFile}
+        fileInputRef={fileInputRef}
+        handleFileInputClick={handleFileInputClick}
+        handleShow={showFileDetailsModal}
+        handleClose={handleClose}
+        getAbbreviatedFileName={getAbbreviatedFileName}
+      />
+
+      {/* Upload & Convert Heading */}
       <h3 id="upload-heading" data-testid="upload-heading">
-        Upload
+        Upload & Convert
       </h3>
 
-      {!isUploading && (
-        <>
-          <div>
-            {/* File Input - hidden */}
-            <input
-              ref={fileInputRef}
-              type="file"
-              onChange={handleFileChange}
-              accept=".mp3, .m4a, .wav"
-              hidden
-            />
+      <>
+        <div>
+          {/* File Input - hidden */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileChange}
+            accept=".mp3, .m4a, .wav, .webm"
+            hidden
+          />
 
-            {/* Choose File Button */}
+          {/* Choose File Button */}
+          <Button
+            id="choose-file-button"
+            data-testid="choose-file-button"
+            onClick={handleFileInputClick}
+            variant="secondary"
+          >
+            {chooseFileLabel}
+          </Button>
+
+          {file && fileSelected && (
+            /* Upload Button */
             <Button
-              id="choose-file-button"
-              data-testid="choose-file-button"
-              onClick={handleFileInputClick}
-              variant="secondary"
+              id="upload-file-button"
+              data-testid="upload-file-button"
+              onClick={handleShow}
+              variant="primary"
+              disabled={!fileSelected}
             >
-              {chooseFileLabel}
+              Upload {getAbbreviatedFileName(file.name, 10)}
             </Button>
+          )}
+        </div>
+      </>
 
-            {fileSelected && (
-              /* Upload Button */
-              <Button
-                id="upload-file-button"
-                data-testid="upload-file-button"
-                onClick={handleUpload}
-                variant="primary"
-                disabled={!fileSelected}
-              >
-                Upload File
-              </Button>
-            )}
-          </div>
-        </>
-      )}
-
-      <p id="file-name" data-testid="file-name">
-        <em>{fileStatus}</em>
-      </p>
-
+      {/* Accept File Formats */}
       <p id="file-format-label" data-testid="file-format-label">
         Accepted file upload formats:
       </p>
@@ -179,6 +162,7 @@ const FileUpload = () => {
         data-testid="accepted-file-formats-list"
       >
         <li>.mp3</li>
+        <li>.webm</li>
         <li>.m4a</li>
         <li>.wav</li>
       </ul>

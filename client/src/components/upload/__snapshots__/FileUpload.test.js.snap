@@ -14,11 +14,11 @@ exports[`matches snapshot 1`] = `
     data-testid="upload-heading"
     id="upload-heading"
   >
-    Upload
+    Upload & Convert
   </h3>
   <div>
     <input
-      accept=".mp3, .m4a, .wav"
+      accept=".mp3, .m4a, .wav, .webm"
       hidden={true}
       onChange={[Function]}
       type="file"
@@ -35,14 +35,6 @@ exports[`matches snapshot 1`] = `
     </button>
   </div>
   <p
-    data-testid="file-name"
-    id="file-name"
-  >
-    <em>
-      No file chosen
-    </em>
-  </p>
-  <p
     data-testid="file-format-label"
     id="file-format-label"
   >
@@ -54,6 +46,9 @@ exports[`matches snapshot 1`] = `
   >
     <li>
       .mp3
+    </li>
+    <li>
+      .webm
     </li>
     <li>
       .m4a
