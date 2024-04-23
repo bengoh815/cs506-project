@@ -5,11 +5,7 @@
  *
  * Description:
  * This file contains the main application component that renders the entire
- * application. It imports and renders the following components:
- *
- * Notes:
- * [Any additional notes, considerations, or important information
- * about the file that may be relevant to developers or users.]
+ * application. It imports and renders the App component.
  *
  ******************************************************************************/
 
