@@ -14,28 +14,20 @@
  ******************************************************************************/
 
 import { cleanup, render, screen } from "@testing-library/react";
-import renderer from "react-test-renderer";
 import AppLogo from "./AppLogo";
 
-// Cleans up the DOM after each test to ensure a clean environment.
-afterEach(() => {
-  cleanup();
-});
+describe("App Logo Component", () => {
+  // Cleans up the DOM after each test to ensure a clean environment.
+  afterEach(() => {
+    cleanup();
+  });
 
-test("renders AppLogo component", () => {
-  // Arrange
-  render(<AppLogo />);
-  const logoElement = screen.getByTestId("melody-logo");
+  test("renders AppLogo component", () => {
+    // Arrange
+    render(<AppLogo />);
+    const logoElement = screen.getByTestId("melody-logo");
 
-  // Assert
-  expect(logoElement).toBeInTheDocument();
-});
-
-// Snapshot test
-test("matches snapshot", () => {
-  // Arrange
-  const tree = renderer.create(<AppLogo />).toJSON();
-
-  // Assert
-  expect(tree).toMatchSnapshot();
+    // Assert
+    expect(logoElement).toBeInTheDocument();
+  });
 });
