@@ -1,8 +1,8 @@
 # Frontend Testing (React)
 
-### `npm test`
+### `npm test test --env=jsdom --coverage --collectCoverageFrom='src/**/*.{js,jsx}'`
 
-This command executes the project's test suite. In this project , this script is configured to run Jest, a JavaScript testing framework, in watch mode.
+This command runs your tests in a jsdom environment, collects code coverage information, and specifies that coverage should be collected from all JavaScript and TypeScript files in the src directory and its subdirectories.
 
 When running `npm test`, Jest starts in an interactive watch mode which automatically re-runs tests whenever it detects a change in your files. This is extremely useful during development as it provides instant feedback on whether your changes have broken any existing functionality.
 
