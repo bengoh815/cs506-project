@@ -20,7 +20,7 @@ from basic_pitch.inference import predict_and_save
 from basic_pitch import ICASSP_2022_MODEL_PATH
 
 
-def convert_wav_to_midi(input_audio_path, output_directory):
+def convert_to_midi(input_audio_path, output_directory):
     """
     Converts an audio file to MIDI using the Basic Pitch library.
     
@@ -39,6 +39,6 @@ def convert_wav_to_midi(input_audio_path, output_directory):
     )
 
 if __name__ == "__main__":
-    wav_path = "/Users/roshnivenkat/Desktop/sample_wav.wav"
-    output_dir = "/Users/roshnivenkat/Desktop"
-    convert_wav_to_midi(wav_path, output_dir)
+    wav_path = "/Users/roshnivenkat/CS506/project/MelodyMapper/audio_conversion/audio_sample/sample_wav.wav"
+    output_dir = "/Users/roshnivenkat/CS506/project/MelodyMapper/audio_conversion/midi_output/"
+    convert_to_midi(wav_path, output_dir)
