@@ -60,7 +60,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: my_root_password
     ports:
-      - "8080:80"
+      - "8765:80"
 
 volumes:
   node_modules:
