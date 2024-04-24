@@ -32,10 +32,10 @@ This command will build the images for the services and start the containers in 
 
 Once the containers are up and running, you can access the services at the following URLs:
 
-General Domain: http://localhost:8765/
+General Domain: http://localhost:80/
 Frontend: http://localhost:3000/
 Backend: http://localhost:5000/
-phpMyAdmin: http://localhost:8080/ (for database management)
+phpMyAdmin: http://localhost:8765/ (for database management)
 
 4. View Logs (Optional)
 
