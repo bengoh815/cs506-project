@@ -39,6 +39,8 @@ export default function ConvertFileModal(props) {
   const handleConvert = () => {
     setIsConverting(true);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     // Create a new FormData object with the selecteed file
     const formData = new FormData();
     formData.append("audio-file", props.file);
@@ -61,7 +63,7 @@ export default function ConvertFileModal(props) {
 
     // TODO: Update fetch request when backend route if fleshed out
     // Fetch request to backend
-    fetch("http://127.0.0.1:5000/api/v1/recordings", {
+    fetch(`${apiUrl}/api/v1/midis`, {
       method: "POST",
       headers: {},
       body: body,
