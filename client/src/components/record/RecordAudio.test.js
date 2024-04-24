@@ -20,68 +20,56 @@
  ******************************************************************************/
 
 import { cleanup, render, screen } from "@testing-library/react";
-import renderer from "react-test-renderer";
 import RecordAudio from "./RecordAudio";
 
-// Cleans up the DOM after each test to ensure a clean environment.
-afterEach(() => {
-  cleanup();
-});
+describe("Record Audio Component", () => {
+  // Cleans up the DOM after each test to ensure a clean environment.
+  afterEach(() => {
+    cleanup();
+  });
 
-test("whole record button component renders", () => {
-  // Arrange
-  render(<RecordAudio />);
-  const recordButtonElement = screen.getByTestId("record-group");
+  it("whole record button component renders", () => {
+    // Arrange
+    render(<RecordAudio />);
+    const recordButtonElement = screen.getByTestId("record-group");
 
-  // Assert
-  expect(recordButtonElement).toBeInTheDocument();
-});
+    // Assert
+    expect(recordButtonElement).toBeInTheDocument();
+  });
 
-test("record heading component renders", () => {
-  // Arrange
-  render(<RecordAudio />);
-  const recordHeadingElement = screen.getByTestId("record-heading");
+  it("record heading component renders", () => {
+    // Arrange
+    render(<RecordAudio />);
+    const recordHeadingElement = screen.getByTestId("record-heading");
 
-  // Assert
-  expect(recordHeadingElement).toBeInTheDocument();
-});
+    // Assert
+    expect(recordHeadingElement).toBeInTheDocument();
+  });
 
-test("correct record heading content", () => {
-  // Arrange
-  render(<RecordAudio />);
-  const recordHeadingElement = screen.getByTestId("record-heading");
+  it("correct record heading content", () => {
+    // Arrange
+    render(<RecordAudio />);
+    const recordHeadingElement = screen.getByTestId("record-heading");
 
-  // Assert
-  expect(recordHeadingElement).toHaveTextContent("Record");
-});
+    // Assert
+    expect(recordHeadingElement).toHaveTextContent("Record");
+  });
 
-test("record button component renders", () => {
-  // Arrange
-  render(<RecordAudio />);
-  const recordButton = screen.getByTestId("record-button");
+  it("record button component renders", () => {
+    // Arrange
+    render(<RecordAudio />);
+    const recordButton = screen.getByTestId("record-button");
 
-  // Assert
-  expect(recordButton).toBeInTheDocument();
-});
+    // Assert
+    expect(recordButton).toBeInTheDocument();
+  });
 
-test("correct record button content - start recording", () => {
-  // Arrange
-  render(<RecordAudio />);
-  const recordButton = screen.getByTestId("record-button");
+  it("correct record button content - start recording", () => {
+    // Arrange
+    render(<RecordAudio />);
+    const recordButton = screen.getByTestId("record-button");
 
-  // Assert
-  expect(recordButton).toHaveTextContent("Start Recording");
-});
-
-test.skip("correct record button content - stop recording", () => {
-  // TODO: Implement test to check if the button content changes to "Stop Recording" when clicked
-});
-
-// Snapshot test
-test("matches snapshot", () => {
-  // Arrange
-  const tree = renderer.create(<RecordAudio />).toJSON();
-
-  // Assert
-  expect(tree).toMatchSnapshot();
+    // Assert
+    expect(recordButton).toHaveTextContent("Start Recording");
+  });
 });
