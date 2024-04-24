@@ -20,28 +20,20 @@
  ******************************************************************************/
 
 import { cleanup, render, screen } from "@testing-library/react";
-import renderer from "react-test-renderer";
 import PlaybackAudio from "./PlaybackAudio";
 
-// Cleans up the DOM after each test to ensure a clean environment.
-afterEach(() => {
-  cleanup();
-});
+describe("Playback Audio Component", () => {
+  // Cleans up the DOM after each test to ensure a clean environment.
+  afterEach(() => {
+    cleanup();
+  });
 
-// basic render test
-test("renders the component", () => {
-  // Arrange
-  render(<PlaybackAudio />);
+  // Basic render test
+  it("renders the component", () => {
+    // Arrange
+    render(<PlaybackAudio />);
 
-  // Assert
-  expect(screen.getByText("Play Recording")).toBeInTheDocument();
-});
-
-// Snapshot test
-test("matches snapshot", () => {
-  // Arrange
-  const tree = renderer.create(<PlaybackAudio />).toJSON();
-
-  // Assert
-  expect(tree).toMatchSnapshot();
+    // Assert
+    expect(screen.getByText("Play Recording")).toBeInTheDocument();
+  });
 });

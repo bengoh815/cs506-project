@@ -16,10 +16,6 @@
  * To use this file, import it into the main index.js file and render it
  * using the ReactDOM.render() method.
  *
- * Notes:
- * [Any additional notes, considerations, or important information
- * about the file that may be relevant to developers or users.]
- *
  ******************************************************************************/
 
 import React from "react";
@@ -32,7 +28,7 @@ import ConversionHistory from "./components/conversion_history/ConversionHistory
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-testid="App">
       <SecurityStatement />
       <AppLogo />
       <RecordAudio />

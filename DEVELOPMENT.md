@@ -32,9 +32,10 @@ This command will build the images for the services and start the containers in 
 
 Once the containers are up and running, you can access the services at the following URLs:
 
+General Domain: http://localhost:80/
 Frontend: http://localhost:3000/
 Backend: http://localhost:5000/
-phpMyAdmin: http://localhost:8080/ (for database management)
+phpMyAdmin: http://localhost:8765/ (for database management)
 
 4. View Logs (Optional)
 
@@ -60,3 +61,7 @@ This command will stop and remove the containers, networks, and volumes created 
 
 - You can make changes to your source code, and the changes will be reflected in the running containers as the volume mounts has been set up in Docker Compose configuration.
 - If you need to rebuild the images after making changes to your Dockerfiles or dependencies, use the `docker-compose up --build` command again.
+
+## FAQ
+
+- If you encounter a port conflict, modify the ports configuration in docker-compose.override.yml. For example, change `- "5000:5000"` to `- "5123:5000"` to resolve a port conflict on port 5000.

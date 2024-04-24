@@ -3,6 +3,8 @@
 ## Melody Mapper 
 [![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![backend coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/coverage.svg?key_text=dev backend coverage&key_width=140>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
 
+[![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/develop/coverage.svg?key_text=dev coverage&key_width=90>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
+
 ### Project Abstract
 
 Melody Mapper is an application designed to convert voiced melodies into MIDI format. Users can input melodies through voice, and the application will transform them into MIDI representation, allowing for storage and playback. This functionality enables users to easily capture and manipulate melodies for various purposes, such as music composition, analysis, or playback.
@@ -25,17 +27,18 @@ The target customer for this software spans musicians, composers, music producer
 | R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
 | R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
 | R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
+| R011 | The system shall be able to search for the filename or author in the database                          | High     | In Progress    |
 
 ### Use Cases & User Stories
 
 1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-   - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
-   - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+    - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
-   - The list contains all the converted recordings that all the users have created in the database.
-3. As the user of the website, the user will be able to create an account.
-4. As the user of the website, the user can see a history of the converted recordings they have done.
-5. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
+    - The list contains all the converted recordings that all the users have created in the database.
+3. As the user of the website, the user can see a history of the converted recordings they have done.
+4. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
+5. As the user of the website, the user will be able to search the uploaded and converted files.
 
 ### User Interface Requirements
 
@@ -63,12 +66,12 @@ Website with user account
 
 ### Security Requirements
 
-- Our system will only record audio in between when the user has clicked the start and stop recording button.
-- Our system will only store the MIDI file converted from audio recordings.
-  - The system will state that the audio recordings will only be used for converting into the MIDI file.
-  - MIDI files will be stored in the database and open for all users to see.
-  - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
-- Our system will be vulnerable to denial-of-service attacks.
+-   Our system will only record audio in between when the user has clicked the start and stop recording button.
+-   Our system will only store the MIDI file converted from audio recordings.
+    -   The system will state that the audio recordings will only be used for converting into the MIDI file.
+    -   MIDI files will be stored in the database and open for all users to see.
+    -   The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+-   Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
