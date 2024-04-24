@@ -39,6 +39,6 @@ def convert_wav_to_midi(input_audio_path, output_directory):
     )
 
 if __name__ == "__main__":
-    wav_path = "/Users/roshnivenkat/Desktop/sample.wav"
+    wav_path = "/Users/roshnivenkat/Desktop/sample_wav.wav"
     output_dir = "/Users/roshnivenkat/Desktop"
     convert_wav_to_midi(wav_path, output_dir)

@@ -18,7 +18,7 @@
 #
 ###############################################################################
 
-basic-pitch --model-serialization coreml --save-note-events /Users/roshnivenkat/Desktop/ /Users/roshnivenkat/Desktop/sample.wav
+basic-pitch --model-serialization coreml --save-note-events /Users/roshnivenkat/CS506/project/MelodyMapper/audio_conversion/midi_output/ /Users/roshnivenkat/CS506/project/MelodyMapper/audio_conversion/audio_sample/sample_m4a.m4a
 
 if [ $? -eq 0 ]; then
     echo "Conversion successful."
