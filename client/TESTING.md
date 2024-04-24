@@ -1,12 +1,12 @@
 # Frontend Testing (React)
 
-### `npm test test --env=jsdom --coverage --collectCoverageFrom='src/**/*.{js,jsx}'`
+## Running Tests
 
-This command runs your tests in a jsdom environment, collects code coverage information, and specifies that coverage should be collected from all JavaScript and TypeScript files in the src directory and its subdirectories.
+1. Navigate to `/client` directory
 
-When running `npm test`, Jest starts in an interactive watch mode which automatically re-runs tests whenever it detects a change in your files. This is extremely useful during development as it provides instant feedback on whether your changes have broken any existing functionality.
+2. Run `npm test test --env=jsdom --coverage --collectCoverageFrom='src/**/*.{js,jsx}'`
 
-The tests that Jest runs are determined by the file names. By convention, Jest will run any file that ends in `.test.js` or `.spec.js`, or any file that is located in a `__tests__` directory.
+- When running this command, Jest starts in an interactive watch mode which automatically re-runs tests whenever it detects a change in your files. This is extremely useful during development as it provides instant feedback on whether your changes have broken any existing functionality. This command also collects code coverage information.
 
 In addition to running your tests, Jest also provides a number of useful features such as:
 
