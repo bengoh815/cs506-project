@@ -43,16 +43,10 @@ export default function ConvertFileModal(props) {
 
     // Create a new FormData object with the selecteed file
     const formData = new FormData();
-    formData.append("audio-file", props.file);
-
-    // Create tentative fetch body for POST request
-    const body = {
-      name: name,
-      email: email,
-      title: recordingTitle,
-      audioFile: formData,
-      type: props.file.type,
-    };
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("title", recordingTitle);
+    formData.append("file", props.file);
 
     // Set a timer to simulate the conversion process
     // Temporary response to demonstrate response from backend
@@ -65,8 +59,7 @@ export default function ConvertFileModal(props) {
     // Fetch request to backend
     fetch(`${apiUrl}/api/v1/midis`, {
       method: "POST",
-      headers: {},
-      body: body,
+      body: formData,
     })
       .then((response) => {
         console.log("Posting file to backend...");

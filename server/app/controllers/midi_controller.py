@@ -98,25 +98,21 @@ def create_midi():
     Returns:
         tuple: A JSON representation of the newly created MIDI entry and the HTTP status code CREATED (201).
     """
-    data = request.get_json()
+    name = request.form['name']
+    email = request.form['email']
+    title = request.form['title']
+    file = request.files['file']
 
     # Create User
-    name = data.get("name")
-    email = data.get("email")
     new_user = User(name=name, email=email)
     db.session.add(new_user)
     db.session.commit()
 
     # Create MIDI
     user_id = new_user.user_id
-    title = data.get("title")
-    midi_data_encoded = data.get("midi_data")
     date = DateConverter.current_time()
 
-    # Decode the base64-encoded MIDI data
-    midi_data = BinaryConverter.decode_binary(midi_data_encoded)
-
-    new_midi = MIDI(user_id=user_id, title=title, midi_data=midi_data, date=date)
+    new_midi = MIDI(user_id=user_id, title=title, midi_data=file, date=date)
 
     db.session.add(new_midi)
     db.session.commit()
@@ -128,7 +124,7 @@ def create_midi():
                 "user_id": new_midi.user_id,
                 "title": new_midi.title,
                 "date": new_midi.date.isoformat(),
-                "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data
+                # "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data
             }
         ),
         CREATED,
