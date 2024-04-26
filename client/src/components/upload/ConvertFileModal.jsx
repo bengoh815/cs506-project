@@ -49,14 +49,6 @@ export default function ConvertFileModal(props) {
     formData.append("title", recordingTitle);
     formData.append("file", props.file);
 
-    // Set a timer to simulate the conversion process
-    // Temporary response to demonstrate response from backend
-    // setTimeout(() => {
-    //   setConversionComplete(true);
-    //   setIsConverting(false);
-    // }, 2000);
-
-    // TODO: Update fetch request when backend route if fleshed out
     // Fetch request to backend
     fetch(`${apiUrl}/api/v1/midis`, {
       method: "POST",
@@ -64,8 +56,8 @@ export default function ConvertFileModal(props) {
     })
       .then((response) => {
         console.log("Posting file to backend...");
-        // TODO: Change check to 200 when no data is returned from this call
         const expectedStatus = 201;
+
         if (response.status === expectedStatus) {
           setConversionComplete(true);
           setIsConverting(false);
@@ -75,8 +67,6 @@ export default function ConvertFileModal(props) {
           );
         }
 
-        /**TODO: This is a temporary response to demonstrate response from backend.The actual implemenation will not return any data. Remove when implemented.
-         */
         return response.json();
       })
       .then((data) => {
