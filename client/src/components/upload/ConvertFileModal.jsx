@@ -2,7 +2,7 @@
  * Filename: ConvertFileModal.jsx
  * Purpose:  A modal that allows the user to input the required details for the
  * file conversion & convert the file.
- * Author:   Victor Nguyen
+ * Author:   Victor Nguyen & Benjamin Goh
  *
  * Description:
  * This file contains the ConvertFileModal component that allows the user to
@@ -17,6 +17,7 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
+import downloadMidi from "../../utils/downloadMidi";
 
 export default function ConvertFileModal(props) {
   // Whether a file is in the process of being converted
@@ -24,6 +25,9 @@ export default function ConvertFileModal(props) {
 
   // Whether the file conversion is complete
   const [conversionComplete, setConversionComplete] = useState(false);
+
+  // Whether there was an error during the file conversion
+  const [conversionError, setConversionError] = useState(false);
 
   // State for the required file conversion details
   const [name, setName] = useState("");
@@ -36,67 +40,48 @@ export default function ConvertFileModal(props) {
   const handleConvert = () => {
     setIsConverting(true);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     // Create a new FormData object with the selecteed file
     const formData = new FormData();
-    formData.append("audio-file", props.file);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("title", recordingTitle);
+    formData.append("file", props.file);
 
-    // Create tentative fetch body for POST request
-    const body = {
-      name: name,
-      email: email,
-      title: recordingTitle,
-      audioFile: formData,
-      type: props.file.type,
-    };
-
-    // TODO: Update fetch request when backend route if fleshed out
     // Fetch request to backend
-    // fetch("http://127.0.0.1:5000/api/v1/recordings", {
-    //   method: "POST",
-    //   headers: {},
-    //   body: formData,
-    // })
-    //   .then((response) => {
-    //     console.log("Posting file to backend...");
-    //     console.log(response);
+    fetch(`${apiUrl}/api/v1/midis`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        console.log("Posting file to backend...");
+        const expectedStatus = 201;
 
-    //     // TODO: Change check to 200 when no data is returned from this call
-    //     const expectedStatus = 200;
+        if (response.status === expectedStatus) {
+          setConversionComplete(true);
+          setIsConverting(false);
+        } else {
+          throw new Error(
+            `Expected status ${expectedStatus} but received ${response.status}`,
+          );
+        }
 
-    //     if (response.status === expectedStatus) {
-    //       setIsUploading(false);
-    //       setFileSelected(false);
-    //       setChooseFileLabel("Choose a file");
-    //       setFile(null); // Reset file input
-    //       setFileStatus(
-    //         "Upload success! Please select another file to upload.",
-    //       );
-    //     } else {
-    //       throw new Error(
-    //         `Expected status ${expectedStatus} but received ${response.status}`,
-    //       );
-    //     }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Temporary data response:", data);
+        const midiData = data.midi_data; // base64 encoded MIDI data
+        const filename = data.title + ".mid"; // Generate a file name
 
-    //     /**TODO: This is a temporary response to demonstrate response from backend.The actual implemenation will not return any data. Remove when implemented.
-    //      */
-    //     return response.blob();
-    //   })
-    //   .then((data) => {
-    //     console.log("Temporary data response:", data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     setIsUploading(false);
-    //     setFileSelected(false);
-    //     setFile(null); // Reset file input
-    //     setFileStatus("Upload failed. Please select a file and try again.");
-    //   });
-
-    // Temporary response to demonstrate response from backend
-    setTimeout(() => {
-      setConversionComplete(true);
-      setIsConverting(false);
-    }, 2000);
+        // Call download function
+        downloadMidi(midiData, filename);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setIsConverting(false);
+        setConversionError(true);
+      });
   };
 
   /**
@@ -104,6 +89,7 @@ export default function ConvertFileModal(props) {
    */
   function handleDismiss() {
     setConversionComplete(false);
+    setConversionError(false);
     setRecordingTitle("");
     props.handleClose();
   }
@@ -123,6 +109,13 @@ export default function ConvertFileModal(props) {
     props.fileInputRef.current.value = null;
     props.setFile(null);
     props.handleFileInputClick();
+  }
+
+  /**
+   * Clears the error message and allows the user to try the conversion again.
+   */
+  function handleTryAgain() {
+    setConversionError(false);
   }
 
   const ConversionDetailsForm = () => {
@@ -178,6 +171,8 @@ export default function ConvertFileModal(props) {
             ? "Converting"
             : conversionComplete
             ? "Conversion Complete 🎉"
+            : conversionError
+            ? "Conversion Error ❌"
             : "Convert File"}
         </Modal.Title>
       </Modal.Header>
@@ -197,34 +192,53 @@ export default function ConvertFileModal(props) {
             Your uploaded audio file has been successfully converted to .mid
             format and is now available to view in your conversion history.
           </p>
+        ) : conversionError ? (
+          <p>
+            <b>Error!</b> <br /> <br />
+            There was error converting your file. Please try again.
+          </p>
         ) : (
           ConversionDetailsForm()
         )}
       </Modal.Body>
       {!isConverting && (
         <Modal.Footer style={{ justifyContent: "center" }}>
-          <Button
-            id="select-file-button"
-            data-testid="select-file-button"
-            variant="secondary"
-            onClick={handleUploadAnotherFile}
-          >
-            {conversionComplete
-              ? "Upload Another File"
-              : props.file
-              ? "Change File"
-              : "Choose File"}
-          </Button>
-          {props.file && !conversionComplete && (
-            <Button
-              id="convert-file-button"
-              data-testid="convert-file-button"
-              onClick={handleConvert}
-              variant="success"
-              disabled={!name || !email || !recordingTitle}
-            >
-              Convert {props.getAbbreviatedFileName(props.file.name, 15)}
-            </Button>
+          {conversionError ? (
+            <>
+              <Button
+                id="try-again-button"
+                onClick={handleTryAgain}
+                variant="warning"
+              >
+                Try Again
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                id="select-file-button"
+                data-testid="select-file-button"
+                variant="secondary"
+                onClick={handleUploadAnotherFile}
+              >
+                {conversionComplete
+                  ? "Upload Another File"
+                  : props.file
+                  ? "Change File"
+                  : "Choose File"}
+              </Button>
+              {props.file && !conversionComplete && (
+                <Button
+                  id="convert-file-button"
+                  data-testid="convert-file-button"
+                  onClick={handleConvert}
+                  variant="success"
+                  disabled={!name || !email || !recordingTitle}
+                >
+                  Convert {props.getAbbreviatedFileName(props.file.name, 15)}
+                </Button>
+              )}
+            </>
           )}
         </Modal.Footer>
       )}
