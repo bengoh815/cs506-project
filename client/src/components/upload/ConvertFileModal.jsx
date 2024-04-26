@@ -18,6 +18,34 @@ import React from "react";
 import { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 
+function base64ToBlob(base64, mimeType) {
+  // Decode the base64 string to binary data
+  const byteCharacters = atob(base64);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+
+  // Create a blob with the correct MIME type
+  return new Blob([byteArray], { type: mimeType });
+}
+
+function downloadMidi(dataBase64, filename) {
+  // Assume the MIME type is 'audio/midi'
+  const blob = base64ToBlob(dataBase64, "audio/midi");
+
+  // Create a link element, use it for downloading the blob, and remove it when done
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.download = filename; // Set the file name for the download
+
+  // Append the link, trigger the download, then remove the link
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 export default function ConvertFileModal(props) {
   // Whether a file is in the process of being converted
   const [isConverting, setIsConverting] = useState(false);
@@ -63,11 +91,8 @@ export default function ConvertFileModal(props) {
     })
       .then((response) => {
         console.log("Posting file to backend...");
-        console.log(response);
-
         // TODO: Change check to 200 when no data is returned from this call
-        const expectedStatus = 200;
-
+        const expectedStatus = 201;
         if (response.status === expectedStatus) {
           setConversionComplete(true);
           setIsConverting(false);
@@ -79,10 +104,15 @@ export default function ConvertFileModal(props) {
 
         /**TODO: This is a temporary response to demonstrate response from backend.The actual implemenation will not return any data. Remove when implemented.
          */
-        return response.blob();
+        return response.json();
       })
       .then((data) => {
         console.log("Temporary data response:", data);
+        const midiData = data.midi_data; // base64 encoded MIDI data
+        const filename = data.title + ".mid"; // Generate a file name
+
+        // Call download function
+        downloadMidi(midiData, filename);
       })
       .catch((error) => {
         console.error("Error:", error);
