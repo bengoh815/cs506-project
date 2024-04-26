@@ -109,7 +109,7 @@ def create_midi():
 
     # Process file 
 
-    with open('converted-example.midi', 'rb') as binary_file:
+    with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
         output_file = binary_file.read()
     midi_data_encoded = BinaryConverter.encode_binary(output_file)
 
