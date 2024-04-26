@@ -19,11 +19,13 @@
 #
 ###############################################################################
 
+from io import BytesIO
 import pytest
 from app import create_app
 from app.utils.status_codes import OK, CREATED, NO_CONTENT
 from app.database import db
 from app.test_config import TestingConfig
+from app.models.user_model import User
 from app.models.midi_model import MIDI
 from app.utils.base64_converter import BinaryConverter
 from app.utils.isodate_converter import DateConverter
@@ -56,6 +58,12 @@ def app():
         db.create_all()
 
         # Pre-populate the database with test data
+        user1 = User(name="User1", email="User1@gmail.com")
+        user2 = User(name="User2", email="User2@gmail.com")
+        db.session.add(user1)
+        db.session.add(user2)
+        db.session.commit()
+
         midi1 = MIDI(user_id=1, title="Midi1", date=DATE, midi_data=MIDI1_DATA)
         midi2 = MIDI(user_id=2, title="Midi2", date=DATE, midi_data=MIDI2_DATA)
         db.session.add(midi1)
@@ -85,17 +93,17 @@ def test_get_all_midis(client):
     assert response.json == [
         {
             "midi_id": 1,
-            "user_id": 1,
+            "name": "User1",
+            "email": "User1@gmail.com",
             "title": "Midi1",
             "date": ISODATE,
-            "midi_data": MIDI1_ENCODED,
         },
         {
             "midi_id": 2,
-            "user_id": 2,
+            "name": "User2",
+            "email": "User2@gmail.com",
             "title": "Midi2",
             "date": ISODATE,
-            "midi_data": MIDI2_ENCODED,
         },
     ]
 
@@ -112,7 +120,8 @@ def test_get_midi(client):
     assert response.status_code == OK
     assert response.json == {
         "midi_id": 1,
-        "user_id": 1,
+        "name": "User1",
+        "email": "User1@gmail.com",
         "title": "Midi1",
         "date": ISODATE,
         "midi_data": MIDI1_ENCODED,
@@ -126,15 +135,21 @@ def test_create_midi(client):
     Args:
         client (FlaskClient): The test client for the application.
     """
+    # Setup for test
     MIDIS_API_URL = "api/v1/midis"
-    FILEDATA = BinaryConverter.encode_binary(b"MidiData")
     NEW_MIDI = {
         "name": "John",
         "email": "john@gmail.com",
         "title": "A Random Song",
-        "midi_data": FILEDATA,
+        "file": (BytesIO(b'my file contents'), 'file_name.mp3'),
     }
-    response = client.post(MIDIS_API_URL, json=NEW_MIDI)
+
+    # Check file
+    with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
+        output_file = binary_file.read()
+    midi_data_encoded = BinaryConverter.encode_binary(output_file)
+
+    response = client.post(MIDIS_API_URL, data=NEW_MIDI, content_type='multipart/form-data')
     assert response.status_code == CREATED
 
     # Check response except date
@@ -142,9 +157,10 @@ def test_create_midi(client):
     del response_json["date"]
     assert response_json == {
         "midi_id": 3,
-        "user_id": 1,
+        "name": "John",
+        "email": "john@gmail.com",
         "title": "A Random Song",
-        "midi_data": FILEDATA,
+        "midi_data": midi_data_encoded,
     }
 
 
