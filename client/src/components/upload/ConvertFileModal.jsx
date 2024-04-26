@@ -2,7 +2,7 @@
  * Filename: ConvertFileModal.jsx
  * Purpose:  A modal that allows the user to input the required details for the
  * file conversion & convert the file.
- * Author:   Victor Nguyen
+ * Author:   Victor Nguyen & Benjamin Goh
  *
  * Description:
  * This file contains the ConvertFileModal component that allows the user to
