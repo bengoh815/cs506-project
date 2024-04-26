@@ -43,17 +43,17 @@ def get_all_midis():
         # Parse date
         midi_date = midi.date.isoformat()
 
-        # Parse binary data
-        midi_encode = BinaryConverter.encode_binary(midi.midi_data)
+        # Retrieve user
+        user = db.session.get(User, midi.user_id)
 
         # Create midi json
         midis_list.append(
             {
                 "midi_id": midi.midi_id,
-                "user_id": midi.user_id,
+                "name": user.name,
+                "email": user.email,
                 "title": midi.title,
                 "date": midi_date,
-                "midi_data": midi_encode,
             }
         )
 
@@ -75,13 +75,17 @@ def get_midi(midi_id):
     # Parse date
     midi_date = midi.date.isoformat()
 
+    # Retrieve user
+    user = db.session.get(User, midi.user_id)
+
     # Parse binary data
     midi_encode = BinaryConverter.encode_binary(midi.midi_data)
 
     if midi:
         midi_data = {
             "midi_id": midi.midi_id,
-            "user_id": midi.user_id,
+            "name": user.name,
+            "email": user.email,
             "title": midi.title,
             "date": midi_date,
             "midi_data": midi_encode,
