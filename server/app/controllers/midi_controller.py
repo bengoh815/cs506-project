@@ -43,17 +43,17 @@ def get_all_midis():
         # Parse date
         midi_date = midi.date.isoformat()
 
-        # Parse binary data
-        midi_encode = BinaryConverter.encode_binary(midi.midi_data)
+        # Retrieve user
+        user = db.session.get(User, midi.user_id)
 
         # Create midi json
         midis_list.append(
             {
                 "midi_id": midi.midi_id,
-                "user_id": midi.user_id,
+                "name": user.name,
+                "email": user.email,
                 "title": midi.title,
                 "date": midi_date,
-                "midi_data": midi_encode,
             }
         )
 
@@ -75,13 +75,17 @@ def get_midi(midi_id):
     # Parse date
     midi_date = midi.date.isoformat()
 
+    # Retrieve user
+    user = db.session.get(User, midi.user_id)
+
     # Parse binary data
     midi_encode = BinaryConverter.encode_binary(midi.midi_data)
 
     if midi:
         midi_data = {
             "midi_id": midi.midi_id,
-            "user_id": midi.user_id,
+            "name": user.name,
+            "email": user.email,
             "title": midi.title,
             "date": midi_date,
             "midi_data": midi_encode,
@@ -98,25 +102,28 @@ def create_midi():
     Returns:
         tuple: A JSON representation of the newly created MIDI entry and the HTTP status code CREATED (201).
     """
-    data = request.get_json()
+    name = request.form['name']
+    email = request.form['email']
+    title = request.form['title']
+    file = request.files['file']
+
+    # Process file 
+
+    with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
+        output_file = binary_file.read()
+    midi_data_encoded = BinaryConverter.encode_binary(output_file)
+
 
     # Create User
-    name = data.get("name")
-    email = data.get("email")
     new_user = User(name=name, email=email)
     db.session.add(new_user)
     db.session.commit()
 
     # Create MIDI
     user_id = new_user.user_id
-    title = data.get("title")
-    midi_data_encoded = data.get("midi_data")
     date = DateConverter.current_time()
 
-    # Decode the base64-encoded MIDI data
-    midi_data = BinaryConverter.decode_binary(midi_data_encoded)
-
-    new_midi = MIDI(user_id=user_id, title=title, midi_data=midi_data, date=date)
+    new_midi = MIDI(user_id=user_id, title=title, midi_data=output_file, date=date)
 
     db.session.add(new_midi)
     db.session.commit()
@@ -125,7 +132,8 @@ def create_midi():
         jsonify(
             {
                 "midi_id": new_midi.midi_id,
-                "user_id": new_midi.user_id,
+                "name": new_user.name,
+                "email": new_user.email,
                 "title": new_midi.title,
                 "date": new_midi.date.isoformat(),
                 "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data

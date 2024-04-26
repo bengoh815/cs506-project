@@ -22,35 +22,37 @@
 import React, { useEffect, useState } from "react";
 import "./ConversionHistory.css";
 import ReactPaginate from "react-paginate";
+import FileDownload from "../download/FileDownload";
 
 // Mock data for conversion history
 const mockConversionHistoryData = [
-  { 'fileName': 'song1.mid', 'author': 'Fiona', 'date': '2024-03-10' },
-  { 'fileName': 'song2.mid', 'author': 'George', 'date': '2024-03-11' },
-  { 'fileName': 'song3.mid', 'author': 'George', 'date': '2024-03-12' },
-  { 'fileName': 'song4.mid', 'author': 'Hannah', 'date': '2024-03-13' },
-  { 'fileName': 'song5.mid', 'author': 'Julia', 'date': '2024-03-14' },
-  { 'fileName': 'song6.mid', 'author': 'Ethan', 'date': '2024-03-15' },
-  { 'fileName': 'song7.mid', 'author': 'George', 'date': '2024-03-16' },
-  { 'fileName': 'song8.mid', 'author': 'George', 'date': '2024-03-17' },
-  { 'fileName': 'song9.mid', 'author': 'Fiona', 'date': '2024-03-18' },
-  { 'fileName': 'song10.mid', 'author': 'George', 'date': '2024-03-19' },
-  { 'fileName': 'song11.mid', 'author': 'Diana', 'date': '2024-03-20' },
-  { 'fileName': 'song12.mid', 'author': 'Alice', 'date': '2024-03-21' },
-  { 'fileName': 'song13.mid', 'author': 'Bob', 'date': '2024-03-22' },
-  { 'fileName': 'song14.mid', 'author': 'George', 'date': '2024-03-23' },
-  { 'fileName': 'song15.mid', 'author': 'Hannah', 'date': '2024-03-24' },
-  { 'fileName': 'song16.mid', 'author': 'Ethan', 'date': '2024-03-25' },
-  { 'fileName': 'song17.mid', 'author': 'Julia', 'date': '2024-03-26' },
-  { 'fileName': 'song18.mid', 'author': 'Bob', 'date': '2024-03-27' },
-  { 'fileName': 'song19.mid', 'author': 'Ethan', 'date': '2024-03-28' },
-  { 'fileName': 'song20.mid', 'author': 'George', 'date': '2024-03-29' }];
+  { fileName: "song1.mid", author: "Fiona", date: "2024-03-10" },
+  { fileName: "song2.mid", author: "George", date: "2024-03-11" },
+  { fileName: "song3.mid", author: "George", date: "2024-03-12" },
+  { fileName: "song4.mid", author: "Hannah", date: "2024-03-13" },
+  { fileName: "song5.mid", author: "Julia", date: "2024-03-14" },
+  { fileName: "song6.mid", author: "Ethan", date: "2024-03-15" },
+  { fileName: "song7.mid", author: "George", date: "2024-03-16" },
+  { fileName: "song8.mid", author: "George", date: "2024-03-17" },
+  { fileName: "song9.mid", author: "Fiona", date: "2024-03-18" },
+  { fileName: "song10.mid", author: "George", date: "2024-03-19" },
+  { fileName: "song11.mid", author: "Diana", date: "2024-03-20" },
+  { fileName: "song12.mid", author: "Alice", date: "2024-03-21" },
+  { fileName: "song13.mid", author: "Bob", date: "2024-03-22" },
+  { fileName: "song14.mid", author: "George", date: "2024-03-23" },
+  { fileName: "song15.mid", author: "Hannah", date: "2024-03-24" },
+  { fileName: "song16.mid", author: "Ethan", date: "2024-03-25" },
+  { fileName: "song17.mid", author: "Julia", date: "2024-03-26" },
+  { fileName: "song18.mid", author: "Bob", date: "2024-03-27" },
+  { fileName: "song19.mid", author: "Ethan", date: "2024-03-28" },
+  { fileName: "song20.mid", author: "George", date: "2024-03-29" },
+];
 
 const ConversionHistory = () => {
   const [convertedFiles, setConvertedFiles] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
-  const [sortingCriteria, setSortingCriteria] = useState('fileName'); // default is fileName
+  const [sortingCriteria, setSortingCriteria] = useState("fileName"); // default is fileName
   const [isAscending, setIsAscending] = useState(true);
 
   useEffect(() => {
@@ -76,12 +78,18 @@ const ConversionHistory = () => {
 
   // Sorting function
   const sortItems = (a, b) => {
-    if (sortingCriteria === 'fileName') {
-      return isAscending ? a.fileName.localeCompare(b.fileName) : b.fileName.localeCompare(a.fileName);
-    } else if (sortingCriteria === 'author') {
-      return isAscending ? a.author.localeCompare(b.author) : b.author.localeCompare(a.author);
-    } else if (sortingCriteria === 'date') {
-      return isAscending ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+    if (sortingCriteria === "fileName") {
+      return isAscending
+        ? a.fileName.localeCompare(b.fileName)
+        : b.fileName.localeCompare(a.fileName);
+    } else if (sortingCriteria === "author") {
+      return isAscending
+        ? a.author.localeCompare(b.author)
+        : b.author.localeCompare(a.author);
+    } else if (sortingCriteria === "date") {
+      return isAscending
+        ? new Date(a.date) - new Date(b.date)
+        : new Date(b.date) - new Date(a.date);
     }
   };
 
@@ -90,8 +98,10 @@ const ConversionHistory = () => {
   // Calculate the current items to display
   const indexOfLastItem = (currentPage + 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = mockConversionHistoryData.slice(indexOfFirstItem, indexOfLastItem);
-
+  const currentItems = mockConversionHistoryData.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
 
   // Change page handler for ReactPaginate
   const changePage = ({ selected }) => {
@@ -110,9 +120,9 @@ const ConversionHistory = () => {
 
   const getSortingIndicator = (columnName) => {
     if (sortingCriteria === columnName) {
-      return isAscending ? ' ▲' : ' ▼';
+      return isAscending ? " ▲" : " ▼";
     }
-    return '';
+    return "";
   };
 
   return (
@@ -122,15 +132,16 @@ const ConversionHistory = () => {
         <table id="conversion-history-table">
           <thead>
             <tr>
-              <th onClick={() => handleSort('fileName')} className="sortable">
-                File{getSortingIndicator('fileName')}
+              <th onClick={() => handleSort("fileName")} className="sortable">
+                File{getSortingIndicator("fileName")}
               </th>
-              <th onClick={() => handleSort('author')} className="sortable">
-                Author{getSortingIndicator('author')}
+              <th onClick={() => handleSort("author")} className="sortable">
+                Author{getSortingIndicator("author")}
               </th>
-              <th onClick={() => handleSort('date')} className="sortable">
-                Date{getSortingIndicator('date')}
+              <th onClick={() => handleSort("date")} className="sortable">
+                Date{getSortingIndicator("date")}
               </th>
+              <th>Download</th>
             </tr>
           </thead>
           <tbody>
@@ -139,6 +150,9 @@ const ConversionHistory = () => {
                 <td>{entry.fileName}</td>
                 <td>{entry.author}</td>
                 <td>{entry.date}</td>
+                <td>
+                  <FileDownload data={{ midi_id: 5 }} />
+                </td>
               </tr>
             ))}
           </tbody>
