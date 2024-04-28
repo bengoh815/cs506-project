@@ -1,9 +1,6 @@
 # Requirements and Specification Document
 
-## Melody Mapper 
-[![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![backend coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/coverage.svg?key_text=dev backend coverage&key_width=140>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
-
-[![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/develop/coverage.svg?key_text=dev coverage&key_width=90>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
+## Melody Mapper
 
 [![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/develop/coverage.svg?key_text=dev coverage&key_width=90>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
 
@@ -29,7 +26,7 @@ The target customer for this software spans musicians, composers, music producer
 | R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
 | R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
 | R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
-| R011 | The system shall be able to search for the filename or author in the database                          | High     | In Progress    |
+| R011 | The system shall be able to search for the filename or author in the database                          | High     | In Progress |
 
 ### Use Cases & User Stories
 
