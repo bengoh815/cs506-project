@@ -5,7 +5,7 @@ import conversion
 @pytest.fixture
 def wav_sample():
     # Fixture to provide a sample wav audio file for testing
-    return "audio_sample/guitar.wav"
+    return "audio_sample/sample1.wav"
 
 
 def test_file_acceptance(wav_sample):
@@ -35,6 +35,7 @@ def test_midi_existence(wav_sample):
     # Assert the MIDI output meets expectations
     assert midi_output is not None
     assert len(midi_output.notes) > 0
+
 
 def test_midi_accuracy(wav_sample):
 
