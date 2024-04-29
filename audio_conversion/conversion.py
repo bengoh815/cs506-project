@@ -1,7 +1,7 @@
 ################################################################################
 # Filename: conversion.py
 # Purpose:  Perform audio processing and conversion tasks to MIDI.
-# Author:   Livia Chandra
+# Author:   Livia Chandrav and Darren Seubert
 #
 # Description:
 # This file contains functions for audio processing tasks, including conversion
@@ -194,6 +194,9 @@ def wav_to_midi(audio_file):
     midi = mido.MidiFile()
     track = mido.MidiTrack()
     midi.tracks.append(track)
+
+    # Set tempo in microseconds per beat
+    track.append(mido.MetaMessage("set_tempo", tempo=int(60 * 10**6 / tempo)))
 
     # Set the key signature meta message
     key_sig_message = mido.MetaMessage("key_signature", key=key_signature, time=0)
