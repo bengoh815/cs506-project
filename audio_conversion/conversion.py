@@ -5,7 +5,7 @@ from mido import MidiFile, MidiTrack, MetaMessage, Message
 import math
 
 # Load audio file using librosa
-y, sr = librosa.load("guitar.wav")
+y, sr = librosa.load("audio_sample/sample.wav")
 
 
 # Set min and max frequencies for pitch detection
@@ -140,5 +140,5 @@ for note, time in zip(midi_note, midi_new_time):
         track.append(message_off)
 
 # Save MIDI file
-midi_file_name = "guitar.mid"
+midi_file_name = "midi_output/sample.mid"
 midi.save(midi_file_name)
