@@ -119,19 +119,18 @@ def create_midi():
     # Save the file
     audio_file.save(audio_file_path)
 
-    # wav_to_midi(audio_file_path)
-    
-    # output_file_path = os.path.join('../utils/midi_output', safe_filename)
-
-    # with open(output_file_path, 'rb') as file:
-    #     output_file = file.read()
-
-    with open('./converted-example.midi', 'rb') as binary_file:
-    # with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
-        output_file = binary_file.read()
-
+    store_error = ""
+    try:
+        output_file = wav_to_midi(audio_file_path)
+    except Exception as e:
+        store_error = str(e)
+        with open('./converted-example.midi', 'rb') as binary_file:
+            output_file = binary_file.read()
 
     midi_data_encoded = BinaryConverter.encode_binary(output_file)
+
+    # Remove the file
+    os.remove(audio_file_path)
 
 
     # Create User
@@ -157,6 +156,7 @@ def create_midi():
                 "title": new_midi.title,
                 "date": new_midi.date.isoformat(),
                 "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data
+                "there_was_an_issue": store_error
             }
         ),
         CREATED,
