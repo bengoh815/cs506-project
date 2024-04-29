@@ -31,7 +31,7 @@ The target customer for this software spans musicians, composers, music producer
 | R013 | The system shall prompt a users with the security statement before allowing them to record or upload any files                         | High  | Complete |
 | R014 | The system shall show the user a history of all the uploads to the database in table form, prompting the user with download buttons for musicxml and midi formats as well as displaying metadata                         | High  | Complete |
 | R015 | The system shall be able to be ran from docker containers                         | Medium  | Complete |
-| R016 | The system shall consist of two MySQL database tables, users and midi, consisiting of user metadata and midi metadata/file respectively                         | High  | Complete |
+| R016 | The system shall consist of two MySQL database tables, users and midi, consisting of user metadata and midi metadata/file respectively                         | High  | Complete |
 
 ### Use Cases & User Stories
 
@@ -52,13 +52,16 @@ The website applicatoins will have the following screens:
 2. A main screen will show a record button, a file upload button, and conversion history where a user can download the midi file or xml sheet music for pervious uploaded recordings
 3. Once the Start Recording button is pressed, the user will see an active recording screen
 4. The user will be prompted to review their recording, and submit it for conversion
-5. The user finally will be prompted to input details about the recording
+5. The user will be prompted to input details about the recording
+6. The user will then be prompted if the upload and conversion had an error or if it was successful
 
 ![Security Statement](resources/Security_Final.png)
 ![User Interface](resources/UI_Final.png)
 ![Recording](resources/Recording_Final.png)
 ![Recording Options](resources/Recording_Options_Final.png)
 ![File Details](resources/File_Details_Final.png)
+![Conversion Error](resources/Conversion_Error_Final.png)
+![Conversion Sucecess](resources/Conversion_Success_Final.png)
 
 ### Security Requirements
 
