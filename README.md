@@ -24,7 +24,7 @@ The target customer for this software spans musicians, composers, music producer
 | R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | Complete |
 | R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High | Complete |
 | R008 | The system shall allow a user to download the sheet music for a midi recording using musicxml format                                    | High      | Complete        |
-| R009 | The system shall allow users to credit other artisis besides themselves during upload                                       | Low      | Complete        |
+| R009 | The system shall allow users to credit other artists besides themselves during upload                                       | Low      | Complete        |
 | R010 | The system shall be able to search for the filename or author in the database                          | Medium  | Complete |
 | R011 | The system shall allow users to download midi file of a song in the database                          | High  | Complete |
 | R012 | The system shall prompt a users to enter metadata regarding an recording or uploaded file                          | High  | Complete |
