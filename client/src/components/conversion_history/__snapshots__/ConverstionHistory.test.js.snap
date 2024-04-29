@@ -28,7 +28,13 @@ exports[`ConversionHistory component matches snapshot 1`] = `
             className="sortable"
             onClick={[Function]}
           >
-            Author
+            Name
+          </th>
+          <th
+            className="sortable"
+            onClick={[Function]}
+          >
+            Email
           </th>
           <th
             className="sortable"
@@ -36,279 +42,12 @@ exports[`ConversionHistory component matches snapshot 1`] = `
           >
             Date
           </th>
-          <th
-            className="sortable"
-            onClick={[Function]}
-          >
-            Size
-          </th>
           <th>
             Downlaod
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>
-            song1.midi
-          </td>
-          <td>
-            Fiona
-          </td>
-          <td>
-            2024-03-10
-          </td>
-          <td>
-            3.4 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song10.midi
-          </td>
-          <td>
-            George
-          </td>
-          <td>
-            2024-03-19
-          </td>
-          <td>
-            1.4 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song11.midi
-          </td>
-          <td>
-            Diana
-          </td>
-          <td>
-            2024-03-20
-          </td>
-          <td>
-            254 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song12.midi
-          </td>
-          <td>
-            Alice
-          </td>
-          <td>
-            2024-03-21
-          </td>
-          <td>
-            3.0 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song13.midi
-          </td>
-          <td>
-            Bob
-          </td>
-          <td>
-            2024-03-22
-          </td>
-          <td>
-            0.9 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song2.midi
-          </td>
-          <td>
-            George
-          </td>
-          <td>
-            2024-03-11
-          </td>
-          <td>
-            3.5 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song3.midi
-          </td>
-          <td>
-            George
-          </td>
-          <td>
-            2024-03-12
-          </td>
-          <td>
-            5.4 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song4.midi
-          </td>
-          <td>
-            Hannah
-          </td>
-          <td>
-            2024-03-13
-          </td>
-          <td>
-            35.41 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song5.midi
-          </td>
-          <td>
-            Julia
-          </td>
-          <td>
-            2024-03-14
-          </td>
-          <td>
-            9.4 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            song6.midi
-          </td>
-          <td>
-            Ethan
-          </td>
-          <td>
-            2024-03-15
-          </td>
-          <td>
-            13.0 MB
-          </td>
-          <td>
-            <button
-              onClick={[Function]}
-            >
-              Download PDF
-            </button>
-            <button
-              onClick={[Function]}
-            >
-              Download MIDI
-            </button>
-          </td>
-        </tr>
-      </tbody>
+      <tbody />
     </table>
     <ul
       aria-label="Pagination"
@@ -329,34 +68,6 @@ exports[`ConversionHistory component matches snapshot 1`] = `
           tabIndex="-1"
         >
           Previous
-        </a>
-      </li>
-      <li
-        className="pagination__link--active"
-      >
-        <a
-          aria-current="page"
-          aria-label="Page 1 is your current page"
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          rel="canonical"
-          role="button"
-          tabIndex="-1"
-        >
-          1
-        </a>
-      </li>
-      <li>
-        <a
-          aria-current={null}
-          aria-label="Page 2"
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          rel="next"
-          role="button"
-          tabIndex="0"
-        >
-          2
         </a>
       </li>
       <li

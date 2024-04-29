@@ -42,7 +42,7 @@ test("sorts conversion history by file name", () => {
 test("sorts conversion history by author name", () => {
     render(<ConversionHistory />);
 
-    const authorNameColumn = screen.getByRole("columnheader", { name: /author/i });
+    const authorNameColumn = screen.getByRole("columnheader", { name: /name/i });
     fireEvent.click(authorNameColumn);
 
     expect(screen.getByText("Alice")).toBeInTheDocument();
@@ -61,15 +61,16 @@ test("sorts conversion history by date", () => {
 });
 
 /**
- * Test 6: Test size sorting functionality.
+ * Test 6: Test email sorting functionality.
  */
 test("sorts conversion history by size", () => {
     render(<ConversionHistory />);
 
-    const sizeColumn = screen.getByRole("columnheader", { name: /size/i });
-    fireEvent.click(sizeColumn);
+    const emailColumn = screen.getByRole("columnheader", { name: /email/i });
+    fireEvent.click(emailColumn);
+    fireEvent.click(emailColumn);
 
-    expect(screen.getByText("0.9 MB")).toBeInTheDocument();
+    expect(screen.getByText("bob@email.com")).toBeInTheDocument();
 });
 
 /**
@@ -87,7 +88,7 @@ test("displays correct number of items per page", () => {
  */
  test("displays correct number of items per page", () => {
     render(<ConversionHistory />);
-    const sizeColumn = screen.getByRole("columnheader", { name: /size/i });
+    const sizeColumn = screen.getByRole("columnheader", { name: /email/i });
     fireEvent.click(sizeColumn);
 
     const items = screen.getAllByRole("row");
