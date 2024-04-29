@@ -75,6 +75,7 @@ The website applicatoins will have the following screens:
 | ---------- | ---------------------------------------------- |
 | Flask      | A framework to work as a backend server        |
 | Mido       | A library to work with MIDI format files       |
+| music21    | A library to convert to musicxml file format   |
 | SQLAlchemy | A library for Python to work with SQL database |
 
 ### Specification
@@ -131,7 +132,7 @@ erDiagram
 ```mermaid
 ---
 ---
-title: Class Diagram for MelodyMapper Program
+title: Class Diagram for Models in MelodyMapper Program
 ---
 classDiagram
     class User {
