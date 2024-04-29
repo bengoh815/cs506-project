@@ -41,27 +41,19 @@ The target customer for this software spans musicians, composers, music producer
 
 ### User Interface Requirements
 
-Website without user account
+The website applicatoins will have the following screens:
 
-1. A button with microphone icon for receiving live recording and convert into the format of .wav, .m4a, and .mp3
-2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
-3. History section to show the details of previous conversion with credited author and date
+1. A security statement will be presented to the user before they can continue to the website
+2. A main screen will show a record button, a file upload button, and conversion history where a user can download the midi file or xml sheet music for pervious uploaded recordings
+3. Once the Start Recording button is pressed, the user will see an active recording screen
+4. The user will be prompted to review their recording, and submit it for conversion
+5. The user finally will be prompted to input details about the recording
 
-![User Interface Without User Account](resources/User_Interface_Without_User_Account.png)
-
-Website with user account
-
-1. A button with microphone icon for receiving live recording and convert into the format of .wav, .m4a, and .mp3
-2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
-3. A button with user icon on the top right for user account
-   Three lines to show the content of the user account page
-   a. Settings
-   b. Conversion history from this user
-4. History section to show the details of previous conversion with credited author and date
-
-![User Interface With User Account](resources/User_Interface_With_User_Account.png)
-
-![User account](resources/User_account.png)
+![Security Statement](resources/Security_Final.png)
+![User Interface](resources/UI_Final.png)
+![Recording](resources/Recording_Final.png)
+![Recording Options](resources/Recording_Options_Final.png)
+![File Details](resources/File_Details_Final.png)
 
 ### Security Requirements
 
@@ -74,11 +66,11 @@ Website with user account
 
 ### System Requirements
 
-| Library    | Description                                    | Performance |
-| ---------- | ---------------------------------------------- | ----------- |
-| Flask      | A framework to work as a backend server        | TBD         |
-| Mido       | A library to work with MIDI format files       | TBD         |
-| SQLAlchemy | A library for Python to work with SQL database | TBD         |
+| Library    | Description                                    |
+| ---------- | ---------------------------------------------- |
+| Flask      | A framework to work as a backend server        |
+| Mido       | A library to work with MIDI format files       |
+| SQLAlchemy | A library for Python to work with SQL database |
 
 ### Specification
 
