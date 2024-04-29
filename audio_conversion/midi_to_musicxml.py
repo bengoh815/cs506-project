@@ -36,4 +36,5 @@ def midi_to_musicxml(midi_file):
 
     # Return the content of the MusicXML
     musicxml_data.seek(0)  # Rewind the StringIO object to the beginning
+
     return musicxml_data.read()
