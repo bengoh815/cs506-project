@@ -55,7 +55,7 @@ export default function ConvertFileModal(props) {
       body: formData,
     })
       .then((response) => {
-        console.log("Posting file to backend...");
+        // console.log("Posting file to backend...");
         const expectedStatus = 201;
 
         if (response.status === expectedStatus) {
@@ -70,7 +70,7 @@ export default function ConvertFileModal(props) {
         return response.json();
       })
       .then((data) => {
-        console.log("Temporary data response:", data);
+        // console.log("Temporary data response:", data);
         const midiData = data.midi_data; // base64 encoded MIDI data
         const filename = data.title + ".mid"; // Generate a file name
 
@@ -78,7 +78,6 @@ export default function ConvertFileModal(props) {
         downloadMidi(midiData, filename);
       })
       .catch((error) => {
-        console.error("Error:", error);
         setIsConverting(false);
         setConversionError(true);
       });
@@ -120,7 +119,7 @@ export default function ConvertFileModal(props) {
 
   const ConversionDetailsForm = () => {
     return (
-      <>
+      <div id="convert-file-modal" data-testid="convert-file-modal">
         <p style={{ color: "grey" }}>
           <em>
             Please fill out the required details below to convert your file.
@@ -152,7 +151,7 @@ export default function ConvertFileModal(props) {
             onChange={(e) => setRecordingTitle(e.target.value)}
           />
         </Form>
-      </>
+      </div>
     );
   };
 
@@ -207,6 +206,7 @@ export default function ConvertFileModal(props) {
             <>
               <Button
                 id="try-again-button"
+                data-testid="try-again-button"
                 onClick={handleTryAgain}
                 variant="warning"
               >
