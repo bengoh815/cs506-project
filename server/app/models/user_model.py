@@ -1,7 +1,7 @@
 ################################################################################
 # Filename: user_model.py
 # Purpose:  Define the User model for representing user data in the database.
-# Author:   Benjamin Goh
+# Author:   Benjamin Goh and Darren Seubert
 #
 # Description:
 # This file contains the definition of the User class, which is used as a model
@@ -21,10 +21,28 @@
 
 
 from app.database import db
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class User(db.Model):
-    __tablename__ = "Users"
-    user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), nullable=False)
+    """
+    User class representing users in the database.
+
+    Attributes:
+        id (int): The unique identifier for the user.
+        name (str): The name of the user.
+        email (str): The email address of the user.
+    """
+
+    __tablename__ = "users"
+    user_id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
+    email: Mapped[str] = mapped_column(nullable=False)
+
+    def __repr__(self):
+        """
+        Return a string representation of the User object.
+        """
+        return (
+            f"<User(user_id='{self.user_id}', name='{self.name}', email='{self.email}'>"
+        )
