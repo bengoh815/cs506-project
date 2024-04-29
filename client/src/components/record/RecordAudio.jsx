@@ -39,8 +39,8 @@ const RecordButton = () => {
    * Requests access to the user's microphone. If access is granted, the MediaRecorder object is created and the recording starts.
    */
   const startRecording = () => {
+    // Return if user media not available
     if (!navigator.mediaDevices) {
-      console.error("User media not available");
       return;
     }
 
@@ -71,8 +71,6 @@ const RecordButton = () => {
         recorder.onerror = (e) => console.error(e.error);
       })
       .catch((error) => {
-        console.error(error);
-
         // Alert the user if they denied microphone access and prompt them to give permission in order to record audio
         if (error.name === "NotAllowedError") {
           alert(

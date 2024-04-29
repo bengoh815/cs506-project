@@ -19,12 +19,33 @@
  *
  ******************************************************************************/
 
-import { cleanup, render, screen } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  render,
+  screen,
+  fireEvent,
+} from "@testing-library/react";
 import RecordAudio from "./RecordAudio";
+import React from "react";
 
 describe("Record Audio Component", () => {
+  const originalUseState = React.useState;
+  const originalUseRef = React.useRef;
+
   // Cleans up the DOM after each test to ensure a clean environment.
   afterEach(() => {
+    // Reset the mocks
+    jest.resetAllMocks();
+
+    // Reset the global objects
+    global.navigator.mediaDevices = undefined;
+    global.MediaRecorder = undefined;
+
+    // Reset the React hooks
+    React.useState = originalUseState;
+    React.useRef = originalUseRef;
+
     cleanup();
   });
 
@@ -71,5 +92,69 @@ describe("Record Audio Component", () => {
 
     // Assert
     expect(recordButton).toHaveTextContent("Start Recording");
+  });
+
+  it("tests the recording function", async () => {
+    // Mock MediaRecorder and its methods
+    act(() => {
+      const mockStart = jest.fn();
+      const mockMediaRecorderInstance = {
+        start: mockStart,
+        ondataavailable: null,
+        onerror: null,
+      };
+      global.MediaRecorder = jest.fn(() => mockMediaRecorderInstance);
+    });
+
+    // Mock navigator.mediaDevices.getUserMedia
+    const mockStream = "mockStream";
+    act(() => {
+      global.navigator.mediaDevices = {
+        getUserMedia: jest.fn(() => Promise.resolve(mockStream)),
+      };
+    });
+
+    // Render the component
+    render(<RecordAudio />);
+
+    // Simulate a click on the record button
+    await act(async () => {
+      screen.getByTestId("record-button").click();
+    });
+
+    // Assert that the recording has started
+    expect(global.MediaRecorder).toHaveBeenCalledTimes(1);
+    expect(global.navigator.mediaDevices.getUserMedia).toHaveBeenCalledTimes(1);
+  });
+
+  it("tests startRecording function user media not available error", () => {
+    render(<RecordAudio />);
+    const recordButton = screen.getByTestId("record-button");
+
+    // Act
+    act(() => {
+      recordButton.click();
+    });
+  });
+
+  it("tests startRecording function not allowed error", () => {
+    // Arrange - Mock navigator.mediaDevices
+    global.navigator.mediaDevices = {
+      getUserMedia: jest.fn(() =>
+        Promise.resolve({
+          getTracks: jest.fn(() => [{ stop: jest.fn() }]),
+        }),
+      ),
+    };
+    render(<RecordAudio />);
+    const recordButton = screen.getByTestId("record-button");
+
+    // Act
+    act(() => {
+      recordButton.click();
+    });
+
+    // Assert
+    expect(recordButton).toHaveTextContent("Stop Recording");
   });
 });
