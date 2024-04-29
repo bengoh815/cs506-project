@@ -204,7 +204,7 @@ export default function ConvertFileModal(props) {
           >
             <Spinner animation="border" role="status" size="lg" />
           </div>
-        ) : !conversionComplete ? (
+        ) : conversionComplete ? (
           <div>
             <p>
               <b>Success!</b> <br /> <br />
