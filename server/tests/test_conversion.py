@@ -15,7 +15,7 @@
 ###############################################################################
 
 import pytest
-from app.utils import conversion
+from app.utils.conversion import audio_to_wav, divide_audio_data, wav_to_midi
 
 @pytest.fixture
 def audio_files():
@@ -45,19 +45,19 @@ def test_audio_input(audio_files):
     """
 
     # Valid test case 1 - mp3
-    mp3_output = conversion.audio_to_wav(audio_files["mp3"])
+    mp3_output = audio_to_wav(audio_files["mp3"])
     assert mp3_output is not None
 
     # Valid test case 2 - m4a
-    m4a_output = conversion.audio_to_wav(audio_files["m4a"])
+    m4a_output = audio_to_wav(audio_files["m4a"])
     assert m4a_output is not None
 
     # Valid test case 3 - wav
-    wav_output = conversion.audio_to_wav(audio_files["wav"])
+    wav_output = audio_to_wav(audio_files["wav"])
     assert wav_output is not None
 
     # Invalid test case - flac
-    flac_output = conversion.audio_to_wav(audio_files["flac"])
+    flac_output = audio_to_wav(audio_files["flac"])
     assert flac_output is None
 
 
@@ -77,7 +77,7 @@ def test_divide_audio_data():
     # Expected output
     expected_num_segments = len(audio_data) // (sample_rate * 60 / tempo * 2) + 1
 
-    segments = list(conversion.divide_audio_data(audio_data, sample_rate, tempo))
+    segments = list(divide_audio_data(audio_data, sample_rate, tempo))
     assert len(segments) == expected_num_segments
 
 
@@ -91,5 +91,5 @@ def test_midi_conversion(audio_files):
 
     # Pass in wav file for midi conversion
     audio_wav = audio_files["wav"]
-    midi_file = conversion.wav_to_midi(audio_wav)
+    midi_file = wav_to_midi(audio_wav)
     assert midi_file is not None
