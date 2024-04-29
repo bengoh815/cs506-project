@@ -25,19 +25,84 @@ import ReactPaginate from "react-paginate";
 
 // Mock data for conversion history
 const mockConversionHistoryData = [
-  { "title": "song1.midi", "name": "Fiona", "date": "2024-03-10", "email": "fiona@email.com" },
-  { "title": "song2.midi", "name": "George", "date": "2024-03-11", "email": "george@email.com" },
-  { "title": "song3.midi", "name": "George", "date": "2024-03-12", "email": "george@email.com" },
-  { "title": "song4.midi", "name": "Hannah", "date": "2024-03-13", "email": "hannah@email.com" },
-  { "title": "song5.midi", "name": "Julia", "date": "2024-03-14", "email": "julia@email.com" },
-  { "title": "song6.midi", "name": "Ethan", "date": "2024-03-15", "email": "ethan@email.com" },
-  { "title": "song7.midi", "name": "George", "date": "2024-03-16", "email": "george@email.com" },
-  { "title": "song8.midi", "name": "George", "date": "2024-03-17", "email": "george@email.com" },
-  { "title": "song9.midi", "name": "Fiona", "date": "2024-03-18", "email": "fiona@email.com" },
-  { "title": "song10.midi", "name": "George", "date": "2024-03-19", "email": "george@email.com" },
-  { "title": "song11.midi", "name": "Diana", "date": "2024-03-20", "email": "diana@email.com" },
-  { "title": "song12.midi", "name": "Alice", "date": "2024-03-21", "email": "alice@email.com" },
-  { "title": "song13.midi", "name": "Bob", "date": "2024-03-22", "email": "bob@email.com" }
+  {
+    title: "song1.midi",
+    name: "Fiona",
+    date: "2024-03-10",
+    email: "fiona@email.com",
+  },
+  {
+    title: "song2.midi",
+    name: "George",
+    date: "2024-03-11",
+    email: "george@email.com",
+  },
+  {
+    title: "song3.midi",
+    name: "George",
+    date: "2024-03-12",
+    email: "george@email.com",
+  },
+  {
+    title: "song4.midi",
+    name: "Hannah",
+    date: "2024-03-13",
+    email: "hannah@email.com",
+  },
+  {
+    title: "song5.midi",
+    name: "Julia",
+    date: "2024-03-14",
+    email: "julia@email.com",
+  },
+  {
+    title: "song6.midi",
+    name: "Ethan",
+    date: "2024-03-15",
+    email: "ethan@email.com",
+  },
+  {
+    title: "song7.midi",
+    name: "George",
+    date: "2024-03-16",
+    email: "george@email.com",
+  },
+  {
+    title: "song8.midi",
+    name: "George",
+    date: "2024-03-17",
+    email: "george@email.com",
+  },
+  {
+    title: "song9.midi",
+    name: "Fiona",
+    date: "2024-03-18",
+    email: "fiona@email.com",
+  },
+  {
+    title: "song10.midi",
+    name: "George",
+    date: "2024-03-19",
+    email: "george@email.com",
+  },
+  {
+    title: "song11.midi",
+    name: "Diana",
+    date: "2024-03-20",
+    email: "diana@email.com",
+  },
+  {
+    title: "song12.midi",
+    name: "Alice",
+    date: "2024-03-21",
+    email: "alice@email.com",
+  },
+  {
+    title: "song13.midi",
+    name: "Bob",
+    date: "2024-03-22",
+    email: "bob@email.com",
+  },
 ];
 
 /**
@@ -45,24 +110,20 @@ const mockConversionHistoryData = [
  *
  * @returns {JSX.Element} ConversionHistory component.
  */
-const ConversionHistory = ({isDebug = false}) => {
+const ConversionHistory = ({ isDebug = false }) => {
   const [convertedFiles, setConvertedFiles] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
-  const [sortingCriteria, setSortingCriteria] = useState('title'); // default is title
+  const [sortingCriteria, setSortingCriteria] = useState("title"); // default is title
   const [isAscending, setIsAscending] = useState(true);
-  const apiUrl = process.env.REACT_APP_API_URL
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [searchQuery, setSearchQuery] = useState("");
 
-
-
   useEffect(() => {
-    console.log(`${apiUrl}/api/v1/midis`)
+    console.log(`${apiUrl}/api/v1/midis`);
     fetch(`${apiUrl}/api/v1/midis`, {
       method: "GET",
-      headers: {
-
-      },
+      headers: {},
     })
       .then((response) => {
         console.log("Fetching conversion history from the backend...");
@@ -70,20 +131,19 @@ const ConversionHistory = ({isDebug = false}) => {
       })
       .then((data) => {
         setConvertedFiles(data);
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, []);
 
-
   //  For testing purpose only
-  console.log(isDebug)
+  console.log(isDebug);
   if (isDebug) {
     useEffect(() => {
       setConvertedFiles(mockConversionHistoryData);
-    })
+    });
   }
 
   /**
@@ -92,7 +152,7 @@ const ConversionHistory = ({isDebug = false}) => {
    * @param {string} title - The name of the file to download.
    */
   const handleDownloadMIDI = () => {
-    window.alert('Download initiated for ' + title);
+    window.alert("Download initiated for " + title);
     const data = backendResponse;
     const midiData = data.midi_data; // base64 encoded MIDI data
     const filename = data.title + ".mid"; // Generate a file name
@@ -107,7 +167,7 @@ const ConversionHistory = ({isDebug = false}) => {
    * @param {string} title - The name of the file to download.
    */
   const handleDownloadXML = () => {
-    window.alert('Download initiated for ' + title);
+    window.alert("Download initiated for " + title);
 
     const data = backendResponse;
     const xmlData = data.xml_data;
@@ -117,7 +177,6 @@ const ConversionHistory = ({isDebug = false}) => {
     downloadXml(xmlData, filename);
   };
 
-
   /**
    * Sort items based on given criteria and direction.
    *
@@ -126,15 +185,23 @@ const ConversionHistory = ({isDebug = false}) => {
    * @returns {number} Result of the comparison.
    */
   const sortItems = (a, b) => {
-    if (sortingCriteria === 'title') {
-      return isAscending ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
-    } else if (sortingCriteria === 'name') {
-      return isAscending ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-    } else if (sortingCriteria === 'date') {
-      return isAscending ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
-    } else if (sortingCriteria === 'email') {
-      return isAscending ? a.email.localeCompare(b.email) : b.email.localeCompare(a.email);
-    } else if (sortingCriteria === 'size') {
+    if (sortingCriteria === "title") {
+      return isAscending
+        ? a.title.localeCompare(b.title)
+        : b.title.localeCompare(a.title);
+    } else if (sortingCriteria === "name") {
+      return isAscending
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
+    } else if (sortingCriteria === "date") {
+      return isAscending
+        ? new Date(a.date) - new Date(b.date)
+        : new Date(b.date) - new Date(a.date);
+    } else if (sortingCriteria === "email") {
+      return isAscending
+        ? a.email.localeCompare(b.email)
+        : b.email.localeCompare(a.email);
+    } else if (sortingCriteria === "size") {
       const sizeA = parseFloat(a.size);
       const sizeB = parseFloat(b.size);
       return isAscending ? sizeA - sizeB : sizeB - sizeA;
@@ -149,18 +216,18 @@ const ConversionHistory = ({isDebug = false}) => {
   };
 
   // Filter the files based on search query
-  const filteredFiles = convertedFiles.filter(file =>
-    file.title.toLowerCase().includes(searchQuery) ||
-    file.name.toLowerCase().includes(searchQuery) ||
-    file.email.toLowerCase().includes(searchQuery) ||
-    file.date.includes(searchQuery)
+  const filteredFiles = convertedFiles.filter(
+    (file) =>
+      file.title.toLowerCase().includes(searchQuery) ||
+      file.name.toLowerCase().includes(searchQuery) ||
+      file.email.toLowerCase().includes(searchQuery) ||
+      file.date.includes(searchQuery),
   );
 
   // Calculate the current items to display
   const indexOfLastItem = (currentPage + 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredFiles.slice(indexOfFirstItem, indexOfLastItem);
-
 
   // Change page handler for ReactPaginate
   const changePage = ({ selected }) => {
@@ -185,11 +252,10 @@ const ConversionHistory = ({isDebug = false}) => {
    */
   const getSortingIndicator = (columnName) => {
     if (sortingCriteria === columnName) {
-      return isAscending ? ' ▲' : ' ▼';
+      return isAscending ? " ▲" : " ▼";
     }
-    return '';
+    return "";
   };
-
 
   return (
     <div className="conversion-history-container">
@@ -204,17 +270,17 @@ const ConversionHistory = ({isDebug = false}) => {
         <table id="conversion-history-table">
           <thead>
             <tr>
-              <th onClick={() => handleSort('title')} className="sortable">
-                File{getSortingIndicator('title')}
+              <th onClick={() => handleSort("title")} className="sortable">
+                File{getSortingIndicator("title")}
               </th>
-              <th onClick={() => handleSort('name')} className="sortable">
-                Name{getSortingIndicator('name')}
+              <th onClick={() => handleSort("name")} className="sortable">
+                Name{getSortingIndicator("name")}
               </th>
-              <th onClick={() => handleSort('date')} className="sortable">
-                Email{getSortingIndicator('date')}
+              <th onClick={() => handleSort("date")} className="sortable">
+                Email{getSortingIndicator("date")}
               </th>
-              <th onClick={() => handleSort('email')} className="sortable">
-                Date{getSortingIndicator('email')}
+              <th onClick={() => handleSort("email")} className="sortable">
+                Date{getSortingIndicator("email")}
               </th>
               <th>Downlaod</th>
             </tr>
@@ -227,8 +293,12 @@ const ConversionHistory = ({isDebug = false}) => {
                 <td>{entry.email}</td>
                 <td>{entry.date}</td>
                 <td>
-                  <button onClick={() => handleDownloadXML(entry.title)}>Download XML</button>
-                  <button onClick={() => handleDownloadMIDI(entry.title)}>Download MIDI</button>
+                  <button onClick={() => handleDownloadXML(entry.title)}>
+                    Download XML
+                  </button>
+                  <button onClick={() => handleDownloadMIDI(entry.title)}>
+                    Download MIDI
+                  </button>
                 </td>
               </tr>
             ))}
