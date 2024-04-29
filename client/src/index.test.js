@@ -15,8 +15,10 @@ import React from "react";
 import { screen, render } from "@testing-library/react";
 import App from "./App";
 
-test("renders App component correctly", () => {
-  render(<App />);
-  const appElement = screen.getByTestId("App");
-  expect(appElement).toBeInTheDocument();
+describe("App", () => {
+  it("renders App component correctly", () => {
+    render(<App />);
+    const appElement = screen.getByTestId("App");
+    expect(appElement).toBeInTheDocument();
+  });
 });

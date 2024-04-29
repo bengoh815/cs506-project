@@ -17,7 +17,7 @@
  *
  ******************************************************************************/
 
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import FileUpload from "./FileUpload";
 
 describe("FileUpload component", () => {
@@ -123,5 +123,79 @@ describe("FileUpload component", () => {
     fileFormats.forEach((format) => {
       expect(acceptedFileFormatsList).toHaveTextContent(format);
     });
+  });
+
+  it("upload file button calls handleFileInputClick", () => {
+    render(<FileUpload />);
+
+    const chooseFileButton = screen.getByTestId("choose-file-button");
+
+    fireEvent.click(chooseFileButton);
+  });
+
+  it("handleFileChange updates state correctly when a file is selected", () => {
+    render(<FileUpload />);
+    const fileInput = screen.getByTestId("file-input");
+    const file = new File(["audio content"], "audio.mp3", {
+      type: "audio/mp3",
+    });
+
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    expect(fileInput.files[0]).toBe(file);
+    expect(fileInput.files).toHaveLength(1);
+
+    // Check if upload button is visible
+    const uploadButton = screen.getByTestId("upload-file-button");
+    expect(uploadButton).toBeInTheDocument();
+
+    // Press the upload button
+    fireEvent.click(uploadButton);
+  });
+
+  it("handleFileChange updates state correctly when file is undefined", () => {
+    render(<FileUpload />);
+    const fileInput = screen.getByTestId("file-input");
+    const file = undefined;
+
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    expect(fileInput.files[0]).toBe(file);
+    expect(fileInput.files).toHaveLength(1);
+
+    // Check if upload button is not visible
+    const uploadButton = screen.queryByTestId("upload-file-button");
+    expect(uploadButton).not.toBeInTheDocument();
+  });
+
+  it("handleClose is called when modal is closed", () => {
+    render(<FileUpload />);
+    const fileInput = screen.getByTestId("file-input");
+    const file = new File(["audio content"], "audio.mp3", {
+      type: "audio/mp3",
+    });
+
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    expect(fileInput.files[0]).toBe(file);
+    expect(fileInput.files).toHaveLength(1);
+
+    // Check if upload button is visible
+    const uploadButton = screen.getByTestId("upload-file-button");
+    expect(uploadButton).toBeInTheDocument();
+
+    // Press the upload button
+    fireEvent.click(uploadButton);
+
+    // Check if modal is open
+    const modal = screen.getByTestId("convert-file-modal");
+    expect(modal).toBeInTheDocument();
+
+    // Close the modal
+    fireEvent.click(screen.getByRole("button", { name: /close/i }));
+
+    // Check that choose file button label is reset
+    const chooseFileButton = screen.getByTestId("choose-file-button");
+    expect(chooseFileButton).toHaveTextContent("Choose File");
   });
 });
