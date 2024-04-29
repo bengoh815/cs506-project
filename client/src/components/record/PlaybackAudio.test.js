@@ -8,21 +8,19 @@
  *
  * Usage:
  * Run the tests using the command `npm test`.
- *
- * Note:
- * More tests to be added/implemented for:
- * - Testing the playback functionality
- * - Testing the pause functionality
- * - Testing the resume functionality
- * - Testing the end of the recording
- * - Testing the seek bar
- *
  ******************************************************************************/
 
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, fireEvent } from "@testing-library/react";
 import PlaybackAudio from "./PlaybackAudio";
+import React from "react";
 
 describe("Playback Audio Component", () => {
+  beforeEach(() => {
+    // Mock the play and pause methods of HTMLMediaElement
+    window.HTMLMediaElement.prototype.play = jest.fn();
+    window.HTMLMediaElement.prototype.pause = jest.fn();
+  });
+
   // Cleans up the DOM after each test to ensure a clean environment.
   afterEach(() => {
     cleanup();
@@ -35,5 +33,28 @@ describe("Playback Audio Component", () => {
 
     // Assert
     expect(screen.getByText("Play Recording")).toBeInTheDocument();
+  });
+
+  it("presses the play button", () => {
+    // Arrange
+    render(<PlaybackAudio />);
+
+    // Act
+    fireEvent.click(screen.getByText("Play Recording"));
+
+    // Assert
+    expect(screen.getByText("Pause")).toBeInTheDocument();
+  });
+
+  it("tests handlePlayPause function when audio is playing", () => {
+    // Render the Playback component
+    render(<PlaybackAudio />);
+
+    // Act
+    fireEvent.click(screen.getByText("Play Recording"));
+    fireEvent.click(screen.getByText("Pause"));
+
+    // Assert
+    expect(screen.getByText("Resume")).toBeInTheDocument();
   });
 });
