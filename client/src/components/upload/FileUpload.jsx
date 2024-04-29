@@ -121,6 +121,8 @@ const FileUpload = () => {
         <div>
           {/* File Input - hidden */}
           <input
+            id="file-input"
+            data-testid="file-input"
             ref={fileInputRef}
             type="file"
             onChange={handleFileChange}
