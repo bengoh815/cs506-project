@@ -120,13 +120,6 @@ def create_midi():
     audio_file.save(audio_file_path)
 
     output_filename = wav_to_midi(audio_file_path)
-    store_error = ""
-    # try:
-    #     pass
-    # except Exception as e:
-    #     store_error = str(e)
-    #     with open('./converted-example.midi', 'rb') as binary_file:
-    #         output_file = binary_file.read()
 
     with open(output_filename, 'rb') as binary_file:
         output_file = binary_file.read()
@@ -161,7 +154,6 @@ def create_midi():
                 "title": new_midi.title,
                 "date": new_midi.date.isoformat(),
                 "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data
-                "there_was_an_issue": store_error
             }
         ),
         CREATED,
