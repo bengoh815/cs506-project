@@ -32,7 +32,7 @@ import math
 import mido
 
 audio_folder = "audio_sample"
-midi_folder = "midi_output"
+midi_folder = "./app/utils/midi_output"
 
 
 def audio_to_wav(audio_file):
@@ -58,7 +58,9 @@ def audio_to_wav(audio_file):
         return None
 
     # Convert input audio file to wav file
-    wav_file_path = os.path.join(audio_folder, file_name + ".wav")
+    current_directory = os.getcwd()
+    wav_file_path = os.path.join(current_directory, file_name + ".wav")
+    # wav_file_path = os.path.join(audio_folder, file_name + ".wav")
     wav_file = pydub.AudioSegment.from_file(audio_file, extension[1:]).export(
         wav_file_path, format="wav"
     )
@@ -104,13 +106,13 @@ def wav_to_midi(audio_file):
     Returns:
         str: The path to the generated MIDI file.
     """
-
-    # # Convert audio file into wav file
-    # file_name, wav_file = audio_to_wav(audio_file)
+    print(audio_file)
+    # Convert audio file into wav file
+    file_name, wav_file = audio_to_wav(audio_file)
 
 
     # Load audio file using librosa
-    audio_data, sample_rate = librosa.load(audio_file)
+    audio_data, sample_rate = librosa.load(wav_file)
 
 
     # Set min and max frequencies for pitch detection
@@ -235,22 +237,7 @@ def wav_to_midi(audio_file):
             track.append(message_off)
 
     # Save MIDI file
-    midi_file_object = io.BytesIO()
-    midi.save(midi_file_object)
+    midi_file_name = os.path.join(midi_folder, file_name + ".mid")
+    midi.save(midi_file_name)
 
-    # Reset the file object's position to the beginning
-    midi_file_object.seek(0)
-
-    # Return the MIDI file object
-    return midi_file_object
-
-
-
-if __name__ == "__main__":
-
-    # Sample audio file
-    audio_file = "audio_sample/guitar.wav"
-
-    # Audio file to MIDI Conversion
-    if wav_to_midi(audio_file) is None:
-        print("Please provide audio file with extension of mp3, m4a or wav.")
+    return midi_file_name

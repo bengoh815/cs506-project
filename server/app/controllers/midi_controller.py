@@ -119,9 +119,10 @@ def create_midi():
     # Save the file
     audio_file.save(audio_file_path)
 
+    output_file = wav_to_midi(audio_file_path)
     store_error = ""
     try:
-        output_file = wav_to_midi(audio_file_path)
+        pass
     except Exception as e:
         store_error = str(e)
         with open('./converted-example.midi', 'rb') as binary_file:
