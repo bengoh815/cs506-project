@@ -96,15 +96,15 @@ describe("Record Audio Component", () => {
 
   it("tests  startRecording function", async () => {
     // Mock MediaRecorder and its methods
-    act(() => {
-      const mockStart = jest.fn();
-      const mockMediaRecorderInstance = {
-        start: mockStart,
-        ondataavailable: null,
-        onerror: null,
-      };
-      global.MediaRecorder = jest.fn(() => mockMediaRecorderInstance);
-    });
+    const mockMediaRecorderInstance = {
+      start: jest.fn(),
+      ondataavailable: null,
+      onerror: null,
+      mockOnDataAvailable: jest.fn(),
+      mockOnError: jest.fn(),
+    };
+    global.MediaRecorder = jest.fn(() => mockMediaRecorderInstance);
+    global.URL.createObjectURL = jest.fn();
 
     // Mock navigator.mediaDevices.getUserMedia
     const mockStream = "mockStream";
@@ -120,6 +120,14 @@ describe("Record Audio Component", () => {
     // Simulate a click on the record button
     await act(async () => {
       screen.getByTestId("record-button").click();
+    });
+
+    // Simulate the ondataavailable event
+    act(() => {
+      const mockEvent = {
+        data: new Blob(["audio data"], { type: "audio/webm" }),
+      };
+      mockMediaRecorderInstance.ondataavailable(mockEvent);
     });
 
     // Assert that the recording has started

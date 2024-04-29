@@ -1,10 +1,10 @@
 /******************************************************************************
- * Filename: RecordButton.jsx
+ * Filename: RecordAudio.jsx
  * Purpose:  A component that allows the user to record audio.
  * Author:   Victor Nguyen & Don Ma
  *
  * Description:
- * This file contains the RecordButton component that allows the user to record
+ * This file contains the RecordAudio component that allows the user to record
  * audio. The component displays a button that the user can click to start and
  * stop recording audio. The recorded audio is displayed to the user once the
  * recording has stopped and can be played back and downloaded.
@@ -19,7 +19,7 @@ import { Button } from "react-bootstrap";
 import Playback from "./PlaybackAudio";
 import "./RecordAudio.css";
 
-const RecordButton = () => {
+const RecordAudio = () => {
   // State to store whether the user is currently recording or not
   const [isRecording, setIsRecording] = useState(false);
 
@@ -144,4 +144,4 @@ const RecordButton = () => {
   );
 };
 
-export default RecordButton;
+export default RecordAudio;
