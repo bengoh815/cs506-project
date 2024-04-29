@@ -42,7 +42,7 @@ def expected_midi_output():
     Returns:
         str: Path to the expected MIDI output file.
     """
-    return "audio_sample/sample.mid"
+    return "midi_output/sample.mid"
 
 def test_audio_input(audio_files):
     """
