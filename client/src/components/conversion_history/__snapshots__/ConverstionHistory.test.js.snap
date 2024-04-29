@@ -12,6 +12,12 @@ exports[`ConversionHistory component matches snapshot 1`] = `
     >
       Conversion History
     </h2>
+    <input
+      onChange={[Function]}
+      placeholder="Search by file name, name, email, or date..."
+      type="text"
+      value=""
+    />
     <table
       id="conversion-history-table"
     >

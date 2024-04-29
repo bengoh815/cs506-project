@@ -10,7 +10,7 @@ afterEach(() => {
  * Test 1: Render the ConversionHistory component.
  */
 test("renders the ConversionHistory component", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     expect(screen.getByRole("heading", { name: /conversion history/i })).toBeInTheDocument();
 });
@@ -19,7 +19,7 @@ test("renders the ConversionHistory component", () => {
  * Test 2: Snapshot test to ensure UI changes are deliberate.
  */
 test("ConversionHistory component matches snapshot", () => {
-    const tree = renderer.create(<ConversionHistory />).toJSON();
+    const tree = renderer.create(<ConversionHistory isDebug = {true}/>).toJSON();
 
     expect(tree).toMatchSnapshot();
 });
@@ -28,7 +28,7 @@ test("ConversionHistory component matches snapshot", () => {
  * Test 3: Test file name sorting functionality.
  */
 test("sorts conversion history by file name", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const fileNameColumn = screen.getByRole("columnheader", { name: /file/i });
     fireEvent.click(fileNameColumn);
@@ -40,7 +40,7 @@ test("sorts conversion history by file name", () => {
  * Test 4: Test author name sorting functionality.
  */
 test("sorts conversion history by author name", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const authorNameColumn = screen.getByRole("columnheader", { name: /name/i });
     fireEvent.click(authorNameColumn);
@@ -52,7 +52,7 @@ test("sorts conversion history by author name", () => {
  * Test 5: Test date sorting functionality.
  */
 test("sorts conversion history by date", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const dateColumn = screen.getByRole("columnheader", { name: /date/i });
     fireEvent.click(dateColumn);
@@ -64,7 +64,7 @@ test("sorts conversion history by date", () => {
  * Test 6: Test email sorting functionality.
  */
 test("sorts conversion history by size", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const emailColumn = screen.getByRole("columnheader", { name: /email/i });
     fireEvent.click(emailColumn);
@@ -77,7 +77,7 @@ test("sorts conversion history by size", () => {
  * Test 7: Test pagination initial rows.
  */
 test("displays correct number of items per page", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const items = screen.getAllByRole("row");
     expect(items.length).toBe(11);
@@ -87,7 +87,7 @@ test("displays correct number of items per page", () => {
  * Test 8: Test pagination rows after sort.
  */
  test("displays correct number of items per page", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
     const sizeColumn = screen.getByRole("columnheader", { name: /email/i });
     fireEvent.click(sizeColumn);
 
@@ -100,7 +100,7 @@ test("displays correct number of items per page", () => {
  * Test 9: Test pagination switch button.
  */
 test("displays correct items when changing pages", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const nextPageButton = screen.getByRole("button", { name: /2/i });
     fireEvent.click(nextPageButton);
@@ -113,7 +113,7 @@ test("displays correct items when changing pages", () => {
  * Test 10: Test the number of pages in the table.
  */
 test("counts the number of pages in the table", () => {
-    render(<ConversionHistory />);
+    render(<ConversionHistory isDebug = {true}/>);
 
     const pageButtons = screen.getAllByRole("button", { name: /page/i });
 

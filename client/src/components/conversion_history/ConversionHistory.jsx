@@ -45,7 +45,7 @@ const mockConversionHistoryData = [
  *
  * @returns {JSX.Element} ConversionHistory component.
  */
-const ConversionHistory = () => {
+const ConversionHistory = ({isDebug = false}) => {
   const [convertedFiles, setConvertedFiles] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
@@ -54,10 +54,7 @@ const ConversionHistory = () => {
   const apiUrl = process.env.REACT_APP_API_URL
   const [searchQuery, setSearchQuery] = useState("");
 
-  // For testing purpose only
-  useEffect(() => {
-    setConvertedFiles(mockConversionHistoryData);
-  })
+
 
   useEffect(() => {
     console.log(`${apiUrl}/api/v1/midis`)
@@ -72,7 +69,7 @@ const ConversionHistory = () => {
         return response.json();
       })
       .then((data) => {
-        // setConvertedFiles(data);
+        setConvertedFiles(data);
         console.log(data)
       })
       .catch((error) => {
@@ -80,6 +77,14 @@ const ConversionHistory = () => {
       });
   }, []);
 
+
+  //  For testing purpose only
+  console.log(isDebug)
+  if (isDebug) {
+    useEffect(() => {
+      setConvertedFiles(mockConversionHistoryData);
+    })
+  }
 
   /**
    * Handle downloading a MIDI file.
