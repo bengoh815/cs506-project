@@ -15,10 +15,17 @@
 ###############################################################################
 
 import pytest
+from conversion import audio_to_wav, divide_audio_data, wav_to_midi
 
 @pytest.fixture
 def audio_files():
-    # Fixture to provide sample audio files for testing
+    """
+    Fixture to provide sample audio files for testing.
+
+    Returns:
+        dict: Dictionary containing sample audio file paths.
+    """
+
     files = {
         'mp3': "audio_sample/sample.mp3",
         'm4a': "audio_sample/sample.m4a",
@@ -29,12 +36,24 @@ def audio_files():
 
 @pytest.fixture
 def expected_midi_output():
-    # Fixture to provide a sample midi file for testing
+    """
+    Fixture to provide a sample MIDI file for testing.
+
+    Returns:
+        str: Path to the expected MIDI output file.
+    """
     return "audio_sample/sample.mid"
 
 def test_audio_input(audio_files):
+    """
+    Test audio_to_wav function for converting audio files (mp3, m4a, wav) to WAV.
+    Reject audio files other than these 3 file format.
 
-      # Valid test case 1 - mp3
+    Args:
+        audio_files (dict): Dictionary containing sample audio file paths.
+    """
+
+    # Valid test case 1 - mp3
     mp3_output = audio_to_wav(audio_files['mp3'])
     assert mp3_output is not None
 
@@ -52,6 +71,12 @@ def test_audio_input(audio_files):
 
 # Test cases for divide_audio_data helper function
 def test_divide_audio_data():
+    """
+    Test divide_audio_data helper function for segmenting audio data.
+
+    This function tests if the audio data is correctly divided into segments
+    based on the provided sample rate and tempo.
+    """
 
     # Audio data, sample rate and bpm setup
     sample_rate = 44100
@@ -65,8 +90,17 @@ def test_divide_audio_data():
     assert len(segments) == expected_num_segments
 
 # Test cases for wav to midi conversion
-def test_midi_conversion(audio_wav, expected_midi_output):
+def test_midi_conversion(audio_files, expected_midi_output):
+
+    """
+    Test wav_to_midi function for converting WAV file to MIDI file.
+
+    Args:
+        audio_files (dict): Dictionary containing sample audio file paths.
+        expected_midi_output (str): Path to the expected MIDI output file.
+    """
 
     # Pass in wav file for midi conversion
+    audio_wav = audio_files['wav']
     midi_file = wav_to_midi(audio_wav)
     assert midi_file == expected_midi_output
