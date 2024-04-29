@@ -86,64 +86,32 @@ const ConversionHistory = () => {
    *
    * @param {string} title - The name of the file to download.
    */
-  const handleDownloadMIDI = (title) => {
+  const handleDownloadMIDI = () => {
     window.alert('Download initiated for ' + title);
-    fetch(`${apiUrl}/api/v1/download/converted/${title}`, {
-      method: "GET",
-      headers: {
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', title); // Set the file name
-        document.body.appendChild(link);
-        link.click();
-        window.URL.revokeObjectURL(url);
-      })
-      .catch((error) => {
-        console.error('Error downloading file:', error);
-      });
+    const data = backendResponse;
+    const midiData = data.midi_data; // base64 encoded MIDI data
+    const filename = data.title + ".mid"; // Generate a file name
+
+    // Call download function
+    downloadMidi(midiData, filename);
   };
 
   /**
-   * Handle downloading a PDF file.
+   * Handle downloading a XML file.
    *
    * @param {string} title - The name of the file to download.
    */
-  const handleDownloadPDF = (title) => {
+  const handleDownloadXML = () => {
     window.alert('Download initiated for ' + title);
-    fetch(`${apiUrl}/api/v1/download/converted/${title}`, {
-      method: "GET",
-      headers: {
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', title); // Set the file name
-        document.body.appendChild(link);
-        link.click();
-        window.URL.revokeObjectURL(url);
-      })
-      .catch((error) => {
-        console.error('Error downloading file:', error);
-      });
+
+    const data = backendResponse;
+    const xmlData = data.xml_data;
+    const filename = data.title + ".musicxml"; // Generate a file name
+
+    // Call download function
+    downloadXml(xmlData, filename);
   };
+
 
   /**
    * Sort items based on given criteria and direction.
@@ -167,13 +135,26 @@ const ConversionHistory = () => {
       return isAscending ? sizeA - sizeB : sizeB - sizeA;
     }
   };
+
   // setConvertedFiles(mockConversionHistoryData);
   convertedFiles.sort(sortItems);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  // Filter the files based on search query
+  const filteredFiles = convertedFiles.filter(file =>
+    file.title.toLowerCase().includes(searchQuery) ||
+    file.name.toLowerCase().includes(searchQuery) ||
+    file.email.toLowerCase().includes(searchQuery) ||
+    file.date.includes(searchQuery)
+  );
 
   // Calculate the current items to display
   const indexOfLastItem = (currentPage + 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = convertedFiles.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredFiles.slice(indexOfFirstItem, indexOfLastItem);
 
 
   // Change page handler for ReactPaginate
@@ -204,30 +185,6 @@ const ConversionHistory = () => {
     return '';
   };
 
-  /**
-   * Get sorting indicator based on the given column name.
-   *
-   * @param {string} columnName - The name of the column.
-   * @returns {string} Sorting indicator.
-   */
-  const handleSearchInputChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  /**
-   * Filter items based on the search query.
-   * Convert files based on searchQuery
-   *
-   * @param {Object} item - The item to check for search query match.
-   * @returns {boolean} Whether the item matches the search query.
-   */
-  const filteredItems = convertedFiles.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        typeof value === "string" &&
-        value.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-  );
 
   return (
     <div className="conversion-history-container">
@@ -235,9 +192,9 @@ const ConversionHistory = () => {
         <h2 id="conversion-history-heading">Conversion History</h2>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search by file name, name, email, or date..."
+          onChange={handleSearchChange}
           value={searchQuery}
-          onChange={handleSearchInputChange}
         />
         <table id="conversion-history-table">
           <thead>
@@ -265,7 +222,7 @@ const ConversionHistory = () => {
                 <td>{entry.email}</td>
                 <td>{entry.date}</td>
                 <td>
-                  <button onClick={() => handleDownloadPDF(entry.title)}>Download PDF</button>
+                  <button onClick={() => handleDownloadXML(entry.title)}>Download XML</button>
                   <button onClick={() => handleDownloadMIDI(entry.title)}>Download MIDI</button>
                 </td>
               </tr>
