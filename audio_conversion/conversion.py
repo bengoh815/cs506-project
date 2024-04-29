@@ -1,7 +1,7 @@
 ################################################################################
 # Filename: conversion.py
 # Purpose:  Perform audio processing and conversion tasks to MIDI.
-# Author:   Livia Chandra
+# Author:   Livia Chandrav and Darren Seubert
 #
 # Description:
 # This file contains functions for audio processing tasks, including conversion
@@ -22,6 +22,7 @@
 #
 ###############################################################################
 
+import os
 import pydub
 import librosa
 import numpy as np
@@ -50,23 +51,23 @@ def audio_to_wav(audio_file):
         available_extension = ["m4a", "mp3", "wav"]
 
         # Get the name and the extension type of the input audio file
-        file_name, extension = audio_file.split(".")
+        file_name, extension = os.path.splitext(audio_file)
         file_name = file_name.split("/")[-1]
 
         # Check the extension of the input audio file
-        if extension not in available_extension:
+        if extension[1:] not in available_extension:
             return None
 
         # Convert input audio file to wav file
         wav_file_path = os.path.join(audio_folder, file_name + ".wav")
-        wav_file = pydub.AudioSegment.from_file(audio_file, extension).export(
+        wav_file = pydub.AudioSegment.from_file(audio_file, extension[1:]).export(
             wav_file_path, format="wav"
         )
 
-        return file_name, wav_file   
+        return file_name, wav_file
     except Exception as e:
         print("An error occurred during audio to wav conversion:", e)
-        return None                       
+        return None
 
 
 def divide_audio_data(audio_data, sample_rate, tempo):
@@ -96,6 +97,7 @@ def divide_audio_data(audio_data, sample_rate, tempo):
         print("An error occurred during audio data division:", e)
         return None
 
+
 def wav_to_midi(audio_file):
     """
     Convert audio file to MIDI format.
@@ -120,12 +122,11 @@ def wav_to_midi(audio_file):
     except Exception as e:
         print("An error occurred while loading audio file:", e)
         return None
-    
+
     try:
         # Set min and max frequencies for pitch detection
         fmin = librosa.note_to_hz("C1")
         fmax = librosa.note_to_hz("C8")
-
 
         # Perform pitch detection to identify dominant pitch
         pitch = librosa.yin(y=audio_data, sr=sample_rate, fmin=fmin, fmax=fmax)
@@ -220,7 +221,7 @@ def wav_to_midi(audio_file):
         track.append(key_sig_message)
 
         # Create and append the tempo meta message in microseconds
-        tempo_microseconds = int(1 / (tempo / 60) * 1e6)
+        tempo_microseconds = int(60 * 10**6 / tempo)
         tempo_message = mido.MetaMessage("set_tempo", tempo=tempo_microseconds)
         track.append(tempo_message)
 
@@ -256,10 +257,11 @@ def wav_to_midi(audio_file):
         midi.save(midi_file_name)
 
         return midi_file_name
-    
+
     except Exception as e:
         print("An error occurred during MIDI file creation:", e)
         return None
+
 
 if __name__ == "__main__":
 
