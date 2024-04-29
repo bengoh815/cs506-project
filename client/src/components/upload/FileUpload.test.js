@@ -129,7 +129,6 @@ describe("FileUpload component", () => {
     render(<FileUpload />);
 
     const chooseFileButton = screen.getByTestId("choose-file-button");
-    const handleFileInputClick = jest.fn();
 
     fireEvent.click(chooseFileButton);
   });

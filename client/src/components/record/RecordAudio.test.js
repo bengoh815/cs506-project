@@ -28,6 +28,7 @@ import {
 } from "@testing-library/react";
 import RecordAudio from "./RecordAudio";
 import React from "react";
+import { useState } from "react";
 
 describe("Record Audio Component", () => {
   const originalUseState = React.useState;
@@ -94,7 +95,7 @@ describe("Record Audio Component", () => {
     expect(recordButton).toHaveTextContent("Start Recording");
   });
 
-  it("tests  startRecording function", async () => {
+  it("tests startRecording function", async () => {
     // Mock MediaRecorder and its methods
     const mockMediaRecorderInstance = {
       start: jest.fn(),
@@ -148,12 +149,11 @@ describe("Record Audio Component", () => {
   it("tests startRecording function not allowed error", () => {
     // Arrange - Mock navigator.mediaDevices
     global.navigator.mediaDevices = {
-      getUserMedia: jest.fn(() =>
-        Promise.resolve({
-          getTracks: jest.fn(() => [{ stop: jest.fn() }]),
-        }),
-      ),
+      getUserMedia: jest.fn(() => Promise.reject({ name: "NotAllowedError" })),
     };
+
+    window.alert = jest.fn(); // Mock window.alert
+
     render(<RecordAudio />);
     const recordButton = screen.getByTestId("record-button");
 
