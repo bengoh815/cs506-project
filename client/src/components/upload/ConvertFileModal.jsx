@@ -18,6 +18,7 @@ import React from "react";
 import { useState } from "react";
 import { Button, Form, Modal, Spinner } from "react-bootstrap";
 import downloadMidi from "../../utils/downloadMidi";
+import downloadXml from "../../utils/downloadXml";
 
 export default function ConvertFileModal(props) {
   // Whether a file is in the process of being converted
@@ -33,6 +34,9 @@ export default function ConvertFileModal(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [recordingTitle, setRecordingTitle] = useState("");
+
+  // State for response
+  const [backendResponse, setBackendResponse] = useState();
 
   /**
    * Sends file to backend for conversion and updates the UI to reflect the upload progress.
@@ -71,11 +75,7 @@ export default function ConvertFileModal(props) {
       })
       .then((data) => {
         console.log("Temporary data response:", data);
-        const midiData = data.midi_data; // base64 encoded MIDI data
-        const filename = data.title + ".mid"; // Generate a file name
-
-        // Call download function
-        downloadMidi(midiData, filename);
+        setBackendResponse(data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -117,6 +117,25 @@ export default function ConvertFileModal(props) {
   function handleTryAgain() {
     setConversionError(false);
   }
+
+  // Download functions
+  const handleDownloadMIDI = () => {
+    const data = backendResponse;
+    const midiData = data.midi_data; // base64 encoded MIDI data
+    const filename = data.title + ".mid"; // Generate a file name
+
+    // Call download function
+    downloadMidi(midiData, filename);
+  };
+
+  const handleDownloadXml = () => {
+    const data = backendResponse;
+    const xmlData = data.xml_data; // base64 encoded MIDI data
+    const filename = data.title + ".musicxml"; // Generate a file name
+
+    // Call download function
+    downloadXml(xmlData, filename);
+  };
 
   const ConversionDetailsForm = () => {
     return (
@@ -187,11 +206,15 @@ export default function ConvertFileModal(props) {
             <Spinner animation="border" role="status" size="lg" />
           </div>
         ) : conversionComplete ? (
-          <p>
-            <b>Success!</b> <br /> <br />
-            Your uploaded audio file has been successfully converted to .mid
-            format and is now available to view in your conversion history.
-          </p>
+          <div>
+            <p>
+              <b>Success!</b> <br /> <br />
+              Your uploaded audio file has been successfully converted to .mid
+              format and is now available to view in your conversion history.
+            </p>
+            <button onClick={handleDownloadMIDI}>Download musicxml</button>
+            <button onClick={handleDownloadXml}>Download MIDI</button>
+          </div>
         ) : conversionError ? (
           <p>
             <b>Error!</b> <br /> <br />
