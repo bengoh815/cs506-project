@@ -16,17 +16,20 @@ The target customer for this software spans musicians, composers, music producer
 
 | ID   | Description                                                                                            | Priority | Status      |
 | ---- | ------------------------------------------------------------------------------------------------------ | -------- | ----------- |
-| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed              | High     | In Progress |
-| R002 | The system shall process the MP3 file sent to the backend into a MIDI file                             | High     | In Progress |
-| R003 | The system shall send the MIDI file and file metadata to the database for storage                      | High     | Complete    |
-| R004 | The system shall receive a request from a user to retrieve a MIDI file from the database               | High     | In Progress |
-| R005 | The system shall process a request for a MIDI file and query the database for results                  | High     | Complete    |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | In Progress |
-| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress |
-| R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
-| R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
-| R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
-| R011 | The system shall be able to search for the filename or author in the database                          | High     | In Progress |
+| R001 | The system shall send an mp3, m4a, wav, or webm file and metadata from the UI to the backend to be processed              | High     | Complete |
+| R002 | The system shall covert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                             | High     | Complete |
+| R003 | The system shall send the MIDI data and file metadata to the database for storage                      | High     | Complete    |
+| R004 | The system shall receive a request from a user to retrieve MIDI data from the database               | High     | Complete |
+| R005 | The system shall process a request for MIDI data and query the database for results                  | High     | Complete |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | Complete |
+| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High | Complete |
+| R008 | The system shall allow a user to download the sheet music for a midi recording using musicxml format                                    | High      | Complete        |
+| R009 | The system shall allow users to credit other artisis besides themselves during upload                                       | Low      | Complete        |
+| R010 | The system shall be able to search for the filename or author in the database                          | Medium  | Complete |
+| R011 | The system shall allow users to download midi file of a song in the database                          | High  | Complete |
+| R012 | The system shall prompt a users to enter metadata regarding an recording or uploaded file                          | High  | Complete |
+| R013 | The system shall prompt a users with the security statement before allowing them to record or upload any files                         | High  | Complete |
+| R014 | The system shall show the user a history of all the uploads to the database in table form, prompting the user with download buttons for musicxml and midi formats as well as displaying metadata                         | High  | Complete |
 
 ### Use Cases & User Stories
 
