@@ -1,0 +1,6 @@
+Collecting cython
+  Obtaining dependency information for cython from https://files.pythonhosted.org/packages/b6/83/b0a63fc7b315edd46821a1a381d18765c1353d201246da44558175cddd56/Cython-3.0.10-py2.py3-none-any.whl.metadata
+  Using cached Cython-3.0.10-py2.py3-none-any.whl.metadata (3.2 kB)
+Using cached Cython-3.0.10-py2.py3-none-any.whl (1.2 MB)
+Installing collected packages: cython
+Successfully installed cython-3.0.10

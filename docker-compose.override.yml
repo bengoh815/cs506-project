@@ -36,17 +36,14 @@
 version: "3.8"
 services:
   frontend:
-    ports:
-      - "3000:3000"
     volumes:
       - ./client:/app
       - node_modules:/app/node_modules
     environment:
       - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:8080
 
   backend:
-    ports:
-      - "5000:5000"
     volumes:
       - ./server:/app
     environment:
@@ -60,7 +57,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: my_root_password
     ports:
-      - "8080:80"
+      - "8765:80"
 
 volumes:
   node_modules:
