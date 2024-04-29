@@ -8,15 +8,12 @@
  *
  * Usage:
  * To use this component, import it into the desired file and render it.
- *
- * Note: Additional functionality to be added in the future (ex. seek bar).
- *
  ******************************************************************************/
 
 import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 
-const Playback = ({ audioSrc }) => {
+const PlaybackAudio = ({ audioSrc }) => {
   // Create a reference to the audio element
   const audioRef = useRef();
 
@@ -27,7 +24,7 @@ const Playback = ({ audioSrc }) => {
    * Plays or pauses the audio.
    */
   const handlePlayPause = () => {
-    if (audioRef.current.paused) {
+    if (playPauseLabel === "Play Recording" || playPauseLabel === "Resume") {
       setPlayPauseLabel("Pause");
       audioRef.current.play();
 
@@ -47,4 +44,4 @@ const Playback = ({ audioSrc }) => {
   );
 };
 
-export default Playback;
+export default PlaybackAudio;

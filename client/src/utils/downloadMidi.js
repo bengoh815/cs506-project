@@ -29,7 +29,7 @@
  *   accept MIME types as a parameter.
  ******************************************************************************/
 
-function base64ToBlob(base64, mimeType) {
+export function base64ToBlob(base64, mimeType) {
   // Decode the base64 string to binary data
   const byteCharacters = atob(base64);
   const byteNumbers = new Array(byteCharacters.length);

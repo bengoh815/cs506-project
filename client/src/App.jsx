@@ -4,11 +4,10 @@
  * Author:   Victor Nguyen & Don Ma
  *
  * Description:
- * [Detailed description of the contents and functionality of the file.]
  * This file contains the main application component that renders the entire
  * application. It imports and renders the following components:
  * - SecurityStatement: A component that displays a security statement to the user.
- * - RecordButton: A component that allows the user to record audio.
+ * - RecordAudio: A component that allows the user to record audio.
  * - FileUpload: A component that allows the user to upload an audio file.
  * - ConversionHistory: A component that displays the user's conversion history.
  *
