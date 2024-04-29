@@ -23,3 +23,65 @@
 #conversion-history-table th {
   height: 50px;
 }
+
+.pagination {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination li {
+  margin-top: 20px;
+}
+
+.pagination li a {
+  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  margin: 5px;
+}
+
+.pagination li a:hover,
+.pagination li a.active {
+  background-color: #eee;
+}
+
+.pagination__link--active a {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination__link--disabled a {
+  color: #ccc;
+}
+
+.pagination__link--disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pagination__link--disabled a {
+  border-color: #ccc;
+}
+
+.sortable:hover {
+  cursor: pointer;
+}
+
+#conversion-history-table td button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 10px;
+}
+
+#conversion-history-table td button:hover {
+  background-color: #0056b3;
+}
