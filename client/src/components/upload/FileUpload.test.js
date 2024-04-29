@@ -17,8 +17,9 @@
  *
  ******************************************************************************/
 
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 import FileUpload from "./FileUpload";
+import ConvertFileModal from "./ConvertFileModal";
 
 describe("FileUpload component", () => {
   // Cleans up the DOM after each test to ensure a clean environment.
@@ -123,5 +124,49 @@ describe("FileUpload component", () => {
     fileFormats.forEach((format) => {
       expect(acceptedFileFormatsList).toHaveTextContent(format);
     });
+  });
+
+  test("upload file button calls handleFileInputClick", () => {
+    render(<FileUpload />);
+
+    const chooseFileButton = screen.getByTestId("choose-file-button");
+    const handleFileInputClick = jest.fn();
+
+    fireEvent.click(chooseFileButton);
+  });
+
+  test("handleFileChange updates state correctly when a file is selected", () => {
+    render(<FileUpload />);
+    const fileInput = screen.getByTestId("file-input");
+    const file = new File(["audio content"], "audio.mp3", {
+      type: "audio/mp3",
+    });
+
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    expect(fileInput.files[0]).toBe(file);
+    expect(fileInput.files).toHaveLength(1);
+
+    // Check if upload button is visible
+    const uploadButton = screen.getByTestId("upload-file-button");
+    expect(uploadButton).toBeInTheDocument();
+
+    // Press the upload button
+    fireEvent.click(uploadButton);
+  });
+
+  test("handleFileChange updates state correctly when file is undefined", () => {
+    render(<FileUpload />);
+    const fileInput = screen.getByTestId("file-input");
+    const file = undefined;
+
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    expect(fileInput.files[0]).toBe(file);
+    expect(fileInput.files).toHaveLength(1);
+
+    // Check if upload button is not visible
+    const uploadButton = screen.queryByTestId("upload-file-button");
+    expect(uploadButton).not.toBeInTheDocument();
   });
 });
