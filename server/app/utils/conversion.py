@@ -22,6 +22,7 @@
 #
 ###############################################################################
 
+import io
 import os
 import pydub
 import librosa
@@ -29,7 +30,6 @@ import numpy as np
 import scipy.signal as signal
 import math
 import mido
-import os
 
 audio_folder = "audio_sample"
 midi_folder = "midi_output"
@@ -253,10 +253,14 @@ def wav_to_midi(audio_file):
                 track.append(message_off)
 
         # Save MIDI file
-        midi_file_name = os.path.join(midi_folder, file_name + ".mid")
-        midi.save(midi_file_name)
+        midi_file_object = io.BytesIO()
+        midi.save(midi_file_object)
 
-        return midi_file_name
+        # Reset the file object's position to the beginning
+        midi_file_object.seek(0)
+
+        # Return the MIDI file object
+        return midi_file_object
 
     except Exception as e:
         print("An error occurred during MIDI file creation:", e)
