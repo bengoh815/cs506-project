@@ -22,10 +22,12 @@
 #
 ###############################################################################
 
+import os
 import pydub
 import librosa
 import numpy as np
 import scipy.signal as signal
+from scipy.signal.windows import hann
 import math
 import mido
 import os
@@ -50,16 +52,16 @@ def audio_to_wav(audio_file):
     available_extension = ["m4a", "mp3", "wav"]
 
     # Get the name and the extension type of the input audio file
-    file_name, extension = audio_file.split(".")
+    file_name, extension = os.path.splitext(audio_file)
     file_name = file_name.split("/")[-1]
 
     # Check the extension of the input audio file
-    if extension not in available_extension:
+    if extension[1:] not in available_extension:
         return None
 
     # Convert input audio file to wav file
     wav_file_path = os.path.join(audio_folder, file_name + ".wav")
-    wav_file = pydub.AudioSegment.from_file(audio_file, extension).export(
+    wav_file = pydub.AudioSegment.from_file(audio_file, extension[1:]).export(
         wav_file_path, format="wav"
     )
 
@@ -235,7 +237,7 @@ def wav_to_midi(audio_file):
 if __name__ == "__main__":
 
     # Sample audio file
-    audio_file = "audio_sample/sample2.m4a"
+    audio_file = "./audio_sample/sample_wav.wav"
 
     # Audio file to MIDI Conversion
     if wav_to_midi(audio_file) is None:
