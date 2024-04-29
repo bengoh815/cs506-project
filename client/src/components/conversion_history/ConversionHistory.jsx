@@ -124,31 +124,29 @@ const ConversionHistory = ({ isDebug = false }) => {
   const [backendResponse, setBackendResponse] = useState({});
 
   useEffect(() => {
-    console.log(`${apiUrl}/api/v1/midis`);
-    fetch(`${apiUrl}/api/v1/midis`, {
-      method: "GET",
-      headers: {},
-    })
-      .then((response) => {
-        console.log("Fetching conversion history from the backend...");
-        return response.json();
+    if (isDebug) {
+      setConvertedFiles(mockConversionHistoryData);
+    }
+    else {
+      console.log(`${apiUrl}/api/v1/midis`);
+      fetch(`${apiUrl}/api/v1/midis`, {
+        method: "GET",
+        headers: {},
       })
-      .then((data) => {
-        setConvertedFiles(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => {
+          console.log("Fetching conversion history from the backend...");
+          return response.json();
+        })
+        .then((data) => {
+          setConvertedFiles(data);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   }, []);
 
-  // //  For testing purpose only
-  // console.log(isDebug);
-  // if (isDebug) {
-  //   useEffect(() => {
-  //     setConvertedFiles(mockConversionHistoryData);
-  //   });
-  // }
 
   const handleGetData = async (midi_id) => {
     const apiUrl = process.env.REACT_APP_API_URL;
