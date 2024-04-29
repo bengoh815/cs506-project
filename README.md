@@ -30,6 +30,8 @@ The target customer for this software spans musicians, composers, music producer
 | R012 | The system shall prompt a users to enter metadata regarding an recording or uploaded file                          | High  | Complete |
 | R013 | The system shall prompt a users with the security statement before allowing them to record or upload any files                         | High  | Complete |
 | R014 | The system shall show the user a history of all the uploads to the database in table form, prompting the user with download buttons for musicxml and midi formats as well as displaying metadata                         | High  | Complete |
+| R015 | The system shall be able to be ran from docker containers                         | Medium  | Complete |
+| R016 | The system shall consist of two MySQL database tables, users and midi, consisiting of user metadata and midi metadata/file respectively                         | High  | Complete |
 
 ### Use Cases & User Stories
 
