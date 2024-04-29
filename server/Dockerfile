@@ -25,7 +25,10 @@
 ###############################################################################
 
 # Use an official Python runtime as a parent image
-FROM python:3.8-slim
+FROM python:3.9-slim
+
+# Install libsndfile
+RUN apt-get update && apt-get install -y libsndfile1
 
 # Set the working directory in the container
 WORKDIR /app

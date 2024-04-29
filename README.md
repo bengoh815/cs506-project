@@ -1,7 +1,6 @@
 # Requirements and Specification Document
 
-## Melody Mapper 
-[![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![backend coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/coverage.svg?key_text=dev backend coverage&key_width=140>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
+## Melody Mapper
 
 [![pipeline status](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/main/pipeline.svg?key_text=dev pipeline&key_width=82>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop) [![coverage](<https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/badges/develop/coverage.svg?key_text=dev coverage&key_width=90>)](https://git.doit.wisc.edu/cdis/cs/courses/cs506/sp2024/team/mondaywednesdaylecture/T_05/MelodyMapper/-/commits/develop)
 
@@ -15,71 +14,72 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Requirements
 
-| ID   | Description                                                                                            | Priority | Status      |
-| ---- | ------------------------------------------------------------------------------------------------------ | -------- | ----------- |
-| R001 | The system shall send an MP3 file and metadata from the UI to the backend to be processed              | High     | In Progress |
-| R002 | The system shall process the MP3 file sent to the backend into a MIDI file                             | High     | In Progress |
-| R003 | The system shall send the MIDI file and file metadata to the database for storage                      | High     | Complete    |
-| R004 | The system shall receive a request from a user to retrieve a MIDI file from the database               | High     | In Progress |
-| R005 | The system shall process a request for a MIDI file and query the database for results                  | High     | Complete    |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | In Progress |
-| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High     | In Progress |
-| R008 | The system shall display the MIDI file to user with music notations                                    | Low      | Open        |
-| R009 | The system shall be able to credit other users for the recording                                       | Low      | Open        |
-| R010 | The system shall be able to detect bass line notes from the recording                                  | High     | In Progress |
-| R011 | The system shall be able to search for the filename or author in the database                          | High     | In Progress    |
+| ID   | Description                                                                                                                                                                                      | Priority | Status   |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | -------- |
+| R001 | The system shall send an mp3, m4a, wav, or webm file and metadata from the UI to the backend to be processed                                                                                     | High     | Complete |
+| R002 | The system shall covert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                                                                                                   | High     | Complete |
+| R003 | The system shall send the MIDI data and file metadata to the database for storage                                                                                                                | High     | Complete |
+| R004 | The system shall receive a request from a user to retrieve MIDI data from the database                                                                                                           | High     | Complete |
+| R005 | The system shall process a request for MIDI data and query the database for results                                                                                                              | High     | Complete |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user                                                                                                  | High     | Complete |
+| R007 | The system shall sort according to filename, author and date of the list of midi files in the database                                                                                           | High     | Complete |
+| R008 | The system shall allow a user to download the sheet music for a midi recording using musicxml format                                                                                             | High     | Complete |
+| R009 | The system shall allow users to credit other artists besides themselves during upload                                                                                                            | Low      | Complete |
+| R010 | The system shall be able to search for the filename or author in the database                                                                                                                    | Medium   | Complete |
+| R011 | The system shall allow users to download midi file of a song in the database                                                                                                                     | High     | Complete |
+| R012 | The system shall prompt a users to enter metadata regarding an recording or uploaded file                                                                                                        | High     | Complete |
+| R013 | The system shall prompt a users with the security statement before allowing them to record or upload any files                                                                                   | High     | Complete |
+| R014 | The system shall show the user a history of all the uploads to the database in table form, prompting the user with download buttons for musicxml and midi formats as well as displaying metadata | High     | Complete |
+| R015 | The system shall be designed to run within Docker containers, utilizing Dockerfiles and Docker Compose for containerization and portability of the program                                       | Medium   | Complete |
+| R016 | The system shall consist of two MySQL database tables, users and midi, consisting of user metadata and midi metadata/file respectively                                                           | High     | Complete |
 
 ### Use Cases & User Stories
 
 1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-    - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
-    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+   - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+   - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
-    - The list contains all the converted recordings that all the users have created in the database.
+   - The list contains all the converted recordings that all the users have created in the database.
 3. As the user of the website, the user can see a history of the converted recordings they have done.
 4. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
 5. As the user of the website, the user will be able to search the uploaded and converted files.
 
 ### User Interface Requirements
 
-Website without user account
+The website applicatoins will have the following screens:
 
-1. A button with microphone icon for receiving live recording and convert into the format of .wav, .m4a, and .mp3
-2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
-3. History section to show the details of previous conversion with credited author and date
+1. A security statement will be presented to the user before they can continue to the website
+2. A main screen will show a record button, a file upload button, and conversion history where a user can download the midi file or xml sheet music for pervious uploaded recordings
+3. Once the Start Recording button is pressed, the user will see an active recording screen
+4. The user will be prompted to review their recording, and submit it for conversion
+5. The user will be prompted to input details about the recording
+6. The user will then be prompted if the upload and conversion had an error or if it was successful
 
-![User Interface Without User Account](resources/User_Interface_Without_User_Account.png)
-
-Website with user account
-
-1. A button with microphone icon for receiving live recording and convert into the format of .wav, .m4a, and .mp3
-2. A button with file upload icon for allowing the uploads of recording files in the format of .wav, .m4a, and .mp3
-3. A button with user icon on the top right for user account
-   Three lines to show the content of the user account page
-   a. Settings
-   b. Conversion history from this user
-4. History section to show the details of previous conversion with credited author and date
-
-![User Interface With User Account](resources/User_Interface_With_User_Account.png)
-
-![User account](resources/User_account.png)
+![Security Statement](resources/Security_Final.png)
+![User Interface](resources/UI_Final.png)
+![Recording](resources/Recording_Final.png)
+![Recording Options](resources/Recording_Options_Final.png)
+![File Details](resources/File_Details_Final.png)
+![Conversion Error](resources/Conversion_Error_Final.png)
+![Conversion Sucecess](resources/Conversion_Success_Final.png)
 
 ### Security Requirements
 
--   Our system will only record audio in between when the user has clicked the start and stop recording button.
--   Our system will only store the MIDI file converted from audio recordings.
-    -   The system will state that the audio recordings will only be used for converting into the MIDI file.
-    -   MIDI files will be stored in the database and open for all users to see.
-    -   The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
--   Our system will be vulnerable to denial-of-service attacks.
+- Our system will only record audio in between when the user has clicked the start and stop recording button.
+- Our system will only store the MIDI file converted from audio recordings.
+  - The system will state that the audio recordings will only be used for converting into the MIDI file.
+  - MIDI files will be stored in the database and open for all users to see.
+  - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+- Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
-| Library    | Description                                    | Performance |
-| ---------- | ---------------------------------------------- | ----------- |
-| Flask      | A framework to work as a backend server        | TBD         |
-| Mido       | A library to work with MIDI format files       | TBD         |
-| SQLAlchemy | A library for Python to work with SQL database | TBD         |
+| Library    | Description                                    |
+| ---------- | ---------------------------------------------- |
+| Flask      | A framework to work as a backend server        |
+| Mido       | A library to work with MIDI format files       |
+| music21    | A library to convert to musicxml file format   |
+| SQLAlchemy | A library for Python to work with SQL database |
 
 ### Specification
 
@@ -135,7 +135,7 @@ erDiagram
 ```mermaid
 ---
 ---
-title: Class Diagram for MelodyMapper Program
+title: Class Diagram for Models in MelodyMapper Program
 ---
 classDiagram
     class User {
