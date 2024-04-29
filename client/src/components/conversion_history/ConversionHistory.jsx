@@ -121,8 +121,6 @@ const ConversionHistory = ({ isDebug = false }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [backendResponse, setBackendResponse] = useState({});
-
   useEffect(() => {
     if (isDebug) {
       setConvertedFiles(mockConversionHistoryData);

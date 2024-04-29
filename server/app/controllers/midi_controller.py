@@ -84,23 +84,21 @@ def get_midi(midi_id):
     # Parse binary data
     midi_encode = BinaryConverter.encode_binary(midi.midi_data)
 
-    # # Save file
-    # # Decode Base64 encoded data
-    # midi_binary = BinaryConverter.decode_binary(midi_encode)
+    # Save file
+    # Decode Base64 encoded data
+    midi_binary = BinaryConverter.decode_binary(midi_encode)
 
-    # # Save the decoded MIDI data to a file
-    # midi_file_path = f'./app/utils/midi_output/{midi.title}.mid'  # Construct a file name with MIDI ID
-    # with open(midi_file_path, 'wb') as midi_file:
-    #     midi_file.write(midi_binary)
+    # Save the decoded MIDI data to a file
+    midi_file_path = f'./app/utils/midi_output/{midi.title}.mid'  # Construct a file name with MIDI ID
+    with open(midi_file_path, 'wb') as midi_file:
+        midi_file.write(midi_binary)
 
 
-    # # Convert midi to music xml
-    # with open(midi_file_path, 'rb') as binary_file:
-    #     midi_binary_file = binary_file.read()
-    # xml_output_path = midi_to_musicxml(midi_binary_file)
-    # with open(xml_output_path, 'rb') as binary_file:
-    #     xml_output_file = binary_file.read()
-    xml_data_encoded = BinaryConverter.encode_binary(b"xml_output_file")
+    # Convert midi to music xml
+    xml_output_path = midi_to_musicxml(midi_file_path)
+    with open(xml_output_path, 'rb') as binary_file:
+        xml_output_file = binary_file.read()
+    xml_data_encoded = BinaryConverter.encode_binary(xml_output_file)
 
     if midi:
         midi_data = {
