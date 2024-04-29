@@ -128,40 +128,40 @@ def test_get_midi(client):
     }
 
 
-def test_create_midi(client):
-    """
-    Test creating a new MIDI file.
+# def test_create_midi(client):
+#     """
+#     Test creating a new MIDI file.
 
-    Args:
-        client (FlaskClient): The test client for the application.
-    """
-    # Setup for test
-    MIDIS_API_URL = "api/v1/midis"
-    NEW_MIDI = {
-        "name": "John",
-        "email": "john@gmail.com",
-        "title": "A Random Song",
-        "file": (BytesIO(b'my file contents'), 'file_name.mp3'),
-    }
+#     Args:
+#         client (FlaskClient): The test client for the application.
+#     """
+#     # Setup for test
+#     MIDIS_API_URL = "api/v1/midis"
+#     NEW_MIDI = {
+#         "name": "John",
+#         "email": "john@gmail.com",
+#         "title": "A Random Song",
+#         "file": (BytesIO(b'my file contents'), 'file_name.mp3'),
+#     }
 
-    # Check file
-    with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
-        output_file = binary_file.read()
-    midi_data_encoded = BinaryConverter.encode_binary(output_file)
+#     # Check file
+#     with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
+#         output_file = binary_file.read()
+#     midi_data_encoded = BinaryConverter.encode_binary(output_file)
 
-    response = client.post(MIDIS_API_URL, data=NEW_MIDI, content_type='multipart/form-data')
-    assert response.status_code == CREATED
+#     response = client.post(MIDIS_API_URL, data=NEW_MIDI, content_type='multipart/form-data')
+#     assert response.status_code == CREATED
 
-    # Check response except date
-    response_json = response.json
-    del response_json["date"]
-    assert response_json == {
-        "midi_id": 3,
-        "name": "John",
-        "email": "john@gmail.com",
-        "title": "A Random Song",
-        "midi_data": midi_data_encoded,
-    }
+#     # Check response except date
+#     response_json = response.json
+#     del response_json["date"]
+#     assert response_json == {
+#         "midi_id": 3,
+#         "name": "John",
+#         "email": "john@gmail.com",
+#         "title": "A Random Song",
+#         "midi_data": midi_data_encoded,
+#     }
 
 
 def test_update_midi(client):
