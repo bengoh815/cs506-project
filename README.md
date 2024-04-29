@@ -17,7 +17,7 @@ The target customer for this software spans musicians, composers, music producer
 | ID   | Description                                                                                                                                                                                      | Priority | Status   |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | -------- |
 | R001 | The system shall send an mp3, m4a, wav, or webm file and metadata from the UI to the backend to be processed                                                                                     | High     | Complete |
-| R002 | The system shall covert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                                                                                                   | High     | Complete |
+| R002 | The system shall convert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                                                                                                  | High     | Complete |
 | R003 | The system shall send the MIDI data and file metadata to the database for storage                                                                                                                | High     | Complete |
 | R004 | The system shall receive a request from a user to retrieve MIDI data from the database                                                                                                           | High     | Complete |
 | R005 | The system shall process a request for MIDI data and query the database for results                                                                                                              | High     | Complete |
@@ -36,10 +36,10 @@ The target customer for this software spans musicians, composers, music producer
 ### Use Cases & User Stories
 
 1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-   - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
-   - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+    - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
-   - The list contains all the converted recordings that all the users have created in the database.
+    - The list contains all the converted recordings that all the users have created in the database.
 3. As the user of the website, the user can see a history of the converted recordings they have done.
 4. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
 5. As the user of the website, the user will be able to search the uploaded and converted files.
@@ -65,12 +65,12 @@ The website applicatoins will have the following screens:
 
 ### Security Requirements
 
-- Our system will only record audio in between when the user has clicked the start and stop recording button.
-- Our system will only store the MIDI file converted from audio recordings.
-  - The system will state that the audio recordings will only be used for converting into the MIDI file.
-  - MIDI files will be stored in the database and open for all users to see.
-  - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
-- Our system will be vulnerable to denial-of-service attacks.
+-   Our system will only record audio in between when the user has clicked the start and stop recording button.
+-   Our system will only store the MIDI file converted from audio recordings.
+    -   The system will state that the audio recordings will only be used for converting into the MIDI file.
+    -   MIDI files will be stored in the database and open for all users to see.
+    -   The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+-   Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
