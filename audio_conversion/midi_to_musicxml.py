@@ -13,40 +13,28 @@
 #
 ################################################################################
 
-import os
 from music21 import converter
+from io import StringIO
 
 
 def midi_to_musicxml(midi_file):
     """
-    Convert MIDI file to MusicXML format.
+    Convert MIDI file to MusicXML format and return as a string.
 
     Args:
         midi_file (str): The path to the MIDI file.
 
     Returns:
-        str: The path to the generated MusicXML file.
+        str: The MusicXML content as a string.
     """
     # Load MIDI file
     score = converter.parse(midi_file)
 
-    # Define output directory for MusicXML files
-    musicxml_output_folder = "./musicxml_output"
+    # Convert MIDI to MusicXML using an in-memory file-like object
+    musicxml_data = StringIO()
+    score.write("musicxml", fp=musicxml_data)
 
-    # Create the output directory if it doesn't exist
-    if not os.path.exists(musicxml_output_folder):
-        os.makedirs(musicxml_output_folder)
+    # Return the content of the MusicXML
+    musicxml_data.seek(0)  # Rewind the StringIO object to the beginning
 
-    # Convert MIDI to MusicXML
-    musicxml_file = os.path.join(
-        musicxml_output_folder, os.path.basename(midi_file).replace(".mid", ".musicxml")
-    )
-    score.write("musicxml", musicxml_file)
-
-    return musicxml_file
-
-
-if __name__ == "__main__":
-    midi_file = "./midi_output/sample_wav.mid"
-    musicxml_file = midi_to_musicxml(midi_file)
-    print(f"MusicXML file generated: {musicxml_file}")
+    return musicxml_data.read()
