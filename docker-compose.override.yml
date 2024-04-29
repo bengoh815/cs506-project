@@ -44,8 +44,8 @@ services:
       - REACT_APP_API_URL=http://localhost:8080
 
   backend:
-    volumes:
-      - ./server:/app
+    # volumes:
+    #   - ./server:/app
     environment:
       - APP_ENV=development
       - DATABASE_URL=mysql+mysqlconnector://root:my_root_password@db/mp_database

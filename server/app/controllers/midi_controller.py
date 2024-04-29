@@ -28,7 +28,10 @@ from app.utils.status_codes import OK, CREATED, NO_CONTENT, NOT_FOUND
 from app.utils.base64_converter import BinaryConverter
 from app.utils.isodate_converter import DateConverter
 from flask import jsonify, request
-
+from app.utils.conversion import wav_to_midi
+from app.utils.midi_to_musicxml import midi_to_musicxml
+from werkzeug.utils import secure_filename
+import os
 
 def get_all_midis():
     """
@@ -105,13 +108,35 @@ def create_midi():
     name = request.form['name']
     email = request.form['email']
     title = request.form['title']
-    file = request.files['file']
+    audio_file = request.files['file']
 
     # Process file 
+    # Define file path for saving the audio file
+    safe_filename = secure_filename(audio_file.filename)
+    audio_file_path = os.path.join('./app/utils/audio_sample', safe_filename)
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(audio_file_path), exist_ok=True)
 
-    with open('./server/app/controllers/converted-example.midi', 'rb') as binary_file:
+    # Save the file
+    audio_file.save(audio_file_path)
+
+    output_filename = wav_to_midi(audio_file_path)
+
+    with open(output_filename, 'rb') as binary_file:
         output_file = binary_file.read()
+
+
     midi_data_encoded = BinaryConverter.encode_binary(output_file)
+
+    # Remove the file
+    os.remove(audio_file_path)
+
+
+    # Convert midi to music xml
+    xml_output_path = midi_to_musicxml(output_filename)
+    with open(xml_output_path, 'rb') as binary_file:
+        xml_output_file = binary_file.read()
+    xml_data_encoded = BinaryConverter.encode_binary(xml_output_file)
 
 
     # Create User
@@ -137,6 +162,7 @@ def create_midi():
                 "title": new_midi.title,
                 "date": new_midi.date.isoformat(),
                 "midi_data": midi_data_encoded,  # Return the base64-encoded MIDI data
+                "xml_data": xml_data_encoded  # Return the base64-encoded MIDI data
             }
         ),
         CREATED,
