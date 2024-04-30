@@ -273,7 +273,7 @@ const ConversionHistory = ({ isDebug = false }) => {
         <h2 id="conversion-history-heading">Conversion History</h2>
         <input
           type="text"
-          placeholder="Search by file name, name, email, or date..."
+          placeholder="Search by file, author, email, or date..."
           onChange={handleSearchChange}
           value={searchQuery}
         />
