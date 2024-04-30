@@ -215,7 +215,7 @@ export default function ConvertFileModal(props) {
               <Button
                 id="download-midi-button"
                 data-testid="download-midi-button"
-                onClick={handleDownloadMIDI}
+                onClick={handleDownloadXml}
                 variant="info"
               >
                 Download musicxml
@@ -224,7 +224,7 @@ export default function ConvertFileModal(props) {
                 id="download-xml-button"
                 data-testid="download-xml-button"
                 style={{ marginLeft: 20 }}
-                onClick={handleDownloadXml}
+                onClick={handleDownloadMIDI}
                 variant="info"
               >
                 Download MIDI
