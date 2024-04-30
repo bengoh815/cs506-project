@@ -121,13 +121,10 @@ const ConversionHistory = ({ isDebug = false }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [backendResponse, setBackendResponse] = useState({});
-
   useEffect(() => {
     if (isDebug) {
       setConvertedFiles(mockConversionHistoryData);
-    }
-    else {
+    } else {
       console.log(`${apiUrl}/api/v1/midis`);
       fetch(`${apiUrl}/api/v1/midis`, {
         method: "GET",
@@ -139,7 +136,6 @@ const ConversionHistory = ({ isDebug = false }) => {
         })
         .then((data) => {
           setConvertedFiles(data);
-          console.log(data);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -147,19 +143,18 @@ const ConversionHistory = ({ isDebug = false }) => {
     }
   }, []);
 
-
   const handleGetData = async (midi_id) => {
     const apiUrl = process.env.REACT_APP_API_URL;
 
-    await fetch(`${apiUrl}/api/v1/midis/${midi_id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("this is the data response for a specific midi", data);
-        setBackendResponse(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    try {
+      const response = await fetch(`${apiUrl}/api/v1/midis/${midi_id}`);
+      const data = await response.json();
+
+      return data; // Return the data for use outside of the function
+    } catch (error) {
+      console.error("Error:", error);
+      return null; // Return null or appropriate error value
+    }
   };
 
   /**
@@ -167,10 +162,9 @@ const ConversionHistory = ({ isDebug = false }) => {
    *
    * @param {string} title - The name of the file to download.
    */
-  const handleDownloadMIDI = (title, midi_id) => {
+  const handleDownloadMIDI = async (title, midi_id) => {
     window.alert("Download initiated for " + title);
-    handleGetData(midi_id);
-    const data = backendResponse;
+    const data = await handleGetData(midi_id);
     const midiData = data.midi_data; // base64 encoded MIDI data
     const filename = data.title + ".mid"; // Generate a file name
 
@@ -183,10 +177,9 @@ const ConversionHistory = ({ isDebug = false }) => {
    *
    * @param {string} title - The name of the file to download.
    */
-  const handleDownloadXML = (title, midi_id) => {
+  const handleDownloadXML = async (title, midi_id) => {
     window.alert("Download initiated for " + title);
-    handleGetData(midi_id);
-    const data = backendResponse;
+    const data = await handleGetData(midi_id);
     const xmlData = data.xml_data;
     const filename = data.title + ".musicxml"; // Generate a file name
 
@@ -280,7 +273,7 @@ const ConversionHistory = ({ isDebug = false }) => {
         <h2 id="conversion-history-heading">Conversion History</h2>
         <input
           type="text"
-          placeholder="Search by file name, name, email, or date..."
+          placeholder="Search by file, author, email, or date..."
           onChange={handleSearchChange}
           value={searchQuery}
         />
@@ -291,7 +284,7 @@ const ConversionHistory = ({ isDebug = false }) => {
                 File{getSortingIndicator("title")}
               </th>
               <th onClick={() => handleSort("name")} className="sortable">
-                Name{getSortingIndicator("name")}
+                Author{getSortingIndicator("name")}
               </th>
               <th onClick={() => handleSort("date")} className="sortable">
                 Email{getSortingIndicator("date")}
@@ -299,7 +292,7 @@ const ConversionHistory = ({ isDebug = false }) => {
               <th onClick={() => handleSort("email")} className="sortable">
                 Date{getSortingIndicator("email")}
               </th>
-              <th>Downlaod</th>
+              <th>Download</th>
             </tr>
           </thead>
           <tbody>

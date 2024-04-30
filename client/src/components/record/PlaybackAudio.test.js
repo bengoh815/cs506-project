@@ -4,7 +4,9 @@
  * Author:   Victor Nguyen
  *
  * Description:
- * This file contains tests for the PlaybackAudio component. The tests ensure that the component renders correctly. A snapshot test is included to catch unintended changes to the component's structure or behavior.
+ * This file contains tests for the PlaybackAudio component. The tests ensure
+ * that the component renders correctly. A snapshot test is included to catch
+ * unintended changes to the component's structure or behavior.
  *
  * Usage:
  * Run the tests using the command `npm test`.

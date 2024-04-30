@@ -211,8 +211,25 @@ export default function ConvertFileModal(props) {
               Your uploaded audio file has been successfully converted to .mid
               format and is now available to view in your conversion history.
             </p>
-            <button onClick={handleDownloadMIDI}>Download musicxml</button>
-            <button onClick={handleDownloadXml}>Download MIDI</button>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                id="download-midi-button"
+                data-testid="download-midi-button"
+                onClick={handleDownloadXml}
+                variant="info"
+              >
+                Download musicxml
+              </Button>
+              <Button
+                id="download-xml-button"
+                data-testid="download-xml-button"
+                style={{ marginLeft: 20 }}
+                onClick={handleDownloadMIDI}
+                variant="info"
+              >
+                Download MIDI
+              </Button>
+            </div>
           </div>
         ) : conversionError ? (
           <p>
