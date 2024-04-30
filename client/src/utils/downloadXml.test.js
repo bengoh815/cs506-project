@@ -4,7 +4,10 @@
  * Author:   Victor Nguyen
  *
  * Description:
- * This file contains tests for the downloadXml utility function. The tests ensure that the function correctly converts a base64 string to a Blob and initiates a download of the Blob as a file in the browser. The tests mock the necessary functions to prevent actual file downloads during testing.
+ * This file contains tests for the downloadXml utility function. The tests
+ * ensure that the function correctly converts a base64 string to a Blob and
+ * initiates a download of the Blob as a file in the browser. The tests mock
+ * the necessary functions to prevent actual file downloads during testing.
  *
  * Usage:
  * Run the tests using the command `npm test`.
