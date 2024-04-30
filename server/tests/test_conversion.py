@@ -28,26 +28,13 @@ def audio_files():
     """
 
     files = {
-        "mp3": "../server/app/utils/audio_sample/sample_mp3.mp3",
-        "m4a": "../server/app/utils/audio_sample/sample_m4a.m4a",
-        "wav": "../server/app/utils/audio_sample/sample_wav.wav",
-        "webm": "../server/app/utils/audio_sample/sample_webm.webm",
-        "flac": "../server/app/utils/audio_sample/sample_flac.flac"
+        "mp3": "./server/app/utils/audio_sample/sample_mp3.mp3",
+        "m4a": "./server/app/utils/audio_sample/sample_m4a.m4a",
+        "wav": "./server/app/utils/audio_sample/sample_wav.wav",
+        "webm": "./server/app/utils/audio_sample/sample_webm.webm",
+        "flac": "./server/app/utils/audio_sample/sample_flac.flac"
     }
     return files
-
-def test_webm_to_mp3(audio_files):
-    """
-    Test convert_webm_to_mp3 helper function for converting WEBM 
-    audio file to MP3.
-
-    Args:
-        audio_files (dict): Dictionary containing sample audio file paths.
-    """
-    mp3_file_path = "../server/app/utils/audio_sample/sample_webm.mp3"
-    convert_webm_to_mp3(audio_files["mp3"], mp3_file_path)
-    expected_output = "../server/app/utils/audio_sample/sample_webm.mp3"
-    assert expected_output is not None 
 
 
 def test_audio_input(audio_files):

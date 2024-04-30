@@ -33,7 +33,7 @@ import math
 import mido
 
 # Path to where midi file is being stored
-midi_folder = "./app/utils/midi_output"
+midi_folder = "midi_output"
 
 
 def convert_webm_to_mp3(webm_file, mp3_file):
@@ -91,13 +91,17 @@ def audio_to_wav(audio_file):
         print("An error occurred during audio file conversion:", e)
         return None
 
+    # Get current directory
+    current_directory = os.getcwd()
+
     # Convert WEBM file to MP3 file
     if extension[1:] == "webm":
         mp3_file_path = os.path.join(current_directory, file_name + ".mp3")
-        audio_file = convert_webm_to_mp3(audio_file, mp3_file_path)
+        convert_webm_to_mp3(audio_file, mp3_file_path)
+        audio_file = mp3_file_path
+        _, extension = os.path.splitext(audio_file)
 
     # Convert MP3 and M4A file to WAV file
-    current_directory = os.getcwd()
     wav_file_path = os.path.join(current_directory, file_name + ".wav")
     wav_file = pydub.AudioSegment.from_file(audio_file, extension[1:]).export(
         wav_file_path, format="wav"
