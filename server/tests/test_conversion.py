@@ -47,9 +47,9 @@ def test_audio_input(audio_files):
         audio_files (dict): Dictionary containing sample audio file paths.
     """
 
-    # # Valid test case 1 - MP3
-    # mp3_output = audio_to_wav(audio_files["mp3"])
-    # assert mp3_output is not None
+    # Valid test case 1 - MP3
+    mp3_output = audio_to_wav(audio_files["mp3"])
+    assert mp3_output is not None
 
     # Valid test case 2 - M4A
     m4a_output = audio_to_wav(audio_files["m4a"])
@@ -96,7 +96,8 @@ def test_midi_conversion(audio_files):
         audio_files (dict): Dictionary containing sample audio file paths.
     """
 
+    curr_dirr = os.curdir()
     # Pass in WAV file for MIDI conversion
     audio_wav = audio_files["wav"]
-    midi_file = wav_to_midi(audio_wav)
+    midi_file = wav_to_midi(curr_dirr)
     assert midi_file is not None
