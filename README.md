@@ -95,7 +95,9 @@ The website applicatoins will have the following screens:
 ```mermaid
 graph LR;
     subgraph Docker
-        G[NGINX];
+        subgraph NGINX
+            G(■)
+        end
         subgraph Front End
             A(JavaScript: React);
         end
@@ -115,7 +117,6 @@ graph LR;
     Dev 8080);
     F <--> G;
     D <--> E(Dev 8765);
-
 ```
 
 #### Database Schema
