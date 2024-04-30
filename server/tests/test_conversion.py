@@ -96,7 +96,7 @@ def test_midi_conversion(audio_files):
         audio_files (dict): Dictionary containing sample audio file paths.
     """
 
-    curr_dirr = os.curdir()
+    curr_dirr = os.getcwd()
     # Pass in WAV file for MIDI conversion
     audio_wav = audio_files["wav"]
     midi_file = wav_to_midi(curr_dirr)
