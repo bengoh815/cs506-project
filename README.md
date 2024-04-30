@@ -93,21 +93,29 @@ The website applicatoins will have the following screens:
 6. Docker
 
 ```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: React)
-end
+graph LR;
+    subgraph Docker
+        G[NGINX];
+        subgraph Front End
+            A(JavaScript: React);
+        end
+        subgraph Back End
+            B(Python: Flask);
+        end
+        subgraph Database
+            C[(MySQL)];
+        end
+        D[PHP];
+        G <-->|/| A;
+        G <-->|/api| B;
+        B <-->|SQLAlchemy| C;
+        C <--> D;
+    end
+    F(Production 80 
+    Dev 8080);
+    F <--> G;
+    D <--> E(Dev 8765);
 
-subgraph Back End
-	B(Python: Flask)
-end
-
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <-->|SQLAlchemy| C
 ```
 
 #### Database Schema
