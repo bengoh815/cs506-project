@@ -273,7 +273,7 @@ const ConversionHistory = ({ isDebug = false }) => {
         <h2 id="conversion-history-heading">Conversion History</h2>
         <input
           type="text"
-          placeholder="Search by file name, name, email, or date..."
+          placeholder="Search by file, author, email, or date..."
           onChange={handleSearchChange}
           value={searchQuery}
         />
@@ -284,7 +284,7 @@ const ConversionHistory = ({ isDebug = false }) => {
                 File{getSortingIndicator("title")}
               </th>
               <th onClick={() => handleSort("name")} className="sortable">
-                Name{getSortingIndicator("name")}
+                Author{getSortingIndicator("name")}
               </th>
               <th onClick={() => handleSort("date")} className="sortable">
                 Email{getSortingIndicator("date")}
@@ -292,7 +292,7 @@ const ConversionHistory = ({ isDebug = false }) => {
               <th onClick={() => handleSort("email")} className="sortable">
                 Date{getSortingIndicator("email")}
               </th>
-              <th>Downlaod</th>
+              <th>Download</th>
             </tr>
           </thead>
           <tbody>
