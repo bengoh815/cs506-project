@@ -1,7 +1,7 @@
 ################################################################################
 # Filename: conversion.py
 # Purpose:  Perform audio processing and conversion tasks to MIDI.
-# Author:   Livia Chandrav and Darren Seubert
+# Author:   Livia Chandra and Darren Seubert
 #
 # Description:
 # This file contains functions for audio processing tasks, including conversion
@@ -31,9 +31,20 @@ import scipy.signal as signal
 import math
 import mido
 
-audio_folder = "audio_sample"
 midi_folder = "./app/utils/midi_output"
 
+import subprocess
+
+def convert_webm_to_mp3(input_file, output_file):
+    # command to convert the WEBM file to MP3
+    command = ['ffmpeg', '-i', input_file, '-vn', '-ab', '192k', '-ar', '44100', '-y', output_file]
+    
+    # run the command through the subprocess module
+    try:
+        result = subprocess.run(command, check=True)
+        print("Conversion completed successfully.")
+    except subprocess.CalledProcessError:
+        print("An error occurred during conversion.")
 
 def audio_to_wav(audio_file):
     """
@@ -95,6 +106,30 @@ def divide_audio_data(audio_data, sample_rate, tempo):
         print("An error occurred during audio data division:", e)
         return None
 
+def is_webm_file(file_path):
+    _, file_extension = os.path.splitext(file_path)
+    return file_extension.lower() == '.webm'
+
+def change_extension_to_mp3(file_path):
+    """
+    Change the file extension of a given path from .webm to .mp3.
+
+    Args:
+    file_path (str): The path to the file.
+
+    Returns:
+    str: The modified file path with a .mp3 extension.
+    """
+    # Split the file path into root and extension
+    root, ext = os.path.splitext(file_path)
+    
+    # Check if the current extension is .webm
+    if ext.lower() == '.webm':
+        # Change the extension to .mp3
+        return root + '.mp3'
+    else:
+        # Return the original path or handle as needed
+        return file_path
 
 def wav_to_midi(audio_file):
     """
@@ -106,7 +141,14 @@ def wav_to_midi(audio_file):
     Returns:
         str: The path to the generated MIDI file.
     """
-    print(audio_file)
+
+    # Check if it is webm
+    if is_webm_file(audio_file):
+        mp3_output_path = change_extension_to_mp3(audio_file)
+        convert_webm_to_mp3(audio_file, mp3_output_path)
+
+
+
     # Convert audio file into wav file
     file_name, wav_file = audio_to_wav(audio_file)
 

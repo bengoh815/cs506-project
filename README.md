@@ -17,7 +17,7 @@ The target customer for this software spans musicians, composers, music producer
 | ID   | Description                                                                                                                                                                                      | Priority | Status   |
 | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | -------- |
 | R001 | The system shall send an mp3, m4a, wav, or webm file and metadata from the UI to the backend to be processed                                                                                     | High     | Complete |
-| R002 | The system shall covert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                                                                                                   | High     | Complete |
+| R002 | The system shall convert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                                                                                                  | High     | Complete |
 | R003 | The system shall send the MIDI data and file metadata to the database for storage                                                                                                                | High     | Complete |
 | R004 | The system shall receive a request from a user to retrieve MIDI data from the database                                                                                                           | High     | Complete |
 | R005 | The system shall process a request for MIDI data and query the database for results                                                                                                              | High     | Complete |
@@ -91,23 +91,33 @@ The website applicatoins will have the following screens:
 4. SQLAlchemy
 5. MySQL
 6. Docker
+7. Nginx
 
 ```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: React)
-end
-
-subgraph Back End
-	B(Python: Flask)
-end
-
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <-->|SQLAlchemy| C
+graph LR;
+    subgraph Docker
+        subgraph NGINX
+            G(■)
+        end
+        subgraph Front End
+            A(JavaScript: React);
+        end
+        subgraph Back End
+            B(Python: Flask);
+        end
+        subgraph Database
+            C[(MySQL)];
+        end
+        D[PHP];
+        G <-->|/| A;
+        G <-->|/api| B;
+        B <-->|SQLAlchemy| C;
+        C <--> D;
+    end
+    F(Production 80
+    Dev 8080);
+    F <--> G;
+    D <--> E(Dev 8765);
 ```
 
 #### Database Schema

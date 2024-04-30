@@ -4,28 +4,16 @@
  * Author:   Victor Nguyen
  *
  * Description:
- * This file contains tests for the RecordAudio component. The tests ensure that
- * the component and its elements render correctly. A snapshot test is included
- * to catch unintended changes to the component's structure or behavior.
+ * This file contains tests for the RecordAudio component. The tests check that
+ * the component renders correctly and that the startRecording and stopRecording
+ * functions work as expected. The tests also check that the component displays
+ * the correct content when the user is recording audio.
  *
  * Usage:
  * Run the tests using the command `npm test`.
- *
- * Note:
- * More tests to be added/implemented for:
- * - Testing the recording functionality
- * - Testing the playback functionality
- * - Testing uploading the recorded audio
- *
  ******************************************************************************/
 
-import {
-  act,
-  cleanup,
-  render,
-  screen,
-  fireEvent,
-} from "@testing-library/react";
+import { act, cleanup, render, screen } from "@testing-library/react";
 import RecordAudio from "./RecordAudio";
 import React from "react";
 import { useState } from "react";
