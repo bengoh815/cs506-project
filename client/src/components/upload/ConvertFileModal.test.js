@@ -113,8 +113,10 @@ describe("ConvertFileModal", () => {
       ),
     ).toBeInTheDocument();
 
-    // Check for upload another file button
+    // Check for download midi, xml and upload another file button
     expect(screen.getByText("Upload Another File")).toBeInTheDocument();
+    expect(screen.getByTestId("download-midi-button")).toBeInTheDocument();
+    expect(screen.getByTestId("download-xml-button")).toBeInTheDocument();
   });
 
   it("test upload another file", async () => {
@@ -261,5 +263,105 @@ describe("ConvertFileModal", () => {
 
     // Check that recording title has been cleared
     expect(screen.getByTestId("recording-title-input")).toHaveValue("");
+  });
+
+  it("test download midi button", async () => {
+    // Mock fetch and URL.createObjectURL
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 201,
+        json: () =>
+          Promise.resolve({ midi_data: "mockMidiData", title: "mockTitle" }),
+      }),
+    );
+    global.URL.createObjectURL = jest.fn(() => "mockUrl");
+
+    // Render the component
+    render(
+      <ConvertFileModal
+        handleClose={handleClose}
+        handleShow={handleShow}
+        file={file}
+        fileInputRef={fileInputRef}
+        setFile={setFile}
+        handleFileInputClick={handleFileInputClick}
+        getAbbreviatedFileName={() => "chillSong.mp3"}
+      />,
+    );
+
+    // Fill out the form
+    fireEvent.change(screen.getByTestId("name-input"), {
+      target: { value: "John Doe" },
+    });
+    fireEvent.change(screen.getByTestId("email-input"), {
+      target: { value: "john@email.com" },
+    });
+    fireEvent.change(screen.getByTestId("recording-title-input"), {
+      target: { value: "recording title" },
+    });
+
+    // Click the convert button
+    fireEvent.click(screen.getByTestId("convert-file-button"));
+
+    // Wait for the conversion success message to appear
+    await waitFor(() => {
+      expect(screen.getByText("Conversion Complete 🎉")).toBeInTheDocument();
+    });
+
+    // Click the download midi button
+    fireEvent.click(screen.getByTestId("download-midi-button"));
+
+    // Check that the handleDownloadMidi function is called
+    expect(global.URL.createObjectURL).toHaveBeenCalled();
+  });
+
+  it("test download xml button", async () => {
+    // Mock fetch and URL.createObjectURL
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 201,
+        json: () =>
+          Promise.resolve({ xml_data: "mockXmlData", title: "mockTitle" }),
+      }),
+    );
+    global.URL.createObjectURL = jest.fn(() => "mockUrl");
+
+    // Render the component
+    render(
+      <ConvertFileModal
+        handleClose={handleClose}
+        handleShow={handleShow}
+        file={file}
+        fileInputRef={fileInputRef}
+        setFile={setFile}
+        handleFileInputClick={handleFileInputClick}
+        getAbbreviatedFileName={() => "chillSong.mp3"}
+      />,
+    );
+
+    // Fill out the form
+    fireEvent.change(screen.getByTestId("name-input"), {
+      target: { value: "John Doe" },
+    });
+    fireEvent.change(screen.getByTestId("email-input"), {
+      target: { value: "john@email.com" },
+    });
+    fireEvent.change(screen.getByTestId("recording-title-input"), {
+      target: { value: "recording title" },
+    });
+
+    // Click the convert button
+    fireEvent.click(screen.getByTestId("convert-file-button"));
+
+    // Wait for the conversion success message to appear
+    await waitFor(() => {
+      expect(screen.getByText("Conversion Complete 🎉")).toBeInTheDocument();
+    });
+
+    // Click the download xml button
+    fireEvent.click(screen.getByTestId("download-xml-button"));
+
+    // Check that the handleDownloadXml function is called
+    expect(global.URL.createObjectURL).toHaveBeenCalled();
   });
 });
