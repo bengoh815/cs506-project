@@ -27,10 +27,10 @@ def audio_files():
     """
 
     files = {
-        "mp3": "../server/app/utils/audio_sample/sample.mp3",
-        "m4a": "../server/app/utils/audio_sample/sample.m4a",
-        "wav": "../server/app/utils/audio_sample/sample.wav",
-        "flac": "../server/app/utils/audio_sample/sample.flac",
+        "mp3": "./server/app/utils/audio_sample/sample.mp3",
+        "m4a": "./server/app/utils/audio_sample/sample.m4a",
+        "wav": "./server/app/utils/audio_sample/sample.wav",
+        "flac": "./server/app/utils/audio_sample/sample.flac",
     }
     return files
 
