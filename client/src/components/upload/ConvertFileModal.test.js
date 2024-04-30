@@ -4,14 +4,15 @@
  * Author:   Victor Nguyen
  *
  * Description:
- * This file contains tests for the ConvertFileModal component.
+ * This file contains tests for the ConvertFileModal component. The tests
+ * ensure that the component renders correctly. The tests also check that the
+ * conversion process works as expected. The tests simulate the user filling
+ * out the form, uploading a file, and downloading the converted file. The
+ * tests also check that the modal can be dismissed and that the user can
+ * upload another file after a successful conversion.
  *
  * Usage:
  * Run the tests using the command `npm test`.
- *
- * Note:
- * Tests to be implemented.
- *
  ******************************************************************************/
 
 import React from "react";
@@ -113,8 +114,10 @@ describe("ConvertFileModal", () => {
       ),
     ).toBeInTheDocument();
 
-    // Check for upload another file button
+    // Check for download midi, xml and upload another file button
     expect(screen.getByText("Upload Another File")).toBeInTheDocument();
+    expect(screen.getByTestId("download-midi-button")).toBeInTheDocument();
+    expect(screen.getByTestId("download-xml-button")).toBeInTheDocument();
   });
 
   it("test upload another file", async () => {
@@ -261,5 +264,105 @@ describe("ConvertFileModal", () => {
 
     // Check that recording title has been cleared
     expect(screen.getByTestId("recording-title-input")).toHaveValue("");
+  });
+
+  it("test download midi button", async () => {
+    // Mock fetch and URL.createObjectURL
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 201,
+        json: () =>
+          Promise.resolve({ midi_data: "mockMidiData", title: "mockTitle" }),
+      }),
+    );
+    global.URL.createObjectURL = jest.fn(() => "mockUrl");
+
+    // Render the component
+    render(
+      <ConvertFileModal
+        handleClose={handleClose}
+        handleShow={handleShow}
+        file={file}
+        fileInputRef={fileInputRef}
+        setFile={setFile}
+        handleFileInputClick={handleFileInputClick}
+        getAbbreviatedFileName={() => "chillSong.mp3"}
+      />,
+    );
+
+    // Fill out the form
+    fireEvent.change(screen.getByTestId("name-input"), {
+      target: { value: "John Doe" },
+    });
+    fireEvent.change(screen.getByTestId("email-input"), {
+      target: { value: "john@email.com" },
+    });
+    fireEvent.change(screen.getByTestId("recording-title-input"), {
+      target: { value: "recording title" },
+    });
+
+    // Click the convert button
+    fireEvent.click(screen.getByTestId("convert-file-button"));
+
+    // Wait for the conversion success message to appear
+    await waitFor(() => {
+      expect(screen.getByText("Conversion Complete 🎉")).toBeInTheDocument();
+    });
+
+    // Click the download midi button
+    fireEvent.click(screen.getByTestId("download-midi-button"));
+
+    // Check that the handleDownloadMidi function is called
+    expect(global.URL.createObjectURL).toHaveBeenCalled();
+  });
+
+  it("test download xml button", async () => {
+    // Mock fetch and URL.createObjectURL
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        status: 201,
+        json: () =>
+          Promise.resolve({ xml_data: "mockXmlData", title: "mockTitle" }),
+      }),
+    );
+    global.URL.createObjectURL = jest.fn(() => "mockUrl");
+
+    // Render the component
+    render(
+      <ConvertFileModal
+        handleClose={handleClose}
+        handleShow={handleShow}
+        file={file}
+        fileInputRef={fileInputRef}
+        setFile={setFile}
+        handleFileInputClick={handleFileInputClick}
+        getAbbreviatedFileName={() => "chillSong.mp3"}
+      />,
+    );
+
+    // Fill out the form
+    fireEvent.change(screen.getByTestId("name-input"), {
+      target: { value: "John Doe" },
+    });
+    fireEvent.change(screen.getByTestId("email-input"), {
+      target: { value: "john@email.com" },
+    });
+    fireEvent.change(screen.getByTestId("recording-title-input"), {
+      target: { value: "recording title" },
+    });
+
+    // Click the convert button
+    fireEvent.click(screen.getByTestId("convert-file-button"));
+
+    // Wait for the conversion success message to appear
+    await waitFor(() => {
+      expect(screen.getByText("Conversion Complete 🎉")).toBeInTheDocument();
+    });
+
+    // Click the download xml button
+    fireEvent.click(screen.getByTestId("download-xml-button"));
+
+    // Check that the handleDownloadXml function is called
+    expect(global.URL.createObjectURL).toHaveBeenCalled();
   });
 });

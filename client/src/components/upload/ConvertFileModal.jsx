@@ -212,10 +212,17 @@ export default function ConvertFileModal(props) {
               format and is now available to view in your conversion history.
             </p>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button onClick={handleDownloadMIDI} variant="info">
+              <Button
+                id="download-midi-button"
+                data-testid="download-midi-button"
+                onClick={handleDownloadMIDI}
+                variant="info"
+              >
                 Download musicxml
               </Button>
               <Button
+                id="download-xml-button"
+                data-testid="download-xml-button"
                 style={{ marginLeft: 20 }}
                 onClick={handleDownloadXml}
                 variant="info"
