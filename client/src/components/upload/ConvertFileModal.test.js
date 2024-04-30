@@ -4,14 +4,15 @@
  * Author:   Victor Nguyen
  *
  * Description:
- * This file contains tests for the ConvertFileModal component.
+ * This file contains tests for the ConvertFileModal component. The tests
+ * ensure that the component renders correctly. The tests also check that the
+ * conversion process works as expected. The tests simulate the user filling
+ * out the form, uploading a file, and downloading the converted file. The
+ * tests also check that the modal can be dismissed and that the user can
+ * upload another file after a successful conversion.
  *
  * Usage:
  * Run the tests using the command `npm test`.
- *
- * Note:
- * Tests to be implemented.
- *
  ******************************************************************************/
 
 import React from "react";
@@ -40,6 +41,8 @@ describe("ConvertFileModal", () => {
     fileInputRef = { current: { value: null } };
     setFile = jest.fn();
     handleFileInputClick = jest.fn();
+
+    global.URL.createObjectURL = jest.fn(() => "http://dummy-url.com");
   });
 
   afterEach(() => {
@@ -113,8 +116,10 @@ describe("ConvertFileModal", () => {
       ),
     ).toBeInTheDocument();
 
-    // Check for upload another file button
+    // Check for download midi, xml and upload another file button
     expect(screen.getByText("Upload Another File")).toBeInTheDocument();
+    expect(screen.getByTestId("download-midi-button")).toBeInTheDocument();
+    expect(screen.getByTestId("download-xml-button")).toBeInTheDocument();
   });
 
   it("test upload another file", async () => {

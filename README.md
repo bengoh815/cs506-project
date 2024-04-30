@@ -14,34 +14,35 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Requirements
 
-| ID   | Description                                                                                            | Priority | Status      |
-| ---- | ------------------------------------------------------------------------------------------------------ | -------- | ----------- |
-| R001 | The system shall send an mp3, m4a, wav, or webm file and metadata from the UI to the backend to be processed              | High     | Complete |
-| R002 | The system shall covert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                             | High     | Complete |
-| R003 | The system shall send the MIDI data and file metadata to the database for storage                      | High     | Complete    |
-| R004 | The system shall receive a request from a user to retrieve MIDI data from the database               | High     | Complete |
-| R005 | The system shall process a request for MIDI data and query the database for results                  | High     | Complete |
-| R006 | The system shall return a series of matching MIDI files found by the database query to the user        | High     | Complete |
-| R007 | The system shall sort according to filename, author and date of the list of midi files in the database | High | Complete |
-| R008 | The system shall allow a user to download the sheet music for a midi recording using musicxml format                                    | High      | Complete        |
-| R009 | The system shall allow users to credit other artists besides themselves during upload                                       | Low      | Complete        |
-| R010 | The system shall be able to search for the filename or author in the database                          | Medium  | Complete |
-| R011 | The system shall allow users to download midi file of a song in the database                          | High  | Complete |
-| R012 | The system shall prompt a users to enter metadata regarding an recording or uploaded file                          | High  | Complete |
-| R013 | The system shall prompt a users with the security statement before allowing them to record or upload any files                         | High  | Complete |
-| R014 | The system shall show the user a history of all the uploads to the database in table form, prompting the user with download buttons for musicxml and midi formats as well as displaying metadata                         | High  | Complete |
-| R015 | The system shall be designed to run within Docker containers, utilizing Dockerfiles and Docker Compose for containerization and portability of the program                         | Medium  | Complete |
-| R016 | The system shall consist of two MySQL database tables, users and midi, consisting of user metadata and midi metadata/file respectively                         | High  | Complete |
+| ID   | Description                                                                                                                                                                                      | Priority | Status   |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | -------- |
+| R001 | The system shall send an mp3, m4a, wav, or webm file and metadata from the UI to the backend to be processed                                                                                     | High     | Complete |
+| R002 | The system shall convert the mp3, m4a, wav, or webm file sent to the backend into a MIDI format                                                                                                  | High     | Complete |
+| R003 | The system shall send the MIDI data and file metadata to the database for storage                                                                                                                | High     | Complete |
+| R004 | The system shall receive a request from a user to retrieve MIDI data from the database                                                                                                           | High     | Complete |
+| R005 | The system shall process a request for MIDI data and query the database for results                                                                                                              | High     | Complete |
+| R006 | The system shall return a series of matching MIDI files found by the database query to the user                                                                                                  | High     | Complete |
+| R007 | The system shall sort according to filename, author and date of the list of midi files in the database                                                                                           | High     | Complete |
+| R008 | The system shall allow a user to download the sheet music for a midi recording using musicxml format                                                                                             | High     | Complete |
+| R009 | The system shall allow users to credit other artists besides themselves during upload                                                                                                            | Low      | Complete |
+| R010 | The system shall be able to search for the filename or author in the database                                                                                                                    | Medium   | Complete |
+| R011 | The system shall allow users to download midi file of a song in the database                                                                                                                     | High     | Complete |
+| R012 | The system shall prompt a users to enter metadata regarding an recording or uploaded file                                                                                                        | High     | Complete |
+| R013 | The system shall prompt a users with the security statement before allowing them to record or upload any files                                                                                   | High     | Complete |
+| R014 | The system shall show the user a history of all the uploads to the database in table form, prompting the user with download buttons for musicxml and midi formats as well as displaying metadata | High     | Complete |
+| R015 | The system shall be designed to run within Docker containers, utilizing Dockerfiles and Docker Compose for containerization and portability of the program                                       | Medium   | Complete |
+| R016 | The system shall consist of two MySQL database tables, users and midi, consisting of user metadata and midi metadata/file respectively                                                           | High     | Complete |
 
 ### Use Cases & User Stories
 
-1. As the user of the websites, in order to record the recording, the user will be able to record, playback, save, and download the audio they recorded.
-    - Once the user is satisfied with the recording, the user will be prompted to enter the credited name(s), email, and recording title.
-    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and downloadable as sheet music in musicxml format.
+1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
+   - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
+   - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
 2. As the user of the website, the user will be able to see a list of converted recordings.
-    - The list contains all the converted recordings that all the users have created in the database.
-3. As the user of the website, the user will be able to download the converted audio recording in a MIDI and musicxml file format.
-4. As the user of the website, the user will be able to search the converted files.
+   - The list contains all the converted recordings that all the users have created in the database.
+3. As the user of the website, the user can see a history of the converted recordings they have done.
+4. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
+5. As the user of the website, the user will be able to search the uploaded and converted files.
 
 ### User Interface Requirements
 
@@ -64,12 +65,12 @@ The website applicatoins will have the following screens:
 
 ### Security Requirements
 
--   Our system will only record audio in between when the user has clicked the start and stop recording button.
--   Our system will only store the MIDI file converted from audio recordings.
-    -   The system will state that the audio recordings will only be used for converting into the MIDI file.
-    -   MIDI files will be stored in the database and open for all users to see.
-    -   The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
--   Our system will be vulnerable to denial-of-service attacks.
+- Our system will only record audio in between when the user has clicked the start and stop recording button.
+- Our system will only store the MIDI file converted from audio recordings.
+  - The system will state that the audio recordings will only be used for converting into the MIDI file.
+  - MIDI files will be stored in the database and open for all users to see.
+  - The system will not save audio recordings because users may want to avoid having their voice being recorded and stored on the system.
+- Our system will be vulnerable to denial-of-service attacks.
 
 ### System Requirements
 
@@ -90,6 +91,7 @@ The website applicatoins will have the following screens:
 4. SQLAlchemy
 5. MySQL
 6. Docker
+7. Nginx
 
 ```mermaid
 graph LR;
