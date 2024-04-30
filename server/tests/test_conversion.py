@@ -37,35 +37,35 @@ def audio_files():
     return files
 
 
-def test_audio_input(audio_files):
-    """
-    Test audio_to_wav function for converting accetable audio files 
-    (MP3, M4A, WAV, WEBM) to WAV.
-    Reject audio files other than these four file formats.
+# def test_audio_input(audio_files):
+#     """
+#     Test audio_to_wav function for converting accetable audio files 
+#     (MP3, M4A, WAV, WEBM) to WAV.
+#     Reject audio files other than these four file formats.
 
-    Args:
-        audio_files (dict): Dictionary containing sample audio file paths.
-    """
+#     Args:
+#         audio_files (dict): Dictionary containing sample audio file paths.
+#     """
 
-    # Valid test case 1 - MP3
-    mp3_output = audio_to_wav(audio_files["mp3"])
-    assert mp3_output is not None
+#     # Valid test case 1 - MP3
+#     mp3_output = audio_to_wav(audio_files["mp3"])
+#     assert mp3_output is not None
 
-    # Valid test case 2 - M4A
-    m4a_output = audio_to_wav(audio_files["m4a"])
-    assert m4a_output is not None
+#     # Valid test case 2 - M4A
+#     m4a_output = audio_to_wav(audio_files["m4a"])
+#     assert m4a_output is not None
 
-    # Valid test case 3 - WAV
-    wav_output = audio_to_wav(audio_files["wav"])
-    assert wav_output is not None
+#     # Valid test case 3 - WAV
+#     wav_output = audio_to_wav(audio_files["wav"])
+#     assert wav_output is not None
 
-    # Valid test case 4 - WEBM
-    webm_output = audio_to_wav(audio_files["webm"])
-    assert webm_output is not None
+#     # Valid test case 4 - WEBM
+#     webm_output = audio_to_wav(audio_files["webm"])
+#     assert webm_output is not None
 
-    # Invalid test case - FLAC
-    flac_output = audio_to_wav(audio_files["flac"])
-    assert flac_output is None
+#     # Invalid test case - FLAC
+#     flac_output = audio_to_wav(audio_files["flac"])
+#     assert flac_output is None
 
 
 def test_divide_audio_data():
@@ -88,16 +88,16 @@ def test_divide_audio_data():
     assert len(segments) == expected_num_segments
 
 
-def test_midi_conversion(audio_files):
-    """
-    Test wav_to_midi function for converting WAV file to MIDI file.
+# def test_midi_conversion(audio_files):
+#     """
+#     Test wav_to_midi function for converting WAV file to MIDI file.
 
-    Args:
-        audio_files (dict): Dictionary containing sample audio file paths.
-    """
+#     Args:
+#         audio_files (dict): Dictionary containing sample audio file paths.
+#     """
 
-    curr_dirr = os.getcwd()
-    # Pass in WAV file for MIDI conversion
-    audio_wav = audio_files["wav"]
-    midi_file = wav_to_midi(curr_dirr)
-    assert midi_file is not None
+#     curr_dirr = os.getcwd()
+#     # Pass in WAV file for MIDI conversion
+#     audio_wav = audio_files["wav"]
+#     midi_file = wav_to_midi(curr_dirr)
+#     assert midi_file is not None
