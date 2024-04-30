@@ -35,14 +35,13 @@ The target customer for this software spans musicians, composers, music producer
 
 ### Use Cases & User Stories
 
-1. As the user of the websites, in order to record the recording, the user will be able to record, playback and download the audio they recorded.
-    - Once the user is satisfied with the recording, the user will be prompted to name the recording, author the audio recording, and credit other users.
-    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and displayed as a music sheet.
+1. As the user of the websites, in order to record the recording, the user will be able to record, playback, save, and download the audio they recorded.
+    - Once the user is satisfied with the recording, the user will be prompted to enter the credited name(s), email, and recording title.
+    - Once the user submits the recording for conversion, the resulting MIDI file will be returned and downloadable as sheet music in musicxml format.
 2. As the user of the website, the user will be able to see a list of converted recordings.
     - The list contains all the converted recordings that all the users have created in the database.
-3. As the user of the website, the user can see a history of the converted recordings they have done.
-4. As the user of the website, the user will be able to download the converted audio recording in a MIDI file format.
-5. As the user of the website, the user will be able to search the uploaded and converted files.
+3. As the user of the website, the user will be able to download the converted audio recording in a MIDI and musicxml file format.
+4. As the user of the website, the user will be able to search the converted files.
 
 ### User Interface Requirements
 
@@ -93,21 +92,30 @@ The website applicatoins will have the following screens:
 6. Docker
 
 ```mermaid
-flowchart RL
-subgraph Front End
-	A(Javascript: React)
-end
-
-subgraph Back End
-	B(Python: Flask)
-end
-
-subgraph Database
-	C[(MySQL)]
-end
-
-A <-->|"REST API"| B
-B <-->|SQLAlchemy| C
+graph LR;
+    subgraph Docker
+        subgraph NGINX
+            G(■)
+        end
+        subgraph Front End
+            A(JavaScript: React);
+        end
+        subgraph Back End
+            B(Python: Flask);
+        end
+        subgraph Database
+            C[(MySQL)];
+        end
+        D[PHP];
+        G <-->|/| A;
+        G <-->|/api| B;
+        B <-->|SQLAlchemy| C;
+        C <--> D;
+    end
+    F(Production 80 
+    Dev 8080);
+    F <--> G;
+    D <--> E(Dev 8765);
 ```
 
 #### Database Schema
