@@ -35,23 +35,34 @@ import mido
 # Path to where midi file is being stored
 midi_folder = "./app/utils/midi_output"
 
-def convert_webm_to_mp3(webm_file, mp3_file):
 
+def convert_webm_to_mp3(webm_file, mp3_file):
     """
     Helper function to convert WEBM file into MP3 file.
 
     Args:
-        webm_file (string): The path to obtain WEBM file. 
+        webm_file (string): The path to obtain WEBM file.
     """
 
     # Command to convert the WEBM file to MP3
-    command = ['ffmpeg', '-i', webm_file, '-vn', '-ab', '192k', '-ar', '44100', '-y', mp3_file]
-    
+    command = [
+        "ffmpeg",
+        "-i",
+        webm_file,
+        "-vn",
+        "-ab",
+        "192k",
+        "-ar",
+        "44100",
+        "-y",
+        mp3_file,
+    ]
+
     # Run the command through the subprocess module
     try:
         result = subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
-        print("An error occurred during conversion:", e)
+        print("An error occurred during audio file conversion:", e)
 
 
 def audio_to_wav(audio_file):
@@ -73,7 +84,11 @@ def audio_to_wav(audio_file):
     file_name = file_name.split("/")[-1]
 
     # Check the extension of the input audio file
-    if extension[1:] not in available_extension:
+    try:
+        if extension[1:] not in available_extension:
+            raise ValueError("Extension not available")
+    except ValueError as e:
+        print("An error occurred during audio file conversion:", e)
         return None
 
     # Convert WEBM file to MP3 file
@@ -136,7 +151,6 @@ def wav_to_midi(audio_file):
     # Load audio file using librosa
     audio_data, sample_rate = librosa.load(wav_file)
 
-
     # Set min and max frequencies for pitch detection
     fmin = librosa.note_to_hz("C1")
     fmax = librosa.note_to_hz("C8")
@@ -164,7 +178,6 @@ def wav_to_midi(audio_file):
     }
     key_signature = key_map[int(dominant_pitch) % 12]
 
-
     # Obtain BPM
     tempo, beat_frames = librosa.beat.beat_track(y=audio_data, sr=sample_rate)
 
@@ -176,7 +189,7 @@ def wav_to_midi(audio_file):
 
     # STFT Parameters
     window_size = 512  # Window size
-    hop_length = 128   # Hop length
+    hop_length = 128  # Hop length
 
     # Analyze frequency for each time frame
     frequency_list = []
