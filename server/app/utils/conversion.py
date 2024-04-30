@@ -1,7 +1,7 @@
 ################################################################################
 # Filename: conversion.py
 # Purpose:  Perform audio processing and conversion tasks to MIDI.
-# Author:   Livia Chandrav and Darren Seubert
+# Author:   Livia Chandra and Darren Seubert
 #
 # Description:
 # This file contains functions for audio processing tasks, including conversion
