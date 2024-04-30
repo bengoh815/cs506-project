@@ -15,6 +15,7 @@
 ###############################################################################
 
 import pytest
+import os
 from app.utils.conversion import audio_to_wav, convert_webm_to_mp3, divide_audio_data, wav_to_midi
 
 @pytest.fixture
@@ -43,7 +44,8 @@ def test_webm_to_mp3(audio_files):
     Args:
         audio_files (dict): Dictionary containing sample audio file paths.
     """
-    convert_webm_to_mp3(audio_files["mp3"])
+    mp3_file_path = "../server/app/utils/audio_sample/sample_webm.mp3"
+    convert_webm_to_mp3(audio_files["mp3"], mp3_file_path)
     expected_output = "../server/app/utils/audio_sample/sample_webm.mp3"
     assert expected_output is not None 
 
