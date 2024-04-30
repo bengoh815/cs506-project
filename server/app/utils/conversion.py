@@ -142,10 +142,10 @@ def wav_to_midi(audio_file):
         str: The path to the generated MIDI file.
     """
 
-    # # Check if it is webm
-    # if is_webm_file(audio_file):
-    #     mp3_output_path = change_extension_to_mp3(audio_file)
-    #     convert_webm_to_mp3(audio_file, mp3_output_path)
+    # Check if it is webm
+    if is_webm_file(audio_file):
+        mp3_output_path = change_extension_to_mp3(audio_file)
+        convert_webm_to_mp3(audio_file, mp3_output_path)
 
 
 
